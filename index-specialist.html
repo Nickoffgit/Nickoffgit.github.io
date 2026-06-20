@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MikaMaster — для специалистов</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
+    <style>
+        /* ===== Reset & Base ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --blue: #0f2b4b;
+            --blue-light: #1a3f6a;
+            --blue-pale: #e8eef6;
+            --green: #3b8c5e;
+            --green-light: #e6f4ed;
+            --green-bright: #4caf7a;
+            --gray-50: #f8f9fb;
+            --gray-100: #f0f2f5;
+            --gray-200: #e2e6ed;
+            --gray-300: #c9d0db;
+            --gray-400: #a0aab8;
+            --gray-500: #6b7a8d;
+            --gray-600: #4a5a6e;
+            --gray-700: #2d3a4f;
+            --gray-800: #1a2538;
+            --white: #ffffff;
+            --radius: 20px;
+            --radius-sm: 12px;
+            --shadow-card: 0 4px 24px rgba(15, 43, 75, 0.06);
+            --shadow-hover: 0 12px 48px rgba(15, 43, 75, 0.10);
+            --transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--white);
+            color: var(--gray-700);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== Buttons ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: var(--font);
+            font-weight: 600;
+            font-size: 16px;
+            padding: 14px 32px;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--white);
+            color: var(--blue);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+        }
+
+        .btn-primary {
+            background: var(--blue);
+            color: var(--white);
+            box-shadow: 0 4px 16px rgba(15, 43, 75, 0.20);
+        }
+        .btn-primary:hover {
+            background: var(--blue-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(15, 43, 75, 0.25);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--blue);
+            border: 1.5px solid var(--gray-200);
+        }
+        .btn-outline:hover {
+            border-color: var(--blue);
+            background: var(--blue-pale);
+        }
+
+        .btn-green {
+            background: var(--green);
+            color: var(--white);
+            box-shadow: 0 4px 16px rgba(59, 140, 94, 0.25);
+        }
+        .btn-green:hover {
+            background: #2d7a4e;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(59, 140, 94, 0.30);
+        }
+
+        .btn-sm {
+            padding: 10px 22px;
+            font-size: 14px;
+        }
+
+        /* ===== Typography ===== */
+        .title-xl {
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1.12;
+            color: var(--gray-800);
+        }
+
+        .title-lg {
+            font-size: clamp(28px, 3.2vw, 40px);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.18;
+            color: var(--gray-800);
+        }
+
+        .title-md {
+            font-size: clamp(20px, 2vw, 28px);
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            line-height: 1.3;
+            color: var(--gray-800);
+        }
+
+        .text-lg {
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--gray-500);
+        }
+
+        .text-md {
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--gray-500);
+        }
+
+        .text-sm {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--gray-400);
+        }
+
+        .label {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            color: var(--green);
+            background: var(--green-light);
+            padding: 4px 14px;
+            border-radius: 100px;
+            margin-bottom: 16px;
+        }
+
+        .label-blue {
+            background: var(--blue-pale);
+            color: var(--blue);
+        }
+
+        /* ===== Header ===== */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(226, 230, 237, 0.5);
+            padding: 14px 0;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 22px;
+            color: var(--blue);
+            letter-spacing: -0.02em;
+            flex-shrink: 0;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            background: var(--blue);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 16px;
+        }
+
+        .logo span {
+            color: var(--green);
+        }
+
+        .logo-sub {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--gray-400);
+            margin-left: 2px;
+            letter-spacing: 0.01em;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav .btn {
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+
+        .nav .btn-primary {
+            background: var(--blue);
+            color: white;
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .mobile-toggle span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: var(--blue);
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        /* ===== Hero ===== */
+        .hero {
+            padding: 60px 0 72px;
+            background: var(--white);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content .label {
+            margin-bottom: 20px;
+        }
+
+        .hero-content .title-xl {
+            margin-bottom: 16px;
+        }
+
+        .hero-content .title-xl .highlight {
+            color: var(--blue);
+            position: relative;
+        }
+        .hero-content .title-xl .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--green-light);
+            border-radius: 4px;
+            z-index: -1;
+        }
+
+        .hero-text {
+            font-size: 19px;
+            color: var(--gray-500);
+            max-width: 520px;
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+
+        .hero-bonus {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--green-light);
+            color: var(--green);
+            padding: 8px 20px 8px 16px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 28px;
+        }
+
+        .hero-bonus .icon {
+            font-size: 20px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 36px;
+        }
+
+        .hero-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px 40px;
+            padding-top: 28px;
+            border-top: 1px solid var(--gray-100);
+        }
+
+        .hero-stats-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--gray-600);
+        }
+
+        .hero-stats-item .icon {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--blue-pale);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--blue);
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+
+        .hero-visual {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .hero-card {
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            padding: 32px 36px;
+            border: 1px solid var(--gray-100);
+            box-shadow: var(--shadow-card);
+            transition: var(--transition);
+        }
+
+        .hero-card:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        .hero-card .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .hero-card .stat-row:last-child {
+            border-bottom: none;
+        }
+
+        .hero-card .stat-label {
+            font-size: 15px;
+            color: var(--gray-500);
+        }
+
+        .hero-card .stat-value {
+            font-weight: 600;
+            color: var(--gray-800);
+            font-size: 16px;
+        }
+
+        .hero-card .stat-value .green {
+            color: var(--green);
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--green-light);
+            color: var(--green);
+            padding: 6px 16px 6px 12px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green-bright);
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(0.85);
+            }
+        }
+
+        /* ===== Ways ===== */
+        .ways {
+            padding: 0 0 72px;
+        }
+
+        .section-head {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 48px;
+        }
+
+        .section-head .title-lg {
+            margin-bottom: 12px;
+        }
+
+        .ways-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 16px;
+        }
+
+        .way-card {
+            background: var(--white);
+            border: 1px solid var(--gray-100);
+            border-radius: var(--radius);
+            padding: 40px 36px;
+            box-shadow: var(--shadow-card);
+            transition: var(--transition);
+        }
+
+        .way-card:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        .way-card .badge {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding: 4px 14px;
+            border-radius: 100px;
+            background: var(--blue-pale);
+            color: var(--blue);
+            margin-bottom: 16px;
+        }
+
+        .way-card .badge.green {
+            background: var(--green-light);
+            color: var(--green);
+        }
+
+        .way-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 10px;
+        }
+
+        .way-card .desc {
+            color: var(--gray-500);
+            margin-bottom: 24px;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .way-steps {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 28px;
+        }
+
+        .way-steps li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--gray-100);
+            font-size: 15px;
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+
+        .way-steps li:last-child {
+            border-bottom: none;
+        }
+
+        .way-steps .num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--blue-pale);
+            color: var(--blue);
+            font-weight: 700;
+            font-size: 13px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .way-steps .num.green {
+            background: var(--green-light);
+            color: var(--green);
+        }
+
+        .way-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 4px;
+        }
+
+        /* ===== Why ===== */
+        .why {
+            padding: 72px 0;
+            background: var(--gray-50);
+            border-top: 1px solid var(--gray-100);
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 28px;
+            margin-top: 16px;
+        }
+
+        .why-item {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 30px 28px;
+            border: 1px solid var(--gray-100);
+            box-shadow: var(--shadow-card);
+            transition: var(--transition);
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .why-item:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-3px);
+        }
+
+        .why-item .icon-wrap {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: var(--blue-pale);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: var(--blue);
+            flex-shrink: 0;
+        }
+
+        .why-item .icon-wrap.green {
+            background: var(--green-light);
+            color: var(--green);
+        }
+
+        .why-item h4 {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 4px;
+        }
+
+        .why-item p {
+            font-size: 14px;
+            color: var(--gray-500);
+            line-height: 1.6;
+        }
+
+        /* ===== Speed up ===== */
+        .speed {
+            padding: 72px 0;
+        }
+
+        .speed-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 16px;
+        }
+
+        .speed-card {
+            background: var(--white);
+            border: 1px solid var(--gray-100);
+            border-radius: var(--radius);
+            padding: 36px 32px;
+            box-shadow: var(--shadow-card);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .speed-card:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-3px);
+        }
+
+        .speed-card .icon-large {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .speed-card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 8px;
+        }
+
+        .speed-card .desc {
+            color: var(--gray-500);
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .speed-card .stat {
+            display: inline-block;
+            background: var(--green-light);
+            color: var(--green);
+            padding: 6px 18px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .speed-card .price {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--blue);
+            margin: 16px 0;
+        }
+
+        .speed-card .price small {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--gray-400);
+        }
+
+        .speed-card .btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* ===== FAQ ===== */
+        .faq {
+            padding: 72px 0;
+            background: var(--gray-50);
+            border-top: 1px solid var(--gray-100);
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .faq-list {
+            max-width: 780px;
+            margin: 16px auto 0;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border: 1px solid var(--gray-100);
+            border-radius: var(--radius-sm);
+            margin-bottom: 12px;
+            box-shadow: var(--shadow-card);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .faq-item:hover {
+            border-color: var(--gray-300);
+        }
+
+        .faq-question {
+            padding: 20px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 17px;
+            color: var(--gray-800);
+            transition: var(--transition);
+            user-select: none;
+        }
+
+        .faq-question:hover {
+            background: var(--gray-50);
+        }
+
+        .faq-question .arrow {
+            font-size: 22px;
+            color: var(--gray-400);
+            transition: var(--transition);
+            flex-shrink: 0;
+            margin-left: 16px;
+        }
+
+        .faq-item.open .faq-question .arrow {
+            transform: rotate(180deg);
+            color: var(--blue);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            padding: 0 28px;
+            color: var(--gray-500);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 300px;
+            padding: 0 28px 24px 28px;
+        }
+
+        /* ===== MikaTool ===== */
+        .tool {
+            padding: 72px 0;
+        }
+
+        .tool-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .tool-content .title-lg {
+            margin-bottom: 12px;
+        }
+
+        .tool-content .text-md {
+            margin-bottom: 24px;
+        }
+
+        .tool-info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .tool-info .item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 15px;
+            color: var(--gray-600);
+        }
+
+        .tool-info .item .emoji {
+            font-size: 20px;
+            width: 32px;
+            text-align: center;
+        }
+
+        .tool-info .item a {
+            color: var(--blue);
+            font-weight: 500;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .tool-visual {
+            background: var(--blue-pale);
+            border-radius: var(--radius);
+            padding: 36px 32px;
+            border: 1px solid var(--gray-100);
+            text-align: center;
+        }
+
+        .tool-visual .big-icon {
+            font-size: 72px;
+            margin-bottom: 16px;
+        }
+
+        .tool-visual h4 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--blue);
+            margin-bottom: 4px;
+        }
+
+        .tool-visual .sub {
+            color: var(--gray-500);
+            font-size: 14px;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            padding: 56px 0 40px;
+            background: var(--white);
+            border-top: 1px solid var(--gray-100);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 12px;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            color: var(--gray-400);
+            max-width: 340px;
+            line-height: 1.7;
+        }
+
+        .footer-col h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 16px;
+            letter-spacing: 0.02em;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            font-size: 14px;
+            color: var(--gray-400);
+            transition: var(--transition);
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--blue);
+        }
+
+        .footer-bottom {
+            padding-top: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 13px;
+            color: var(--gray-400);
+        }
+
+        .footer-bottom a {
+            color: var(--gray-400);
+            transition: var(--transition);
+        }
+
+        .footer-bottom a:hover {
+            color: var(--blue);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .hero-visual {
+                order: -1;
+            }
+            .ways-grid,
+            .speed-grid,
+            .tool-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                padding: 24px;
+                border-bottom: 1px solid var(--gray-100);
+                box-shadow: var(--shadow-card);
+                gap: 16px;
+                align-items: stretch;
+            }
+            .nav.open {
+                display: flex;
+            }
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .hero {
+                padding: 40px 0 48px;
+            }
+            .hero-actions {
+                flex-direction: column;
+            }
+            .hero-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .hero-stats {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .ways-grid,
+            .speed-grid,
+            .tool-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .section-head {
+                margin-bottom: 32px;
+            }
+            .container {
+                padding: 0 16px;
+            }
+
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+            .speed-card {
+                padding: 28px 20px;
+            }
+            .tool-visual {
+                padding: 24px 20px;
+            }
+            .faq-question {
+                padding: 16px 20px;
+                font-size: 15px;
+            }
+            .faq-answer {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-card {
+                padding: 20px;
+            }
+            .way-card {
+                padding: 28px 20px;
+            }
+            .why-item {
+                padding: 20px;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+        /* ===== Utilities ===== */
+        .text-center {
+            text-align: center;
+        }
+        .mt-8 {
+            margin-top: 8px;
+        }
+        .mt-16 {
+            margin-top: 16px;
+        }
+        .gap-8 {
+            gap: 8px;
+        }
+        .mb-8 {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index-customer.html" class="logo">
+                <span class="logo-icon">M</span>
+                Mika<span>Master</span>
+                <span class="logo-sub">для специалистов</span>
+            </a>
+
+            <nav class="nav" id="mainNav">
+                <a href="login.html?action=login" class="btn btn-outline btn-sm" id="headerLoginBtn">Вход</a>
+                <a href="login.html?action=register" class="btn btn-primary btn-sm" id="headerRegisterBtn">Регистрация</a>
+                <a href="#" class="icon-link" id="headerFavorites" style="display:none;">❤️</a>
+                <a href="#" class="icon-link" id="headerMessages" style="display:none;">💬</a>
+                <a href="#" class="icon-link" id="headerNotifications" style="display:none;">🔔</a>
+                <a href="#" id="headerProfileLink" style="display:none; font-weight:600;">Профиль</a>
+            </nav>
+
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Меню">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <span class="label">🔧 Для специалистов</span>
+                <h1 class="title-xl">
+                    Находите клиентов на ремонт<br />
+                    в Москве <span class="highlight">без переплат</span>
+                </h1>
+                <p class="hero-text">
+                    Работайте с заказчиками, которые готовы платить за качество.
+                    Даём бонус <strong>2000 ₽</strong> на первые отклики.
+                </p>
+                <div class="hero-bonus">
+                    <span class="icon">🎁</span> Бонус 2000 ₽ при регистрации
+                </div>
+                <div class="hero-actions">
+                    <a href="login.html?action=register" class="btn btn-primary">Стать специалистом</a>
+                </div>
+                <div class="hero-stats">
+                    <span class="hero-stats-item">
+                        <span class="icon">📈</span> 500+ заказов в месяц
+                    </span>
+                    <span class="hero-stats-item">
+                        <span class="icon">⭐</span> Платёжеспособные клиенты
+                    </span>
+                    <span class="hero-stats-item">
+                        <span class="icon">🛡️</span> Комиссия только за результат
+                    </span>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                        <span class="hero-badge">
+                            <span class="dot"></span> Активные тендеры
+                        </span>
+                        <span style="font-size:13px; color:var(--gray-400);">Москва</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">🏠 Ремонт квартир</span>
+                        <span class="stat-value">12 заказов</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">🔌 Электрика</span>
+                        <span class="stat-value">8 заказов</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">🚿 Сантехника</span>
+                        <span class="stat-value">5 заказов</span>
+                    </div>
+                    <div class="stat-row" style="border-bottom:none; padding-bottom:0;">
+                        <span class="stat-label">💰 Средний чек</span>
+                        <span class="stat-value green">45 000 ₽</span>
+                    </div>
+                </div>
+                <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                    <span style="font-size:13px; color:var(--gray-400); background:var(--gray-50); padding:6px 14px; border-radius:100px; border:1px solid var(--gray-100);">✅ Без скрытых комиссий</span>
+                    <span style="font-size:13px; color:var(--gray-400); background:var(--gray-50); padding:6px 14px; border-radius:100px; border:1px solid var(--gray-100);">📋 Прозрачный рейтинг</span>
+                    <span style="font-size:13px; color:var(--gray-400); background:var(--gray-50); padding:6px 14px; border-radius:100px; border:1px solid var(--gray-100);">🔒 Защита сделки</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TWO WAYS ===== -->
+    <section class="ways">
+        <div class="container">
+            <div class="section-head">
+                <span class="label">Способы заработка</span>
+                <h2 class="title-lg">Два способа найти клиентов</h2>
+                <p class="text-md">Выберите удобный формат или используйте оба</p>
+            </div>
+            <div class="ways-grid">
+                <!-- Тендер -->
+                <div class="way-card">
+                    <span class="badge">📋 Тендер</span>
+                    <h3>Найдите заказ</h3>
+                    <p class="desc">Изучайте тендеры, делайте предложения и выигрывайте клиентов.</p>
+                    <ul class="way-steps">
+                        <li>
+                            <span class="num">1</span>
+                            <span>Зайдите в каталог тендеров</span>
+                        </li>
+                        <li>
+                            <span class="num">2</span>
+                            <span>Сделайте своё предложение и участвуйте в конкурсе</span>
+                        </li>
+                        <li>
+                            <span class="num green">3</span>
+                            <span>Вас выбирают — получаете клиента, готового к работе</span>
+                        </li>
+                    </ul>
+                    <div class="way-actions">
+                        <a href="tenders-catalog.html" class="btn btn-primary">Смотреть тендеры</a>
+                    </div>
+                </div>
+
+                <!-- Профиль -->
+                <div class="way-card">
+                    <span class="badge green">📂 Профиль</span>
+                    <h3>Вас найдут сами</h3>
+                    <p class="desc">Создайте профиль в каталоге, и клиенты будут приходить к вам.</p>
+                    <ul class="way-steps">
+                        <li>
+                            <span class="num green">1</span>
+                            <span>Заполните все необходимые поля</span>
+                        </li>
+                        <li>
+                            <span class="num green">2</span>
+                            <span>Создайте профиль с портфолио и сертификатами</span>
+                        </li>
+                        <li>
+                            <span class="num">3</span>
+                            <span>Дождитесь, пока клиенты напишут вам</span>
+                        </li>
+                    </ul>
+                    <div class="way-actions">
+                        <a href="profile-specialist.html" class="btn btn-primary">Создать профиль</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== WHY ===== -->
+    <section class="why">
+        <div class="container">
+            <div class="section-head">
+                <span class="label">Преимущества</span>
+                <h2 class="title-lg">Почему MikaMaster?</h2>
+                <p class="text-md">Условия, которые работают на вас</p>
+            </div>
+            <div class="why-grid">
+                <div class="why-item">
+                    <div class="icon-wrap">💰</div>
+                    <div>
+                        <h4>Комиссия только за реальный интерес</h4>
+                        <p>Платите, когда клиент уже готов к сделке — никаких авансов за просмотры.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <div class="icon-wrap green">✅</div>
+                    <div>
+                        <h4>Проверка повышает доверие</h4>
+                        <p>Отметка в профиле увеличивает число заказов и выделяет вас среди других.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <div class="icon-wrap">🎁</div>
+                    <div>
+                        <h4>Стартовый бонус 2000 ₽</h4>
+                        <p>Тестируйте платформу без своих денег — оплачивайте отклики бонусом.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <div class="icon-wrap green">📈</div>
+                    <div>
+                        <h4>Продвижение анкеты</h4>
+                        <p>Больше показов — больше клиентов. Поднимите профиль в выдаче.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <div class="icon-wrap">👤</div>
+                    <div>
+                        <h4>Платёжеспособные клиенты</h4>
+                        <p>Никаких дешёвых заказов и неадекватных требований — только серьёзные заказчики.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <div class="icon-wrap green">📊</div>
+                    <div>
+                        <h4>Удобный баланс и статистика</h4>
+                        <p>Всё прозрачно в личном кабинете: доходы, расходы, история операций.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SPEED UP ===== -->
+    <section class="speed">
+        <div class="container">
+            <div class="section-head">
+                <span class="label">Ускорьте рост</span>
+                <h2 class="title-lg">Ускорьте нахождение клиентов</h2>
+                <p class="text-md">Инструменты для быстрого старта</p>
+            </div>
+            <div class="speed-grid">
+                <div class="speed-card">
+                    <div class="icon-large">🚀</div>
+                    <h3>Поднять выше</h3>
+                    <p class="desc">Поднимает ваш профиль выше в выдаче</p>
+                    <span class="stat">📈 +30% просмотров в среднем</span>
+                    <div class="price">от 20 ₽<small>/день</small></div>
+                    <a href="#" class="btn btn-primary">Поднять профиль</a>
+                </div>
+                <div class="speed-card">
+                    <div class="icon-large">🛡️</div>
+                    <h3>Проверка от MikaMaster</h3>
+                    <p class="desc">Повышает доверие к вам и вашим услугам</p>
+                    <span class="stat">📈 +50% просмотров в среднем</span>
+                    <div class="price">500 ₽<small> / раз</small></div>
+                    <a href="#" class="btn btn-primary">Пройти проверку</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="faq">
+        <div class="container">
+            <div class="section-head">
+                <span class="label">Вопросы и ответы</span>
+                <h2 class="title-lg">Часто задаваемые вопросы</h2>
+                <p class="text-md">Всё, что нужно знать о работе на платформе</p>
+            </div>
+            <div class="faq-list" id="faqList">
+                <!-- FAQ 1 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Как получить стартовый бонус 2000 ₽?</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>После регистрации и создания профиля бонус автоматически зачисляется на ваш внутренний баланс. Вы можете использовать его для оплаты откликов на тендеры и запросы клиентов.</p>
+                    </div>
+                </div>
+                <!-- FAQ 2 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Сколько стоит комиссия за сделку?</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Комиссия составляет 2% от стоимости работ, которую вы указываете при отклике. При работе через каталог — фиксированные 500 ₽ за получение контактов. Комиссия списывается только после того, как клиент выберет вас.</p>
+                    </div>
+                </div>
+                <!-- FAQ 3 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Как пройти проверку MikaMaster?</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>В личном кабинете вы можете загрузить документы (паспорт, ИНН, дипломы, сертификаты) и пройти верификацию. Стоимость проверки — 500 ₽. После успешной проверки вы получаете специальную отметку, которая повышает доверие клиентов.</p>
+                    </div>
+                </div>
+                <!-- FAQ 4 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Что даёт продвижение анкеты?</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Продвижение поднимает ваш профиль выше в поисковой выдаче по категориям и регионам. В среднем это даёт на 30% больше просмотров и, как следствие, больше заявок от клиентов. Стоимость — от 20 ₽ в день.</p>
+                    </div>
+                </div>
+                <!-- FAQ 5 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Можно ли работать без регистрации?</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Нет, для работы на платформе необходима регистрация. Это обеспечивает безопасность сделок и позволяет нам подтверждать вашу личность. Регистрация бесплатна и занимает не более 2 минут.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MIKA TOOL ===== -->
+    <section class="tool">
+        <div class="container">
+            <div class="tool-grid">
+                <div class="tool-content">
+                    <span class="label">Партнёр</span>
+                    <h2 class="title-lg">Нужны материалы для работы?</h2>
+                    <p class="text-md">Приходите в магазин MikaTool за скидками и вкусными ценами</p>
+                    <div class="tool-info">
+                        <div class="item">
+                            <span class="emoji">🛒</span>
+                            <span>Интернет-магазин: <a href="#">https://mikatool.ru</a></span>
+                        </div>
+                        <div class="item">
+                            <span class="emoji">📍</span>
+                            <span>Офлайн магазин: Московская обл., г. Красногорск, ул. Жуковского ссх</span>
+                        </div>
+                        <div class="item">
+                            <span class="emoji">🔧</span>
+                            <span>Специальные цены для мастеров MikaMaster</span>
+                        </div>
+                    </div>
+                    <div style="margin-top: 24px;">
+                        <a href="#" class="btn btn-primary">Перейти в MikaTool</a>
+                    </div>
+                </div>
+                <div class="tool-visual">
+                    <div class="big-icon">🔨</div>
+                    <h4>MikaTool</h4>
+                    <div class="sub">Официальный партнёр KNAUF</div>
+                    <div style="margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;">
+                        <span style="background: var(--white); padding: 4px 16px; border-radius: 100px; font-size: 13px; border:1px solid var(--gray-200);">Скидки до 15%</span>
+                        <span style="background: var(--white); padding: 4px 16px; border-radius: 100px; font-size: 13px; border:1px solid var(--gray-200);">Доставка по Москве</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index-customer.html" class="logo">
+                        <span class="logo-icon">M</span>
+                        Mika<span>Master</span>
+                        <span class="logo-sub">для специалистов</span>
+                    </a>
+                    <p>
+                        Сервис по поиску проверенных специалистов в области строительства и ремонта.
+                        Основан Константином Акимовым. Гарантия качества — наша репутация.
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4>Личный кабинет</h4>
+                    <ul>
+                        <li><a href="login.html?action=login">Вход</a></li>
+                        <li><a href="login.html?action=register">Регистрация</a></li>
+                        <li><a href="index-customer.html">Заказчикам</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 MikaMaster. Все права защищены.</span>
+                <span>
+                    <a href="#">Политика конфиденциальности</a> ·
+                    <a href="#">Пользовательское соглашение</a>
+                </span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== JS ===== -->
+    <script>
+        function getCurrentUser() {
+        const data = localStorage.getItem('mikamaster_current_user');
+        return data ? JSON.parse(data) : null;
+    }
+
+    function updateHeader() {
+        const user = getCurrentUser();
+        const loginBtn = document.getElementById('headerLoginBtn');
+        const registerBtn = document.getElementById('headerRegisterBtn');
+        const favLink = document.getElementById('headerFavorites');
+        const msgLink = document.getElementById('headerMessages');
+        const notifLink = document.getElementById('headerNotifications');
+        const profileLink = document.getElementById('headerProfileLink');
+
+        if (user) {
+            if (user.role === 'specialist') {
+                loginBtn.style.display = 'none';
+                registerBtn.style.display = 'none';
+                favLink.style.display = 'inline-block';
+                msgLink.style.display = 'inline-block';
+                notifLink.style.display = 'inline-block';
+                profileLink.style.display = 'inline-block';
+                profileLink.textContent = user.fullName.split(' ')[0] || 'Профиль';
+                // Правильные ссылки
+                favLink.href = 'profile-specialist.html?tab=favorites';
+                msgLink.href = 'profile-specialist.html?tab=messages';
+                notifLink.href = 'profile-specialist.html?tab=notifications';
+                profileLink.href = 'profile-specialist.html';
+            } else {
+                // Если зашёл заказчик — перенаправить на его главную
+                window.location.href = 'index-customer.html';
+            }
+        } else {
+            loginBtn.style.display = 'inline-block';
+            registerBtn.style.display = 'inline-block';
+            favLink.style.display = 'none';
+            msgLink.style.display = 'none';
+            notifLink.style.display = 'none';
+            profileLink.style.display = 'none';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        updateHeader();
+        document.getElementById('headerLoginBtn')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'login.html?action=login';
+        });
+        document.getElementById('headerRegisterBtn')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'login.html?action=register';
+        });
+    });
+        (function() {
+            // Mobile toggle
+            const toggle = document.getElementById('mobileToggle');
+            const nav = document.getElementById('mainNav');
+
+            if (toggle && nav) {
+                toggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    nav.classList.toggle('open');
+                });
+
+                document.addEventListener('click', function(e) {
+                    if (!nav.contains(e.target) && !toggle.contains(e.target)) {
+                        nav.classList.remove('open');
+                    }
+                });
+            }
+
+            // FAQ accordion
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', function() {
+                    const isOpen = item.classList.contains('open');
+                    // Close all
+                    faqItems.forEach(el => el.classList.remove('open'));
+                    if (!isOpen) {
+                        item.classList.add('open');
+                    }
+                });
+            });
+
+            // Lazy reveal on scroll (simple intersection)
+            const items = document.querySelectorAll('.way-card, .why-item, .speed-card, .tool-grid, .faq-item');
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }
+                    });
+                }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+                items.forEach((el, i) => {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(18px)';
+                    el.style.transition = `opacity 0.6s ease ${i * 0.05}s, transform 0.6s ease ${i * 0.05}s`;
+                    observer.observe(el);
+                });
+            } else {
+                items.forEach(el => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                });
+            }
+
+            console.log('MikaMaster для специалистов — Доверие вместо рекламы.');
+        })();
+    </script>
+
+</body>
+</html>

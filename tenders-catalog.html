@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Каталог тендеров — MikaMaster</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet" />
+    <style>
+        /* Стили без изменений */
+        * { margin:0; padding:0; box-sizing:border-box; }
+        :root {
+            --blue: #0f2b4b;
+            --blue-light: #1a3f6a;
+            --blue-pale: #e8eef6;
+            --green: #3b8c5e;
+            --green-light: #e6f4ed;
+            --green-bright: #4caf7a;
+            --gray-50: #f8f9fb;
+            --gray-100: #f0f2f5;
+            --gray-200: #e2e6ed;
+            --gray-300: #c9d0db;
+            --gray-400: #a0aab8;
+            --gray-500: #6b7a8d;
+            --gray-600: #4a5a6e;
+            --gray-700: #2d3a4f;
+            --gray-800: #1a2538;
+            --white: #ffffff;
+            --radius: 20px;
+            --radius-sm: 12px;
+            --shadow-card: 0 4px 24px rgba(15, 43, 75, 0.06);
+            --shadow-hover: 0 12px 48px rgba(15, 43, 75, 0.10);
+            --transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --font: 'Inter', sans-serif;
+        }
+        body { font-family: var(--font); background: var(--white); color: var(--gray-700); line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-weight: 600; font-size: 16px; padding: 14px 32px; border: none; border-radius: var(--radius-sm); cursor: pointer; transition: var(--transition); background: var(--white); color: var(--blue); box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+        .btn-primary { background: var(--blue); color: var(--white); box-shadow: 0 4px 16px rgba(15,43,75,0.20); }
+        .btn-primary:hover { background: var(--blue-light); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(15,43,75,0.25); }
+        .btn-outline { background: transparent; color: var(--blue); border: 1.5px solid var(--gray-200); }
+        .btn-outline:hover { border-color: var(--blue); background: var(--blue-pale); }
+        .btn-sm { padding: 10px 20px; font-size: 14px; }
+        .btn-green { background: var(--green); color: white; }
+        .btn-green:hover { background: #2d7a4e; }
+
+        .header { position: sticky; top:0; z-index:100; background: rgba(255,255,255,0.88); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(226,230,237,0.5); padding:14px 0; }
+        .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+        .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 22px; color: var(--blue); letter-spacing: -0.02em; flex-shrink:0; }
+        .logo-icon { width: 38px; height: 38px; background: var(--blue); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 16px; }
+        .logo span { color: var(--green); }
+        .logo-sub { font-size: 13px; font-weight: 500; color: var(--gray-400); margin-left: 2px; }
+        .nav { display: flex; align-items: center; gap: 20px; }
+        .nav .btn { padding: 10px 20px; font-size: 14px; }
+        .nav .btn-primary { background: var(--blue); color: white; }
+        .nav .icon-link { font-size: 20px; color: var(--gray-500); transition: var(--transition); }
+        .nav .icon-link:hover { color: var(--blue); }
+        .mobile-toggle { display: none; flex-direction: column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+        .mobile-toggle span { display:block; width:26px; height:2.5px; background:var(--blue); border-radius:4px; transition:var(--transition); }
+
+        .page-header { display: flex; justify-content: space-between; align-items: center; padding: 40px 0 20px; flex-wrap: wrap; gap: 16px; }
+        .page-header h1 { font-size: 32px; font-weight: 700; color: var(--gray-800); }
+        .page-header .controls { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+        .page-header .controls select { padding: 8px 14px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 14px; background: var(--white); }
+        .page-header .controls .filter-toggle { background: none; border: none; font-size: 28px; cursor: pointer; color: var(--gray-500); transition: var(--transition); padding: 4px 8px; }
+        .page-header .controls .filter-toggle:hover { color: var(--blue); transform: rotate(30deg); }
+
+        .tenders-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; margin: 20px 0 60px; }
+        .tender-card { background: var(--white); border: 1px solid var(--gray-100); border-radius: var(--radius); padding: 24px 28px; box-shadow: var(--shadow-card); transition: var(--transition); cursor: pointer; }
+        .tender-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+        .tender-card .services-list { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+        .tender-card .services-list .tag { background: var(--blue-pale); color: var(--blue); padding: 2px 12px; border-radius: 100px; font-size: 12px; font-weight: 500; }
+        .tender-card .meta { display: flex; gap: 16px; margin: 8px 0; font-size: 14px; color: var(--gray-500); }
+        .tender-card .description { font-size: 15px; color: var(--gray-600); margin: 8px 0 16px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-clamp: 2; overflow: hidden; }
+        .tender-card .stats { display: flex; gap: 20px; font-size: 14px; color: var(--gray-600); margin-top: 8px; border-top: 1px solid var(--gray-100); padding-top: 12px; }
+        .tender-card .stats span { background: var(--gray-50); padding: 2px 12px; border-radius: 100px; }
+        .tender-card .footer-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
+        .tender-card .btn { padding: 8px 20px; font-size: 14px; }
+
+        .modal-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); z-index: 999; justify-content: center; align-items: center; }
+        .modal-overlay.active { display: flex; }
+        .modal { background: var(--white); border-radius: var(--radius); max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto; padding: 36px 32px; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
+        .modal .close { float: right; background: none; border: none; font-size: 28px; cursor: pointer; color: var(--gray-400); }
+        .modal h2 { font-size: 24px; font-weight: 700; color: var(--gray-800); margin-bottom: 20px; }
+        .modal .form-group { margin-bottom: 18px; }
+        .modal .form-group label { display: block; font-weight: 500; font-size: 14px; margin-bottom: 4px; }
+        .modal .form-group select, .modal .form-group input { width: 100%; padding: 10px 14px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 15px; }
+        .modal .form-group .range { display: flex; gap: 12px; align-items: center; }
+        .modal .form-group .range input { width: 100%; }
+        .modal .btn-apply { width: 100%; margin-top: 8px; }
+
+        .footer { padding: 56px 0 40px; background: var(--white); border-top: 1px solid var(--gray-100); }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid var(--gray-100); }
+        .footer-brand .logo { margin-bottom: 12px; }
+        .footer-brand p { font-size: 14px; color: var(--gray-400); max-width: 340px; line-height: 1.7; }
+        .footer-col h4 { font-size: 14px; font-weight: 600; color: var(--gray-700); margin-bottom: 16px; letter-spacing: 0.02em; }
+        .footer-col ul { list-style: none; padding: 0; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col ul li a { font-size: 14px; color: var(--gray-400); transition: var(--transition); }
+        .footer-col ul li a:hover { color: var(--blue); }
+        .footer-bottom { padding-top: 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--gray-400); }
+
+        @media (max-width: 768px) {
+            .nav { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--white); padding: 24px; border-bottom: 1px solid var(--gray-100); box-shadow: var(--shadow-card); gap: 16px; align-items: stretch; }
+            .nav.open { display: flex; }
+            .mobile-toggle { display: flex; }
+            .tenders-grid { grid-template-columns: 1fr; }
+            .modal { padding: 24px 20px; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .page-header { flex-direction: column; align-items: stretch; }
+            .page-header .controls { justify-content: space-between; }
+        }
+        .fav-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            transition: 0.3s;
+            padding: 0 4px;
+            line-height: 1;
+        }
+        .fav-btn:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="container header-inner">
+        <a href="index-specialist.html" class="logo">
+            <span class="logo-icon">M</span>
+            Mika<span>Master</span>
+            <span class="logo-sub">для специалистов</span>
+        </a>
+        <nav class="nav" id="mainNav">
+            <a href="login.html?action=login" class="btn btn-outline btn-sm" id="headerLoginBtn">Вход</a>
+            <a href="login.html?action=register" class="btn btn-primary btn-sm" id="headerRegisterBtn">Регистрация</a>
+            <a href="#" class="icon-link" id="headerFavorites" style="display:none;">❤️</a>
+            <a href="#" class="icon-link" id="headerMessages" style="display:none;">💬</a>
+            <a href="#" class="icon-link" id="headerNotifications" style="display:none;">🔔</a>
+            <a href="#" id="headerProfileLink" style="display:none; font-weight:600;">Профиль</a>
+        </nav>
+        <button class="mobile-toggle" id="mobileToggle"><span></span><span></span><span></span></button>
+    </div>
+</header>
+
+<div class="container">
+    <div class="page-header">
+        <h1>Каталог тендеров</h1>
+        <div class="controls">
+            <button class="filter-toggle" id="filterToggle" title="Фильтры">⚙️</button>
+            <select id="sortSelect">
+                <option value="newest">Сначала новые</option>
+                <option value="price_asc">Цена ↑</option>
+                <option value="price_desc">Цена ↓</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="tendersList" class="tenders-grid">
+        <!-- Тендеры загружаются сюда -->
+    </div>
+</div>
+
+<!-- Модальное окно фильтров -->
+<div class="modal-overlay" id="filterModal">
+    <div class="modal">
+        <button class="close" id="filterModalClose">&times;</button>
+        <h2>Фильтры</h2>
+        <div class="form-group">
+            <label>Категория</label>
+            <select id="filterCategory">
+                <option value="">Все категории</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Услуга</label>
+            <select id="filterService">
+                <option value="">Все услуги</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Диапазон цены (₽)</label>
+            <div class="range">
+                <input type="number" id="filterPriceMin" placeholder="от" min="0" />
+                <span>—</span>
+                <input type="number" id="filterPriceMax" placeholder="до" min="0" />
+            </div>
+        </div>
+        <button class="btn btn-primary btn-apply" id="applyFilters">Применить фильтры</button>
+        <button class="btn btn-outline btn-apply" style="margin-top:8px;" id="resetFilters">Сбросить</button>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="index-specialist.html" class="logo"><span class="logo-icon">M</span>Mika<span>Master</span><span class="logo-sub">для специалистов</span></a>
+                <p>Сервис по поиску проверенных специалистов. Основан Константином Акимовым.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Личный кабинет</h4>
+                <ul><li><a href="login.html?action=login">Вход</a></li><li><a href="login.html?action=register">Регистрация</a></li><li><a href="index-customer.html">Заказчикам</a></li></ul>
+            </div>
+        </div>
+        <div class="footer-bottom"><span>© 2026 MikaMaster. Все права защищены.</span><span><a href="#">Политика</a> · <a href="#">Соглашение</a></span></div>
+    </div>
+</footer>
+
+<script>
+    // ===== Данные категорий и услуг =====
+    const servicesByCategory = {
+        "Архитектура и проектирование": ["Архитектурное проектирование домов","Дизайн-проект интерьера","3D-визуализация интерьера","Обмерный план помещения","Перепланировка и согласование","Инженерные системы (проектирование)","Ландшафтный дизайн и проектирование"],
+        "Строительство домов и зданий": ["Строительство домов «под ключ»","Каркасное строительство","Строительство из кирпича, газобетона, пеноблоков","Монолитное строительство","Строительство бань и беседок","Пристройки и веранды","Коммерческое строительство (офисы, склады, магазины)"],
+        "Фундаментные и земляные работы": ["Строительство ленточного, столбчатого, монолитного фундамента","Укрепление и ремонт фундамента","Устройство отмостки","Гидроизоляция и утепление фундамента","Копка котлована","Земляные работы"],
+        "Кровельные работы": ["Монтаж кровли из металлочерепицы, профнастила, мягкой черепицы","Монтаж мембранной и наплавляемой кровли","Ремонт и замена кровли","Утепление и гидроизоляция кровли","Монтаж водосточных систем","Монтаж мансардных окон"],
+        "Отделочные работы (внутренние)": ["Штукатурка стен и потолков","Шпаклёвка и грунтовка","Малярные работы (покраска стен, потолков)","Декоративная штукатурка","Поклейка обоев всех видов","Поклейка фотообоев","Стяжка пола","Укладка ламината, паркета, инженерной доски","Укладка ковролина и линолеума","Укладка плитки на пол и стены","Укладка мозаики и керамогранита","Монтаж натяжных потолков","Монтаж подвесных потолков из гипсокартона","Монтаж реечных потолков","Отделка откосов","Монтаж декоративных элементов (лепнина, молдинги)","Комплексный ремонт квартир и домов"],
+        "Сантехнические работы": ["Установка и замена ванн, душевых кабин, унитазов, раковин","Монтаж и замена труб водоснабжения и канализации","Установка смесителей и фильтров","Ремонт трубопровода","Сварка полиэтиленовых труб"],
+        "Электромонтажные работы": ["Монтаж и замена электропроводки","Установка розеток, выключателей, щитков","Установка и подключение люстр, светильников","Монтаж систем «умный дом»","Электромонтаж в деревянных домах"],
+        "Окна, двери и балконы": ["Установка и замена окон (ПВХ, деревянных, алюминиевых)","Остекление балконов и лоджий","Утепление балконов","Установка входных и межкомнатных дверей","Ремонт окон и балконов"],
+        "Мебель и столярные работы": ["Сборка мебели","Ремонт и реставрация мебели","Изготовление кухонь, шкафов, мебели на заказ","Столярные работы (лестницы, перила, арки)","Установка плинтусов и наличников"],
+        "Фасадные и утеплительные работы": ["Утепление фасадов","Монтаж вентилируемых фасадов","Штукатурка и покраска фасадов","Монтаж сайдинга","Утепление стен, полов, перекрытий"],
+        "Инженерные системы": ["Монтаж и замена систем отопления (радиаторы, тёплый пол)","Монтаж котлов и бойлеров","Монтаж вентиляции и кондиционирования","Установка дымоходов","Монтаж систем водоснабжения и канализации","Установка насосных станций и фильтров","Монтаж септиков","Монтаж структурированных кабельных сетей (витая пара)","Установка видеонаблюдения и домофонов","Монтаж охранных и пожарных систем"],
+        "Демонтажные работы": ["Демонтаж стен и перегородок","Демонтаж кровли","Демонтаж полов и покрытий","Демонтаж сантехники и труб","Вынос строительного мусора"],
+        "Ландшафт и благоустройство": ["Благоустройство территории","Укладка тротуарной плитки, брусчатки","Монтаж заборов и ограждений","Устройство газонов и посадка растений","Монтаж систем полива и освещения участка"],
+        "Мелкий ремонт и услуги мастеров на час": ["Услуги мастера на час (мелкий ремонт, установка)","Сборка мебели","Установка картин, полок, зеркал","Мелкий ремонт электроприборов","Установка бытовой техники"]
+    };
+    const categories = Object.keys(servicesByCategory);
+
+    // ===== Работа с данными =====
+    function getUsers() {
+        const data = localStorage.getItem('mikamaster_users');
+        return data ? JSON.parse(data) : [];
+    }
+
+    function getCurrentUser() {
+        const data = localStorage.getItem('mikamaster_current_user');
+        return data ? JSON.parse(data) : null;
+    }
+
+    function getTenders() {
+        const data = localStorage.getItem('mikamaster_tenders');
+        return data ? JSON.parse(data) : [];
+    }
+
+    function saveTenders(tenders) {
+        localStorage.setItem('mikamaster_tenders', JSON.stringify(tenders));
+    }
+
+    function updateHeader() {
+        const user = getCurrentUser();
+        const loginBtn = document.getElementById('headerLoginBtn');
+        const registerBtn = document.getElementById('headerRegisterBtn');
+        const favLink = document.getElementById('headerFavorites');
+        const msgLink = document.getElementById('headerMessages');
+        const notifLink = document.getElementById('headerNotifications');
+        const profileLink = document.getElementById('headerProfileLink');
+        if (user) {
+            if (user.role === 'specialist') {
+                loginBtn.style.display = 'none';
+                registerBtn.style.display = 'none';
+                favLink.style.display = 'inline-block';
+                msgLink.style.display = 'inline-block';
+                notifLink.style.display = 'inline-block';
+                profileLink.style.display = 'inline-block';
+                profileLink.textContent = user.fullName.split(' ')[0] || 'Профиль';
+                profileLink.href = 'profile-specialist.html';
+                msgLink.href = 'profile-specialist.html?tab=messages';
+                notifLink.href = 'profile-specialist.html?tab=notifications';
+                favLink.href = 'profile-specialist.html?tab=favorites';
+            } else {
+                window.location.href = 'index-customer.html';
+            }
+        } else {
+            loginBtn.style.display = 'inline-block';
+            registerBtn.style.display = 'inline-block';
+            favLink.style.display = 'none';
+            msgLink.style.display = 'none';
+            notifLink.style.display = 'none';
+            profileLink.style.display = 'none';
+        }
+    }
+
+    // ===== Вспомогательная функция для получения услуг =====
+    function getTenderServices(tender) {
+        if (tender.services && tender.services.length > 0) {
+            return tender.services;
+        }
+        if (tender.category && tender.service) {
+            return [{ category: tender.category, service: tender.service }];
+        }
+        return [];
+    }
+
+    // ===== Рендеринг тендеров =====
+    function renderTenders(tenders) {
+        const container = document.getElementById('tendersList');
+        if (tenders.length === 0) {
+            container.innerHTML = '<p style="text-align:center; padding:40px 0; color:var(--gray-400);">Нет открытых тендеров.</p>';
+            return;
+        }
+        container.innerHTML = tenders.map(t => {
+            const services = getTenderServices(t);
+            const responses = t.responses || [];
+            const count = responses.length;
+            const avgPrice = count > 0 ? Math.round(responses.reduce((sum, r) => sum + r.price, 0) / count) : 0;
+            const servicesHtml = services.map(s => `<span class="tag">${s.service}</span>`).join('');
+
+            return `
+                <div class="tender-card" data-id="${t.id}">
+                    <div class="services-list">${servicesHtml}</div>
+                    <div class="meta">
+                        <span>📍 ${t.city}</span>
+                        <span>💰 ${t.budget.toLocaleString()} ₽</span>
+                    </div>
+                    <div class="description">${t.description || 'Описание отсутствует'}</div>
+                    <div class="stats">
+                        <span>📋 Откликов: ${count}</span>
+                        <span>💰 Средняя цена: ${avgPrice.toLocaleString()} ₽</span>
+                    </div>
+                    <div class="footer-actions">
+                        <span style="font-size:13px; color:var(--gray-400);">${new Date(t.createdAt).toLocaleDateString()}</span>
+                        <button class="btn btn-primary btn-sm view-tender" data-id="${t.id}">Подробнее</button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        document.querySelectorAll('.tender-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (e.target.closest('.view-tender')) return;
+                const id = this.dataset.id;
+                openTenderModal(id);
+            });
+        });
+        document.querySelectorAll('.view-tender').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const id = this.dataset.id;
+                openTenderModal(id);
+            });
+        });
+    }
+// ===== ДОПОЛНИТЕЛЬНЫЕ ФУНКЦИИ ДЛЯ ИЗБРАННОГО (для специалиста) =====
+        function getFavoritesTenders() {
+            const data = localStorage.getItem('mikamaster_favorites_tenders');
+            return data ? JSON.parse(data) : [];
+        }
+        function saveFavoritesTenders(arr) {
+            localStorage.setItem('mikamaster_favorites_tenders', JSON.stringify(arr));
+        }
+        function toggleFavoriteTender(tenderId) {
+            let favs = getFavoritesTenders();
+            const index = favs.indexOf(tenderId);
+            if (index === -1) {
+                favs.push(tenderId);
+            } else {
+                favs.splice(index, 1);
+            }
+            saveFavoritesTenders(favs);
+            return favs;
+        }
+
+        // ===== РЕНДЕРИНГ ТЕНДЕРОВ (с кнопкой избранного) =====
+        function renderTenders(tenders) {
+            const container = document.getElementById('tendersList');
+            if (tenders.length === 0) {
+                container.innerHTML = '<p style="text-align:center; padding:40px 0; color:var(--gray-400);">Нет открытых тендеров.</p>';
+                return;
+            }
+
+            const currentUser = getCurrentUser();
+            const isSpecialist = currentUser && currentUser.role === 'specialist';
+            const favs = isSpecialist ? getFavoritesTenders() : [];
+
+            container.innerHTML = tenders.map(t => {
+                const services = getTenderServices(t);
+                const responses = t.responses || [];
+                const count = responses.length;
+                const avgPrice = count > 0 ? Math.round(responses.reduce((sum, r) => sum + r.price, 0) / count) : 0;
+                const servicesHtml = services.map(s => `<span class="tag">${s.service}</span>`).join('');
+
+                const isFav = favs.includes(t.id);
+                const favBtn = isSpecialist ? `
+                    <button class="fav-btn fav-toggle" data-id="${t.id}" data-fav="${isFav}">
+                        ${isFav ? '❤️' : '🤍'}
+                    </button>
+                ` : '';
+
+                return `
+                    <div class="tender-card" data-id="${t.id}">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                            <div class="services-list">${servicesHtml}</div>
+                            ${favBtn}
+                        </div>
+                        <div class="meta">
+                            <span>📍 ${t.city}</span>
+                            <span>💰 ${t.budget.toLocaleString()} ₽</span>
+                        </div>
+                        <div class="description">${t.description || 'Описание отсутствует'}</div>
+                        <div class="stats">
+                            <span>📋 Откликов: ${count}</span>
+                            <span>💰 Средняя цена: ${avgPrice.toLocaleString()} ₽</span>
+                        </div>
+                        <div class="footer-actions">
+                            <span style="font-size:13px; color:var(--gray-400);">${new Date(t.createdAt).toLocaleDateString()}</span>
+                            <button class="btn btn-primary btn-sm view-tender" data-id="${t.id}">Подробнее</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Обработчики на карточки и кнопки
+            document.querySelectorAll('.tender-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (e.target.closest('.view-tender') || e.target.closest('.fav-toggle')) return;
+                    const id = this.dataset.id;
+                    openTenderModal(id);
+                });
+            });
+            document.querySelectorAll('.view-tender').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const id = this.dataset.id;
+                    openTenderModal(id);
+                });
+            });
+
+            // Обработчики избранного
+            document.querySelectorAll('.fav-toggle').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const id = parseInt(this.dataset.id);
+                    const newFavs = toggleFavoriteTender(id);
+                    const isFav = newFavs.includes(id);
+                    this.dataset.fav = isFav;
+                    this.textContent = isFav ? '❤️' : '🤍';
+                });
+            });
+        }
+    // ===== Модальное окно просмотра тендера =====
+    function openTenderModal(tenderId) {
+        const modal = document.getElementById('tenderModal');
+        const content = document.getElementById('modalContent');
+        const tenders = getTenders();
+        const tender = tenders.find(t => t.id == tenderId);
+        if (!tender) {
+            alert('Тендер был удалён или закрыт');
+            modal.classList.remove('active');
+            renderFilteredTenders();
+            return;
+        }
+
+        const currentUser = getCurrentUser();
+        let alreadyResponded = false;
+        if (currentUser && currentUser.role === 'specialist') {
+            alreadyResponded = tender.responses.some(r => r.specialistId == currentUser.id);
+        }
+        const services = getTenderServices(tender);
+
+        let html = `
+            <h2>${services.map(s => s.service).join(', ')}</h2>
+            <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:12px;">
+                ${services.map(s => `<span style="background:var(--blue-pale); padding:2px 12px; border-radius:100px; font-size:13px;">${s.category}</span>`).join('')}
+                <span>📍 ${tender.city}</span>
+                <span style="font-weight:600;">${tender.budget.toLocaleString()} ₽</span>
+            </div>
+            <div style="margin:12px 0; line-height:1.7;">${tender.description || 'Описание отсутствует'}</div>
+            <div style="font-size:14px; color:var(--gray-500);">Заказчик: ${tender.customerName}</div>
+            <div style="margin-top:12px; font-size:14px; color:var(--gray-500);">Статус: Открыт</div>
+        `;
+
+        if (currentUser && currentUser.role === 'specialist' && !alreadyResponded && tender.status === 'open') {
+            html += `
+                <div style="margin-top:20px; border-top:1px solid var(--gray-200); padding-top:20px;">
+                    <h3>Оставить отклик</h3>
+                    <div style="margin-bottom:12px;">
+                        <label style="display:block; font-weight:500; font-size:14px;">Ваша стоимость (₽)</label>
+                        <input type="number" id="responsePrice" placeholder="Укажите цену" min="1" style="width:100%; padding:10px 14px; border:1px solid var(--gray-200); border-radius:var(--radius-sm); font-size:15px;" />
+                    </div>
+                    <div style="margin-bottom:12px;">
+                        <label style="display:block; font-weight:500; font-size:14px;">Комментарий (необязательно)</label>
+                        <textarea id="responseComment" placeholder="Дополнительная информация" style="width:100%; padding:10px 14px; border:1px solid var(--gray-200); border-radius:var(--radius-sm); font-size:15px; min-height:80px; resize:vertical;"></textarea>
+                    </div>
+                    <button class="btn btn-primary" id="submitResponse" data-id="${tender.id}" style="width:100%;">Откликнуться</button>
+                </div>
+            `;
+        } else if (currentUser && currentUser.role === 'specialist' && alreadyResponded) {
+            html += `<p style="color:var(--green); margin-top:16px;">✅ Вы уже откликнулись на этот тендер.</p>`;
+        } else if (!currentUser) {
+            html += `<p style="margin-top:16px;"><a href="login.html?action=login" class="btn btn-primary">Войдите, чтобы откликнуться</a></p>`;
+        }
+
+        content.innerHTML = html;
+        modal.classList.add('active');
+
+        document.getElementById('submitResponse')?.addEventListener('click', function() {
+            const price = document.getElementById('responsePrice').value;
+            const comment = document.getElementById('responseComment').value.trim();
+            if (!price || price <= 0) {
+                alert('Укажите стоимость работ');
+                return;
+            }
+            submitResponse(tender.id, parseInt(price), comment);
+        });
+    }
+
+    function submitResponse(tenderId, price, comment) {
+        const user = getCurrentUser();
+        if (!user || user.role !== 'specialist') {
+            alert('Только специалисты могут откликаться');
+            return;
+        }
+        // Проверка заполненности профиля
+        if (!user.experience || !user.priceList || !user.age || !user.about) {
+            alert('Для отклика на тендер необходимо заполнить профиль: опыт, прайс-лист, возраст, информация о себе.');
+            return;
+        }
+        const tenders = getTenders();
+        const index = tenders.findIndex(t => t.id == tenderId);
+        if (index === -1) return;
+        const tender = tenders[index];
+        if (tender.status !== 'open') {
+            alert('Тендер уже закрыт');
+            return;
+        }
+        if (tender.responses.some(r => r.specialistId == user.id)) {
+            alert('Вы уже откликались');
+            return;
+        }
+        tender.responses.push({
+            specialistId: user.id,
+            specialistName: user.fullName,
+            price: price,
+            comment: comment || '',
+            status: 'pending'
+        });
+        saveTenders(tenders);
+        renderFilteredTenders();
+        document.getElementById('tenderModal').classList.remove('active');
+        alert('Отклик отправлен!');
+    }
+
+    // ===== Фильтрация (только open) =====
+    let currentFilters = {
+        category: '',
+        service: '',
+        priceMin: '',
+        priceMax: '',
+        sort: 'newest'
+    };
+
+    function applyFiltersAndSort(tenders) {
+        // Только открытые тендеры
+        let filtered = tenders.filter(t => t.status === 'open');
+
+        const { category, service, priceMin, priceMax } = currentFilters;
+        if (category) {
+            filtered = filtered.filter(t => {
+                const services = getTenderServices(t);
+                return services.some(s => s.category === category);
+            });
+        }
+        if (service) {
+            filtered = filtered.filter(t => {
+                const services = getTenderServices(t);
+                return services.some(s => s.service === service);
+            });
+        }
+        if (priceMin) {
+            filtered = filtered.filter(t => t.budget >= parseInt(priceMin));
+        }
+        if (priceMax) {
+            filtered = filtered.filter(t => t.budget <= parseInt(priceMax));
+        }
+
+        const sort = currentFilters.sort || 'newest';
+        if (sort === 'newest') {
+            filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        } else if (sort === 'price_asc') {
+            filtered.sort((a, b) => a.budget - b.budget);
+        } else if (sort === 'price_desc') {
+            filtered.sort((a, b) => b.budget - a.budget);
+        }
+        return filtered;
+    }
+
+    function renderFilteredTenders() {
+        const allTenders = getTenders();
+        const filtered = applyFiltersAndSort(allTenders);
+        renderTenders(filtered);
+    }
+
+    // ===== Фильтры UI =====
+    function populateFilterCategories() {
+        const select = document.getElementById('filterCategory');
+        categories.forEach(cat => {
+            const opt = document.createElement('option');
+            opt.value = cat;
+            opt.textContent = cat;
+            select.appendChild(opt);
+        });
+    }
+
+    function updateFilterServices(category) {
+        const serviceSelect = document.getElementById('filterService');
+        serviceSelect.innerHTML = '<option value="">Все услуги</option>';
+        if (category) {
+            const services = servicesByCategory[category] || [];
+            services.forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = s;
+                opt.textContent = s;
+                serviceSelect.appendChild(opt);
+            });
+        }
+    }
+
+    document.getElementById('filterCategory').addEventListener('change', function() {
+        updateFilterServices(this.value);
+    });
+
+    document.getElementById('applyFilters').addEventListener('click', function() {
+        currentFilters.category = document.getElementById('filterCategory').value;
+        currentFilters.service = document.getElementById('filterService').value;
+        currentFilters.priceMin = document.getElementById('filterPriceMin').value;
+        currentFilters.priceMax = document.getElementById('filterPriceMax').value;
+        renderFilteredTenders();
+        document.getElementById('filterModal').classList.remove('active');
+    });
+
+    document.getElementById('resetFilters').addEventListener('click', function() {
+        document.getElementById('filterCategory').value = '';
+        document.getElementById('filterService').innerHTML = '<option value="">Все услуги</option>';
+        document.getElementById('filterPriceMin').value = '';
+        document.getElementById('filterPriceMax').value = '';
+        currentFilters = { category: '', service: '', priceMin: '', priceMax: '', sort: currentFilters.sort };
+        renderFilteredTenders();
+        document.getElementById('filterModal').classList.remove('active');
+    });
+
+    document.getElementById('sortSelect').addEventListener('change', function() {
+        currentFilters.sort = this.value;
+        renderFilteredTenders();
+    });
+
+    // ===== Модальное окно фильтров =====
+    document.getElementById('filterToggle').addEventListener('click', function() {
+        document.getElementById('filterModal').classList.add('active');
+    });
+    document.getElementById('filterModalClose').addEventListener('click', function() {
+        document.getElementById('filterModal').classList.remove('active');
+    });
+    document.getElementById('filterModal').addEventListener('click', function(e) {
+        if (e.target === this) this.classList.remove('active');
+    });
+
+    // ===== Модальное окно просмотра =====
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay';
+    modal.id = 'tenderModal';
+    modal.innerHTML = `
+        <div class="modal">
+            <button class="close" id="modalClose">&times;</button>
+            <div id="modalContent"></div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+
+    document.getElementById('modalClose').addEventListener('click', function() {
+        document.getElementById('tenderModal').classList.remove('active');
+    });
+    document.getElementById('tenderModal').addEventListener('click', function(e) {
+        if (e.target === this) this.classList.remove('active');
+    });
+
+    // ===== Мобильное меню =====
+    document.getElementById('mobileToggle').addEventListener('click', function() {
+        document.getElementById('mainNav').classList.toggle('open');
+    });
+
+    // ===== Инициализация =====
+    document.addEventListener('DOMContentLoaded', function() {
+        updateHeader();
+        populateFilterCategories();
+        renderFilteredTenders();
+    });
+</script>
+</body>
+</html>

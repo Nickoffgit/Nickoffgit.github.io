@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Профиль специалиста — MikaMaster</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet" />
+    <style>
+        /* ===== Все существующие стили (полный набор, как в предыдущей версии) ===== */
+        * { margin:0; padding:0; box-sizing:border-box; }
+        :root {
+            --blue: #0f2b4b;
+            --blue-light: #1a3f6a;
+            --blue-pale: #e8eef6;
+            --green: #3b8c5e;
+            --green-light: #e6f4ed;
+            --green-bright: #4caf7a;
+            --gray-50: #f8f9fb;
+            --gray-100: #f0f2f5;
+            --gray-200: #e2e6ed;
+            --gray-300: #c9d0db;
+            --gray-400: #a0aab8;
+            --gray-500: #6b7a8d;
+            --gray-600: #4a5a6e;
+            --gray-700: #2d3a4f;
+            --gray-800: #1a2538;
+            --white: #ffffff;
+            --radius: 20px;
+            --radius-sm: 12px;
+            --shadow-card: 0 4px 24px rgba(15, 43, 75, 0.06);
+            --shadow-hover: 0 12px 48px rgba(15, 43, 75, 0.10);
+            --transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --font: 'Inter', sans-serif;
+        }
+        body { font-family: var(--font); background: var(--white); color: var(--gray-700); line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-weight: 600; font-size: 16px; padding: 14px 32px; border: none; border-radius: var(--radius-sm); cursor: pointer; transition: var(--transition); background: var(--white); color: var(--blue); box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+        .btn-primary { background: var(--blue); color: var(--white); box-shadow: 0 4px 16px rgba(15,43,75,0.20); }
+        .btn-primary:hover { background: var(--blue-light); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(15,43,75,0.25); }
+        .btn-outline { background: transparent; color: var(--blue); border: 1.5px solid var(--gray-200); }
+        .btn-outline:hover { border-color: var(--blue); background: var(--blue-pale); }
+        .btn-sm { padding: 10px 20px; font-size: 14px; }
+        .btn-green { background: var(--green); color: white; }
+        .btn-green:hover { background: #2d7a4e; }
+        .btn-danger { background: #c62828; color: white; }
+        .btn-danger:hover { background: #b71c1c; }
+        .btn-success { background: #2e7d32; color: white; }
+        .btn-success:hover { background: #1b5e20; }
+
+        .header { position: sticky; top:0; z-index:100; background: rgba(255,255,255,0.88); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(226,230,237,0.5); padding:14px 0; }
+        .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+        .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 22px; color: var(--blue); letter-spacing: -0.02em; flex-shrink:0; }
+        .logo-icon { width: 38px; height: 38px; background: var(--blue); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 16px; }
+        .logo span { color: var(--green); }
+        .logo-sub { font-size: 13px; font-weight: 500; color: var(--gray-400); margin-left: 2px; }
+        .nav { display: flex; align-items: center; gap: 20px; }
+        .nav .btn { padding: 10px 20px; font-size: 14px; }
+        .nav .btn-primary { background: var(--blue); color: white; }
+        .nav .icon-link { font-size: 20px; color: var(--gray-500); transition: var(--transition); }
+        .nav .icon-link:hover { color: var(--blue); }
+        .mobile-toggle { display: none; flex-direction: column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+        .mobile-toggle span { display:block; width:26px; height:2.5px; background:var(--blue); border-radius:4px; transition:var(--transition); }
+
+        .specialist-top { background: var(--blue); color: white; padding: 24px 0; margin-bottom: 32px; }
+        .specialist-top .top-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+        .specialist-top .balance { font-size: 20px; font-weight: 600; }
+        .specialist-top .balance span { font-weight: 400; color: rgba(255,255,255,0.7); }
+        .specialist-top .actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+        .specialist-top .actions .btn { background: rgba(255,255,255,0.12); color: white; border: 1px solid rgba(255,255,255,0.15); }
+        .specialist-top .actions .btn:hover { background: rgba(255,255,255,0.25); }
+        .specialist-top .actions .balance-input { display: flex; gap: 8px; align-items: center; background: rgba(255,255,255,0.08); padding: 4px 8px 4px 12px; border-radius: var(--radius-sm); }
+        .specialist-top .actions .balance-input input { width: 100px; padding: 6px 10px; border: none; border-radius: 6px; font-size: 14px; font-family: inherit; background: rgba(255,255,255,0.9); color: var(--blue); }
+        .specialist-top .actions .balance-input input:focus { outline: none; }
+        .specialist-top .actions .balance-input .btn { background: var(--green); color: white; border: none; padding: 6px 16px; font-size: 14px; }
+        .specialist-top .actions .balance-input .btn:hover { background: #2d7a4e; }
+
+        .profile-main { padding: 0 0 60px; }
+        .profile-grid { display: grid; grid-template-columns: 260px 1fr; gap: 40px; }
+        .sidebar { background: var(--gray-50); border-radius: var(--radius); padding: 32px 24px; border: 1px solid var(--gray-100); }
+        .sidebar ul { list-style: none; padding: 0; }
+        .sidebar ul li { padding: 12px 0; border-bottom: 1px solid var(--gray-200); font-weight: 500; color: var(--gray-600); transition: var(--transition); cursor: pointer; }
+        .sidebar ul li:last-child { border-bottom: none; }
+        .sidebar ul li:hover { color: var(--blue); }
+        .sidebar ul li.active { color: var(--blue); font-weight: 600; }
+
+        .profile-content { background: var(--white); border-radius: var(--radius); padding: 32px 36px; border: 1px solid var(--gray-100); box-shadow: var(--shadow-card); }
+        .profile-rating { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+        .profile-rating .stars { font-size: 24px; color: #f5b342; letter-spacing: 2px; }
+        .profile-rating .rating-text { font-size: 18px; font-weight: 600; color: var(--gray-800); }
+        .profile-rating .reviews { font-size: 15px; color: var(--gray-500); }
+        .profile-field { margin-bottom: 20px; }
+        .profile-field label { display: block; font-size: 14px; font-weight: 500; color: var(--gray-500); margin-bottom: 4px; }
+        .profile-field .value { font-size: 18px; font-weight: 500; color: var(--gray-800); padding: 8px 0; border-bottom: 1px dashed var(--gray-200); }
+        .profile-field .value input, .profile-field .value textarea, .profile-field .value select { width: 100%; padding: 8px 12px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 15px; font-family: inherit; }
+        .profile-field .value .photo-preview { max-width: 150px; max-height: 150px; border-radius: 50%; object-fit: cover; margin-top: 8px; }
+        .profile-field .value .price-item { display: flex; gap: 8px; align-items: center; margin: 4px 0; background: var(--gray-50); padding: 6px 10px; border-radius: var(--radius-sm); }
+        .profile-field .value .price-item .remove-price { background: none; border: none; color: var(--gray-400); cursor: pointer; font-size: 18px; }
+        .profile-field .value .price-item .remove-price:hover { color: #c62828; }
+        .profile-actions { margin-top: 24px; display: flex; gap: 12px; flex-wrap: wrap; }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .tender-item { border: 1px solid var(--gray-100); border-radius: var(--radius-sm); padding: 16px 20px; margin-bottom: 16px; background: var(--gray-50); }
+        .tender-item .tender-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .tender-item .tender-title { font-weight: 600; font-size: 18px; color: var(--gray-800); }
+        .tender-item .tender-status { font-size: 13px; padding: 2px 12px; border-radius: 100px; background: var(--gray-200); color: var(--gray-600); }
+        .tender-item .tender-status.open { background: var(--green-light); color: var(--green); }
+        .tender-item .tender-status.waiting_payment { background: #fff3cd; color: #856404; }
+        .tender-item .tender-status.in_progress { background: #d1ecf1; color: #0c5460; }
+        .tender-item .tender-status.closed { background: var(--gray-200); color: var(--gray-500); }
+        .tender-item .tender-meta { font-size: 14px; color: var(--gray-500); margin: 8px 0; }
+        .tender-item .services-list { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+        .tender-item .services-list .tag { background: var(--blue-pale); color: var(--blue); padding: 2px 12px; border-radius: 100px; font-size: 12px; font-weight: 500; }
+        .response-status { font-size: 12px; font-weight: 600; padding: 2px 10px; border-radius: 100px; }
+        .response-status.pending { background: var(--blue-pale); color: var(--blue); }
+        .response-status.chosen { background: var(--green-light); color: var(--green); }
+        .response-status.declined { background: var(--gray-200); color: var(--gray-500); }
+        .response-status.paid { background: #d1ecf1; color: #0c5460; }
+        .response-status.completed { background: #e8f5e9; color: #2e7d32; }
+
+        /* Стили для избранного */
+        .fav-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--gray-100); cursor: pointer; transition: 0.3s; }
+        .fav-item:hover { background: var(--gray-50); }
+        .fav-item .info { flex: 1; }
+        .fav-item .remove-fav { background: none; border: none; color: #c62828; font-size: 20px; cursor: pointer; padding: 4px 8px; }
+        .fav-item .remove-fav:hover { transform: scale(1.2); }
+        .fav-empty { color: var(--gray-400); padding: 20px 0; text-align: center; }
+
+        .footer { padding: 56px 0 40px; background: var(--white); border-top: 1px solid var(--gray-100); }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid var(--gray-100); }
+        .footer-brand .logo { margin-bottom: 12px; }
+        .footer-brand p { font-size: 14px; color: var(--gray-400); max-width: 340px; line-height: 1.7; }
+        .footer-col h4 { font-size: 14px; font-weight: 600; color: var(--gray-700); margin-bottom: 16px; letter-spacing: 0.02em; }
+        .footer-col ul { list-style: none; padding: 0; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col ul li a { font-size: 14px; color: var(--gray-400); transition: var(--transition); }
+        .footer-col ul li a:hover { color: var(--blue); }
+        .footer-bottom { padding-top: 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--gray-400); }
+
+        @media (max-width: 768px) {
+            .profile-grid { grid-template-columns: 1fr; }
+            .sidebar { order: 1; }
+            .nav { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--white); padding: 24px; border-bottom: 1px solid var(--gray-100); box-shadow: var(--shadow-card); gap: 16px; align-items: stretch; }
+            .nav.open { display: flex; }
+            .mobile-toggle { display: flex; }
+            .specialist-top .top-inner { flex-direction: column; align-items: stretch; }
+            .specialist-top .actions { justify-content: center; }
+            .specialist-top .actions .balance-input { width: 100%; justify-content: center; }
+            .specialist-top .actions .balance-input input { width: 100%; max-width: 200px; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .profile-content { padding: 24px 20px; }
+            .review-item { border-bottom: 1px solid var(--gray-100); padding: 12px 0; }
+            .review-item:last-child { border-bottom: none; }
+            .review-item .review-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+            .review-item .review-rating { color: #f5b342; font-size: 16px; }
+            .review-item .review-author { font-weight: 600; color: var(--gray-800); }
+            .review-item .review-date { font-size: 12px; color: var(--gray-400); }
+            .review-item .review-text { margin-top: 4px; font-size: 14px; color: var(--gray-600); }
+            .review-form { margin-top: 20px; border-top: 1px solid var(--gray-200); padding-top: 20px; }
+            .review-form .form-group { margin-bottom: 12px; }
+            .review-form label { display: block; font-weight: 500; font-size: 14px; margin-bottom: 4px; }
+            .review-form select, .review-form textarea { width: 100%; padding: 8px 12px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 15px; font-family: inherit; }
+            .review-form textarea { min-height: 80px; resize: vertical; }
+            .review-form .btn { width: auto; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== HEADER (с role-switch и уведомлениями) ===== -->
+<header class="header">
+    <div class="container header-inner">
+        <a href="index-specialist.html" class="logo">
+            <span class="logo-icon">M</span>
+            Mika<span>Master</span>
+            <span class="logo-sub">для специалистов</span>
+        </a>
+        <nav class="nav" id="mainNav">
+            <a href="tenders-catalog.html" class="btn btn-outline btn-sm" style="background:var(--blue-pale); border-color:var(--blue);">Каталог тендеров</a>
+            <a href="login.html?action=login" class="btn btn-outline btn-sm" id="headerLoginBtn">Вход</a>
+            <a href="login.html?action=register" class="btn btn-primary btn-sm" id="headerRegisterBtn">Регистрация</a>
+            <a href="#" class="icon-link" id="headerFavorites" style="display:none;">❤️</a>
+            <a href="#" class="icon-link" id="headerMessages" style="display:none;">💬</a>
+            <a href="notifications.html" class="icon-link" id="headerNotifications" style="display:none;">🔔</a>
+            <a href="#" id="headerProfileLink" style="display:none; font-weight:600;">Профиль</a>
+        </nav>
+        <button class="mobile-toggle" id="mobileToggle"><span></span><span></span><span></span></button>
+    </div>
+</header>
+
+<!-- Верхняя панель: баланс -->
+<section class="specialist-top">
+    <div class="container">
+        <div class="top-inner">
+            <div class="balance">Баланс: <span id="balanceDisplay">5000</span> р</div>
+            <div class="actions">
+                <div class="balance-input">
+                    <input type="number" id="topupAmount" placeholder="Сумма" min="1" value="100" />
+                    <button class="btn btn-sm" id="topupBtn">Пополнить</button>
+                </div>
+                <a href="#" class="btn btn-sm">Пройти проверку</a>
+                <a href="#" class="btn btn-sm">Поднять в выдаче</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="profile-main">
+    <div class="container">
+        <div class="profile-grid">
+            <aside class="sidebar">
+                <ul>
+                    <li data-tab="profile" class="active">Мой профиль</li>
+                    <li data-tab="reviews">Мои отзывы</li>
+                    <li data-tab="responses">Мои отклики</li>
+                    <li data-tab="requests">Заявки</li>
+                    <li data-tab="favorites">Избранное</li>
+                    <li data-tab="messages">Сообщения</li>
+                    <li data-tab="notifications">Уведомления</li>
+                </ul>
+            </aside>
+            <div class="profile-content">
+                <!-- Вкладка профиля -->
+                <div class="tab-content active" id="tab-profile">
+                    <div class="profile-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-text">4.99</span>
+                        <span class="reviews">200 отзывов</span>
+                    </div>
+                    <div id="profileData">
+                        <div class="profile-field"><label>ФИО</label><div class="value" id="displayFullName">Петров Пётр Петрович</div></div>
+                        <div class="profile-field"><label>Телефон</label><div class="value" id="displayPhone">+7 999 987-65-43</div></div>
+                        <div class="profile-field"><label>Город</label><div class="value" id="displayCity">Москва</div></div>
+                        <div class="profile-field"><label>Роль</label><div class="value" id="displayRole">Специалист</div></div>
+                        <div class="profile-field">
+                            <label>Фото</label>
+                            <div class="value">
+                                <div id="photoPreviewContainer">
+                                    <img id="photoPreview" class="photo-preview" style="display:none;" alt="Фото профиля" />
+                                    <span id="photoPlaceholder">Фото не загружено</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="profile-field"><label>Опыт работы</label><div class="value" id="displayExperience">Не указан</div></div>
+                        <div class="profile-field">
+                            <label>Прайс-лист</label>
+                            <div class="value" id="displayPriceList">Не указан</div>
+                        </div>
+                        <div class="profile-field"><label>Возраст</label><div class="value" id="displayAge">Не указан</div></div>
+                        <div class="profile-field"><label>О себе</label><div class="value" id="displayAbout">Не указано</div></div>
+                        <div class="profile-field">
+                            <label>Статус в каталоге</label>
+                            <div class="value" id="catalogStatus">Не в каталоге</div>
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        <button class="btn btn-primary" id="editProfileBtn">Редактировать профиль</button>
+                        <button class="btn btn-outline" id="logoutBtn">Выйти</button>
+                        <button class="btn btn-green" id="toggleCatalogBtn">Добавить в каталог</button>
+                    </div>
+
+                    <!-- Форма редактирования -->
+                    <div id="editForm" style="display:none; margin-top:24px; border-top:1px solid var(--gray-200); padding-top:24px;">
+                        <div class="profile-field"><label>ФИО</label><div class="value"><input type="text" id="editFullName" /></div></div>
+                        <div class="profile-field"><label>Телефон</label><div class="value"><input type="tel" id="editPhone" /></div></div>
+                        <div class="profile-field"><label>Город</label><div class="value"><input type="text" id="editCity" /></div></div>
+                        <div class="profile-field">
+                            <label>Фото</label>
+                            <div class="value">
+                                <input type="file" id="photoInput" accept="image/*" />
+                                <div id="editPhotoPreviewContainer">
+                                    <img id="editPhotoPreview" class="photo-preview" style="display:none;" alt="Фото" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="profile-field"><label>Опыт работы</label><div class="value"><textarea id="editExperience"></textarea></div></div>
+                        <div class="profile-field">
+                            <label>Прайс-лист</label>
+                            <div class="value">
+                                <div id="priceListEditor"></div>
+                                <div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap;">
+                                    <select id="priceCategory" style="flex:1; min-width:120px;"><option value="">Категория</option></select>
+                                    <select id="priceService" style="flex:1; min-width:120px;"><option value="">Услуга</option></select>
+                                    <input type="number" id="priceValue" placeholder="Цена" style="width:100px;" />
+                                    <button class="btn btn-sm btn-outline" id="addPriceBtn">Добавить</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="profile-field"><label>Возраст</label><div class="value"><input type="number" id="editAge" min="18" /></div></div>
+                        <div class="profile-field"><label>Информация о себе</label><div class="value"><textarea id="editAbout"></textarea></div></div>
+                        <button class="btn btn-primary" id="saveProfileBtn">Сохранить</button>
+                        <button class="btn btn-outline" id="cancelEditBtn">Отмена</button>
+                    </div>
+                </div>
+
+                <!-- Вкладка откликов -->
+                <div class="tab-content" id="tab-responses">
+                    <h3 style="margin-bottom:16px;">Мои отклики на тендеры</h3>
+                    <div id="specialistResponsesList"></div>
+                </div>
+
+                <!-- Вкладка заявок -->
+                <div class="tab-content" id="tab-requests">
+                    <h3 style="margin-bottom:16px;">Заявки от клиентов</h3>
+                    <div id="specialistRequestsList"></div>
+                </div>
+
+                <!-- Чаты -->
+                <div class="tab-content" id="tab-messages">
+                    <h3 style="margin-bottom:16px;">Чаты</h3>
+                    <div id="specialistChatsList"></div>
+                </div>
+
+                <!-- Отзывы -->
+                <div class="tab-content" id="tab-reviews">
+                    <h3 style="margin-bottom:16px;">Мои отзывы</h3>
+                    <div id="reviewsContainer"></div>
+                    <div id="writeReviewSection" style="margin-top:20px; display:none;">
+                        <h4>Написать отзыв</h4>
+                        <div class="review-form" id="reviewForm">
+                            <div class="form-group">
+                                <label>Кому</label>
+                                <select id="reviewTarget"><option value="">Выберите пользователя</option></select>
+                            </div>
+                            <div class="form-group">
+                                <label>Оценка</label>
+                                <select id="reviewRating">
+                                    <option value="5">★★★★★</option>
+                                    <option value="4">★★★★</option>
+                                    <option value="3">★★★</option>
+                                    <option value="2">★★</option>
+                                    <option value="1">★</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Текст отзыва</label>
+                                <textarea id="reviewText" placeholder="Поделитесь впечатлениями..."></textarea>
+                            </div>
+                            <button class="btn btn-primary" id="submitReviewBtn">Отправить отзыв</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Избранное -->
+                <div class="tab-content" id="tab-favorites">
+                    <h3 style="margin-bottom:16px;">Избранные тендеры</h3>
+                    <div id="favoritesList"></div>
+                </div>
+
+                <!-- Уведомления (заглушка) -->
+                <div class="tab-content" id="tab-notifications">
+                    <h3 style="margin-bottom:16px;">Уведомления</h3>
+                    <p style="color:var(--gray-400);">Здесь будут отображаться ваши уведомления.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FOOTER (с role-switch) ===== -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand"><a href="index-specialist.html" class="logo"><span class="logo-icon">M</span>Mika<span>Master</span><span class="logo-sub">для специалистов</span></a><p>Сервис по поиску проверенных специалистов. Основан Константином Акимовым.</p></div>
+            <div class="footer-col"><h4>Личный кабинет</h4><ul><li><a href="login.html?action=login">Вход</a></li><li><a href="login.html?action=register">Регистрация</a></li><li><a href="index-customer.html" class="role-switch">Заказчикам</a></li><li><a href="about.html" class="role-switch">О нас</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><span>© 2026 MikaMaster. Все права защищены.</span><span><a href="#">Политика</a> · <a href="#">Соглашение</a></span></div>
+    </div>
+</footer>
+
+<script>
+    // ===== РАБОТА С ОТЗЫВАМИ =====
+    function getReviews() {
+        const data = localStorage.getItem('mikamaster_reviews');
+        return data ? JSON.parse(data) : [];
+    }
+    function saveReviews(reviews) {
+        localStorage.setItem('mikamaster_reviews', JSON.stringify(reviews));
+    }
+    function getUserRating(userId) {
+        const reviews = getReviews();
+        const targetReviews = reviews.filter(r => r.targetId === userId);
+        if (targetReviews.length === 0) return { rating: 0, count: 0 };
+        const total = targetReviews.reduce((sum, r) => sum + r.rating, 0);
+        const avg = Math.round((total / targetReviews.length) * 100) / 100;
+        return { rating: avg, count: targetReviews.length };
+    }
+
+    // ===== ДАННЫЕ КАТЕГОРИЙ И УСЛУГ =====
+    const servicesByCategory = {
+        "Архитектура и проектирование": ["Архитектурное проектирование домов","Дизайн-проект интерьера","3D-визуализация интерьера","Обмерный план помещения","Перепланировка и согласование","Инженерные системы (проектирование)","Ландшафтный дизайн и проектирование"],
+        "Строительство домов и зданий": ["Строительство домов «под ключ»","Каркасное строительство","Строительство из кирпича, газобетона, пеноблоков","Монолитное строительство","Строительство бань и беседок","Пристройки и веранды","Коммерческое строительство (офисы, склады, магазины)"],
+        "Фундаментные и земляные работы": ["Строительство ленточного, столбчатого, монолитного фундамента","Укрепление и ремонт фундамента","Устройство отмостки","Гидроизоляция и утепление фундамента","Копка котлована","Земляные работы"],
+        "Кровельные работы": ["Монтаж кровли из металлочерепицы, профнастила, мягкой черепицы","Монтаж мембранной и наплавляемой кровли","Ремонт и замена кровли","Утепление и гидроизоляция кровли","Монтаж водосточных систем","Монтаж мансардных окон"],
+        "Отделочные работы (внутренние)": ["Штукатурка стен и потолков","Шпаклёвка и грунтовка","Малярные работы (покраска стен, потолков)","Декоративная штукатурка","Поклейка обоев всех видов","Поклейка фотообоев","Стяжка пола","Укладка ламината, паркета, инженерной доски","Укладка ковролина и линолеума","Укладка плитки на пол и стены","Укладка мозаики и керамогранита","Монтаж натяжных потолков","Монтаж подвесных потолков из гипсокартона","Монтаж реечных потолков","Отделка откосов","Монтаж декоративных элементов (лепнина, молдинги)","Комплексный ремонт квартир и домов"],
+        "Сантехнические работы": ["Установка и замена ванн, душевых кабин, унитазов, раковин","Монтаж и замена труб водоснабжения и канализации","Установка смесителей и фильтров","Ремонт трубопровода","Сварка полиэтиленовых труб"],
+        "Электромонтажные работы": ["Монтаж и замена электропроводки","Установка розеток, выключателей, щитков","Установка и подключение люстр, светильников","Монтаж систем «умный дом»","Электромонтаж в деревянных домах"],
+        "Окна, двери и балконы": ["Установка и замена окон (ПВХ, деревянных, алюминиевых)","Остекление балконов и лоджий","Утепление балконов","Установка входных и межкомнатных дверей","Ремонт окон и балконов"],
+        "Мебель и столярные работы": ["Сборка мебели","Ремонт и реставрация мебели","Изготовление кухонь, шкафов, мебели на заказ","Столярные работы (лестницы, перила, арки)","Установка плинтусов и наличников"],
+        "Фасадные и утеплительные работы": ["Утепление фасадов","Монтаж вентилируемых фасадов","Штукатурка и покраска фасадов","Монтаж сайдинга","Утепление стен, полов, перекрытий"],
+        "Инженерные системы": ["Монтаж и замена систем отопления (радиаторы, тёплый пол)","Монтаж котлов и бойлеров","Монтаж вентиляции и кондиционирования","Установка дымоходов","Монтаж систем водоснабжения и канализации","Установка насосных станций и фильтров","Монтаж септиков","Монтаж структурированных кабельных сетей (витая пара)","Установка видеонаблюдения и домофонов","Монтаж охранных и пожарных систем"],
+        "Демонтажные работы": ["Демонтаж стен и перегородок","Демонтаж кровли","Демонтаж полов и покрытий","Демонтаж сантехники и труб","Вынос строительного мусора"],
+        "Ландшафт и благоустройство": ["Благоустройство территории","Укладка тротуарной плитки, брусчатки","Монтаж заборов и ограждений","Устройство газонов и посадка растений","Монтаж систем полива и освещения участка"],
+        "Мелкий ремонт и услуги мастеров на час": ["Услуги мастера на час (мелкий ремонт, установка)","Сборка мебели","Установка картин, полок, зеркал","Мелкий ремонт электроприборов","Установка бытовой техники"]
+    };
+    const categories = Object.keys(servicesByCategory);
+
+    // ===== РАБОТА С ДАННЫМИ =====
+    function getUsers() {
+        const data = localStorage.getItem('mikamaster_users');
+        return data ? JSON.parse(data) : [];
+    }
+    function saveUsers(users) {
+        localStorage.setItem('mikamaster_users', JSON.stringify(users));
+    }
+    function getCurrentUser() {
+        const data = localStorage.getItem('mikamaster_current_user');
+        return data ? JSON.parse(data) : null;
+    }
+    function setCurrentUser(user) {
+        if (user) localStorage.setItem('mikamaster_current_user', JSON.stringify(user));
+        else localStorage.removeItem('mikamaster_current_user');
+    }
+    function getTenders() {
+        const data = localStorage.getItem('mikamaster_tenders');
+        return data ? JSON.parse(data) : [];
+    }
+    function saveTenders(tenders) {
+        localStorage.setItem('mikamaster_tenders', JSON.stringify(tenders));
+    }
+    function getRequests() {
+        const data = localStorage.getItem('mikamaster_requests');
+        return data ? JSON.parse(data) : [];
+    }
+    function saveRequests(requests) {
+        localStorage.setItem('mikamaster_requests', JSON.stringify(requests));
+    }
+    function getChats() {
+        const data = localStorage.getItem('mikamaster_chats');
+        return data ? JSON.parse(data) : {};
+    }
+    function saveChats(chats) {
+        localStorage.setItem('mikamaster_chats', JSON.stringify(chats));
+    }
+
+    // ===== ДОПОЛНИТЕЛЬНЫЕ ФУНКЦИИ ДЛЯ ИЗБРАННОГО (специалист) =====
+    function getFavoritesTenders() {
+        const data = localStorage.getItem('mikamaster_favorites_tenders');
+        return data ? JSON.parse(data) : [];
+    }
+    function saveFavoritesTenders(arr) {
+        localStorage.setItem('mikamaster_favorites_tenders', JSON.stringify(arr));
+    }
+    function removeFavoriteTender(tenderId) {
+        let favs = getFavoritesTenders();
+        const index = favs.indexOf(tenderId);
+        if (index !== -1) {
+            favs.splice(index, 1);
+            saveFavoritesTenders(favs);
+        }
+        return favs;
+    }
+    function toggleFavoriteTender(tenderId) {
+        let favs = getFavoritesTenders();
+        const index = favs.indexOf(tenderId);
+        if (index === -1) favs.push(tenderId);
+        else favs.splice(index, 1);
+        saveFavoritesTenders(favs);
+        return favs;
+    }
+
+    // ===== РЕНДЕРИНГ ИЗБРАННЫХ ТЕНДЕРОВ =====
+    function renderFavorites() {
+        const container = document.getElementById('favoritesList');
+        if (!container) return;
+        const favIds = getFavoritesTenders();
+        if (favIds.length === 0) {
+            container.innerHTML = '<div class="fav-empty">У вас пока нет избранных тендеров.</div>';
+            return;
+        }
+        const allTenders = getTenders();
+        const tenders = allTenders.filter(t => favIds.includes(t.id));
+        if (tenders.length === 0) {
+            container.innerHTML = '<div class="fav-empty">Избранные тендеры не найдены (возможно, они удалены).</div>';
+            return;
+        }
+        container.innerHTML = tenders.map(t => {
+            const services = t.services ? t.services.map(s => s.service).join(', ') : 'Без услуги';
+            return `
+                <div class="fav-item" data-id="${t.id}">
+                    <div class="info" onclick="window.location.href='tenders-catalog.html'">
+                        <strong>${services}</strong>
+                        <span style="font-size:14px; color:var(--gray-500);">${t.city} • ${t.budget.toLocaleString()} ₽</span>
+                    </div>
+                    <button class="remove-fav" data-id="${t.id}">✕</button>
+                </div>
+            `;
+        }).join('');
+
+        container.querySelectorAll('.remove-fav').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const id = parseInt(this.dataset.id);
+                removeFavoriteTender(id);
+                renderFavorites();
+            });
+        });
+    }
+
+    // ===== ОБНОВЛЕНИЕ ШАПКИ =====
+    function updateHeader() {
+        const user = getCurrentUser();
+        const loginBtn = document.getElementById('headerLoginBtn');
+        const registerBtn = document.getElementById('headerRegisterBtn');
+        const favLink = document.getElementById('headerFavorites');
+        const msgLink = document.getElementById('headerMessages');
+        const notifLink = document.getElementById('headerNotifications');
+        const profileLink = document.getElementById('headerProfileLink');
+        if (user) {
+            if (user.role === 'specialist') {
+                loginBtn.style.display = 'none';
+                registerBtn.style.display = 'none';
+                favLink.style.display = 'inline-block';
+                msgLink.style.display = 'inline-block';
+                notifLink.style.display = 'inline-block';
+                profileLink.style.display = 'inline-block';
+                profileLink.textContent = user.fullName.split(' ')[0] || 'Профиль';
+                profileLink.href = 'profile-specialist.html';
+                msgLink.href = 'profile-specialist.html?tab=messages';
+                notifLink.href = 'profile-specialist.html?tab=notifications';
+                favLink.href = 'profile-specialist.html?tab=favorites';
+            } else {
+                loginBtn.style.display = 'inline-block';
+                registerBtn.style.display = 'inline-block';
+                favLink.style.display = 'none';
+                msgLink.style.display = 'none';
+                notifLink.style.display = 'none';
+                profileLink.style.display = 'none';
+            }
+        } else {
+            loginBtn.style.display = 'inline-block';
+            registerBtn.style.display = 'inline-block';
+            favLink.style.display = 'none';
+            msgLink.style.display = 'none';
+            notifLink.style.display = 'none';
+            profileLink.style.display = 'none';
+        }
+    }
+
+    // ===== ОБРАБОТКА ПЕРЕХОДОВ МЕЖДУ РОЛЯМИ =====
+    function handleRoleSwitch() {
+        document.querySelectorAll('.role-switch').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const user = getCurrentUser();
+                if (user) {
+                    e.preventDefault();
+                    setCurrentUser(null);
+                    window.location.href = this.href;
+                }
+            });
+        });
+    }
+
+    // ===== ЗАГРУЗКА ДАННЫХ =====
+    const user = getCurrentUser();
+    if (!user || user.role !== 'specialist') {
+        alert('Доступ только для специалистов');
+        window.location.href = 'login.html?action=login';
+    }
+
+    let tempPriceList = [];
+
+    function loadProfileData() {
+        document.getElementById('displayFullName').textContent = user.fullName;
+        document.getElementById('displayPhone').textContent = user.phone;
+        document.getElementById('displayCity').textContent = user.city;
+        document.getElementById('displayRole').textContent = 'Специалист';
+        document.getElementById('displayExperience').textContent = user.experience || 'Не указан';
+        document.getElementById('displayAge').textContent = user.age || 'Не указан';
+        document.getElementById('displayAbout').textContent = user.about || 'Не указано';
+
+        const photoPreview = document.getElementById('photoPreview');
+        const photoPlaceholder = document.getElementById('photoPlaceholder');
+        if (user.photo) {
+            photoPreview.src = user.photo;
+            photoPreview.style.display = 'block';
+            photoPlaceholder.style.display = 'none';
+        } else {
+            photoPreview.style.display = 'none';
+            photoPlaceholder.style.display = 'inline';
+        }
+
+        const displayPriceList = document.getElementById('displayPriceList');
+        if (user.priceList) {
+            try {
+                const items = JSON.parse(user.priceList);
+                if (Array.isArray(items) && items.length > 0) {
+                    displayPriceList.innerHTML = items.map(item =>
+                        `<div class="price-item">${item.category} — ${item.service}: ${item.price} ₽</div>`
+                    ).join('');
+                } else {
+                    displayPriceList.textContent = 'Не указан';
+                }
+            } catch {
+                displayPriceList.textContent = user.priceList;
+            }
+        } else {
+            displayPriceList.textContent = 'Не указан';
+        }
+
+        const catalogStatus = user.inCatalog ? 'В каталоге' : 'Не в каталоге';
+        document.getElementById('catalogStatus').textContent = catalogStatus;
+        const toggleBtn = document.getElementById('toggleCatalogBtn');
+        toggleBtn.textContent = user.inCatalog ? 'Убрать из каталога' : 'Добавить в каталог';
+
+        document.getElementById('editFullName').value = user.fullName;
+        document.getElementById('editPhone').value = user.phone;
+        document.getElementById('editCity').value = user.city;
+        document.getElementById('editExperience').value = user.experience || '';
+        document.getElementById('editAge').value = user.age || '';
+        document.getElementById('editAbout').value = user.about || '';
+
+        if (user.photo) {
+            document.getElementById('editPhotoPreview').src = user.photo;
+            document.getElementById('editPhotoPreview').style.display = 'block';
+        } else {
+            document.getElementById('editPhotoPreview').style.display = 'none';
+        }
+
+        tempPriceList = [];
+        if (user.priceList) {
+            try {
+                const items = JSON.parse(user.priceList);
+                if (Array.isArray(items)) tempPriceList = items;
+            } catch {}
+        }
+        renderPriceListEditor();
+        document.getElementById('balanceDisplay').textContent = user.balance || 5000;
+    }
+
+    // ===== РЕДАКТОР ПРАЙС-ЛИСТА =====
+    function renderPriceListEditor() {
+        const container = document.getElementById('priceListEditor');
+        if (tempPriceList.length === 0) {
+            container.innerHTML = '<p style="color:var(--gray-400);">Услуги не добавлены</p>';
+        } else {
+            container.innerHTML = tempPriceList.map((item, index) =>
+                `<div class="price-item">
+                    <span>${item.category} — ${item.service}: ${item.price} ₽</span>
+                    <button class="remove-price" data-index="${index}">✕</button>
+                </div>`
+            ).join('');
+            container.querySelectorAll('.remove-price').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const idx = parseInt(this.dataset.index);
+                    tempPriceList.splice(idx, 1);
+                    renderPriceListEditor();
+                });
+            });
+        }
+    }
+
+    function populateCategorySelect() {
+        const catSelect = document.getElementById('priceCategory');
+        catSelect.innerHTML = '<option value="">Категория</option>';
+        categories.forEach(cat => {
+            const opt = document.createElement('option');
+            opt.value = cat;
+            opt.textContent = cat;
+            catSelect.appendChild(opt);
+        });
+    }
+
+    function updateServiceSelect(category) {
+        const servSelect = document.getElementById('priceService');
+        servSelect.innerHTML = '<option value="">Услуга</option>';
+        if (category) {
+            const services = servicesByCategory[category] || [];
+            services.forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = s;
+                opt.textContent = s;
+                servSelect.appendChild(opt);
+            });
+        }
+    }
+
+    document.getElementById('priceCategory').addEventListener('change', function() {
+        updateServiceSelect(this.value);
+    });
+
+    document.getElementById('addPriceBtn').addEventListener('click', function() {
+        const category = document.getElementById('priceCategory').value;
+        const service = document.getElementById('priceService').value;
+        const price = document.getElementById('priceValue').value;
+        if (!category || !service || !price) {
+            alert('Заполните все поля для добавления услуги');
+            return;
+        }
+        tempPriceList.push({ category, service, price: parseInt(price) });
+        renderPriceListEditor();
+        document.getElementById('priceCategory').value = '';
+        document.getElementById('priceService').innerHTML = '<option value="">Услуга</option>';
+        document.getElementById('priceValue').value = '';
+    });
+
+    // ===== ФОТО: загрузка файла =====
+    document.getElementById('photoInput').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const dataUrl = event.target.result;
+            document.getElementById('editPhotoPreview').src = dataUrl;
+            document.getElementById('editPhotoPreview').style.display = 'block';
+            window._tempPhoto = dataUrl;
+        };
+        reader.readAsDataURL(file);
+    });
+
+    // ===== РЕДАКТИРОВАНИЕ ПРОФИЛЯ =====
+    document.getElementById('editProfileBtn').addEventListener('click', function() {
+        document.getElementById('editForm').style.display = 'block';
+        document.getElementById('editFullName').value = user.fullName;
+        document.getElementById('editPhone').value = user.phone;
+        document.getElementById('editCity').value = user.city;
+        document.getElementById('editExperience').value = user.experience || '';
+        document.getElementById('editAge').value = user.age || '';
+        document.getElementById('editAbout').value = user.about || '';
+        if (user.photo) {
+            document.getElementById('editPhotoPreview').src = user.photo;
+            document.getElementById('editPhotoPreview').style.display = 'block';
+        } else {
+            document.getElementById('editPhotoPreview').style.display = 'none';
+        }
+        tempPriceList = [];
+        if (user.priceList) {
+            try {
+                const items = JSON.parse(user.priceList);
+                if (Array.isArray(items)) tempPriceList = items;
+            } catch {}
+        }
+        renderPriceListEditor();
+        window._tempPhoto = null;
+        document.getElementById('photoInput').value = '';
+    });
+
+    document.getElementById('cancelEditBtn').addEventListener('click', function() {
+        document.getElementById('editForm').style.display = 'none';
+    });
+
+    document.getElementById('saveProfileBtn').addEventListener('click', function() {
+        const newName = document.getElementById('editFullName').value.trim();
+        const newPhone = document.getElementById('editPhone').value.trim();
+        const newCity = document.getElementById('editCity').value.trim();
+        const newExperience = document.getElementById('editExperience').value.trim();
+        const newAge = parseInt(document.getElementById('editAge').value);
+        const newAbout = document.getElementById('editAbout').value.trim();
+        let newPhoto = user.photo || '';
+        if (window._tempPhoto) {
+            newPhoto = window._tempPhoto;
+        }
+
+        if (!newName || !newPhone || !newCity || !newExperience || !newAge || !newAbout) {
+            alert('Все поля (кроме фото) обязательны для заполнения');
+            return;
+        }
+
+        const priceListStr = JSON.stringify(tempPriceList);
+        const users = getUsers();
+        const idx = users.findIndex(u => u.id === user.id);
+        if (idx !== -1) {
+            users[idx].fullName = newName;
+            users[idx].phone = newPhone;
+            users[idx].city = newCity;
+            users[idx].photo = newPhoto;
+            users[idx].experience = newExperience;
+            users[idx].priceList = priceListStr;
+            users[idx].age = newAge;
+            users[idx].about = newAbout;
+            saveUsers(users);
+            setCurrentUser(users[idx]);
+            Object.assign(user, users[idx]);
+            loadProfileData();
+            document.getElementById('editForm').style.display = 'none';
+            alert('Профиль обновлён');
+        }
+    });
+
+    // ===== ВЫХОД =====
+    document.getElementById('logoutBtn').addEventListener('click', function() {
+        setCurrentUser(null);
+        window.location.href = 'index-specialist.html';
+    });
+
+    // ===== ПОПОЛНЕНИЕ БАЛАНСА =====
+    document.getElementById('topupBtn').addEventListener('click', function() {
+        const amountInput = document.getElementById('topupAmount');
+        const amount = parseInt(amountInput.value);
+        if (!amount || amount <= 0) {
+            alert('Введите корректную сумму (больше 0)');
+            return;
+        }
+        const users = getUsers();
+        const idx = users.findIndex(u => u.id === user.id);
+        if (idx === -1) {
+            alert('Пользователь не найден');
+            return;
+        }
+        users[idx].balance = (users[idx].balance || 0) + amount;
+        saveUsers(users);
+        setCurrentUser(users[idx]);
+        document.getElementById('balanceDisplay').textContent = users[idx].balance;
+        alert(`Баланс пополнен на ${amount} ₽. Текущий баланс: ${users[idx].balance} ₽`);
+        amountInput.value = 100;
+    });
+
+    // ===== ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК =====
+    const sidebarItems = document.querySelectorAll('.sidebar ul li');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    function switchTab(tabId) {
+        tabContents.forEach(tc => tc.classList.remove('active'));
+        const target = document.getElementById('tab-' + tabId);
+        if (target) target.classList.add('active');
+        sidebarItems.forEach(item => {
+            item.classList.remove('active');
+            if (item.dataset.tab === tabId) item.classList.add('active');
+        });
+        if (tabId === 'responses') renderSpecialistResponses();
+        else if (tabId === 'requests') renderSpecialistRequests();
+        else if (tabId === 'messages') renderSpecialistChats();
+        else if (tabId === 'reviews') { renderReviews(); updateProfileRating(); }
+        else if (tabId === 'favorites') renderFavorites();
+    }
+
+    sidebarItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const tabId = this.dataset.tab;
+            switchTab(tabId);
+        });
+    });
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const tabParam = urlParams.get('tab');
+    if (tabParam) {
+        switchTab(tabParam);
+        if (tabParam === 'responses') renderSpecialistResponses();
+        else if (tabParam === 'requests') renderSpecialistRequests();
+        else if (tabParam === 'messages') renderSpecialistChats();
+        else if (tabParam === 'favorites') renderFavorites();
+    }
+
+    // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
+    function getTenderServices(tender) {
+        if (tender.services && Array.isArray(tender.services) && tender.services.length > 0) {
+            return tender.services;
+        }
+        if (tender.category && tender.service) {
+            return [{ category: tender.category, service: tender.service }];
+        }
+        return [{ category: 'Без категории', service: 'Без услуги' }];
+    }
+
+    // ===== ТЕНДЕРЫ: ОТКЛИКИ =====
+    function deleteResponse(tenderId) {
+        if (!confirm('Удалить этот отклик?')) return;
+        const tenders = getTenders();
+        const t = tenders.find(t => t.id === tenderId);
+        if (!t) return;
+        const idx = t.responses.findIndex(r => r.specialistId === user.id);
+        if (idx === -1) return;
+        t.responses.splice(idx, 1);
+        saveTenders(tenders);
+        renderSpecialistResponses();
+        alert('Отклик удалён');
+    }
+
+    function renderSpecialistResponses() {
+        const container = document.getElementById('specialistResponsesList');
+        const tenders = getTenders();
+        const myResponses = [];
+        tenders.forEach(t => {
+            if (t.responses && Array.isArray(t.responses)) {
+                t.responses.forEach(r => {
+                    if (r.specialistId === user.id) {
+                        myResponses.push({ tender: t, response: r });
+                    }
+                });
+            }
+        });
+        if (myResponses.length === 0) {
+            container.innerHTML = '<p style="color:var(--gray-400);">Вы ещё не откликались на тендеры.</p>';
+            return;
+        }
+        let html = '';
+        myResponses.forEach(item => {
+            const t = item.tender;
+            const r = item.response;
+            const statusLabel = r.status === 'pending' ? 'На рассмотрении' : r.status === 'chosen' ? 'Выбран' : r.status === 'declined' ? 'Отклонён' : r.status === 'paid' ? 'Оплачен' : r.status === 'completed' ? 'Завершён' : 'Неизвестно';
+            const services = getTenderServices(t);
+            const servicesHtml = services.map(s => `<span class="tag">${s.service}</span>`).join('');
+            const categoriesHtml = services.map(s => s.category).join(', ');
+
+            let deleteBtn = '';
+            if (r.status === 'pending' || r.status === 'declined' || r.status === 'completed') {
+                deleteBtn = `<button class="btn btn-danger btn-sm delete-response" data-tender="${t.id}" style="margin-left:8px;">Удалить</button>`;
+            }
+
+            html += `
+                <div class="tender-item">
+                    <div class="tender-header">
+                        <span class="tender-title">${services.map(s => s.service).join(', ')}</span>
+                        <span class="tender-status ${t.status}">${t.status === 'open' ? 'Открыт' : t.status === 'waiting_payment' ? 'Ожидает оплаты' : t.status === 'in_progress' ? 'В работе' : 'Завершён'}</span>
+                    </div>
+                    <div class="services-list">${servicesHtml}</div>
+                    <div class="tender-meta">${categoriesHtml} • ${t.city} • Ваша цена: ${r.price.toLocaleString()} ₽</div>
+                    ${r.comment ? `<div style="font-size:14px; color:var(--gray-600);">Комментарий: ${r.comment}</div>` : ''}
+                    <div style="margin-top:8px;">
+                        <span class="response-status ${r.status}">${statusLabel}</span>
+                        ${r.status === 'chosen' && t.status === 'waiting_payment' ? `<button class="btn btn-green btn-sm pay-commission-specialist" data-tender="${t.id}" style="margin-left:8px;">Оплатить 2%</button>` : ''}
+                        ${r.status === 'paid' ? `<span style="font-size:13px; color:var(--green);">Оплачено, чат доступен</span>` : ''}
+                        ${r.status === 'completed' ? `<span style="font-size:13px; color:var(--green);">Работы завершены</span>` : ''}
+                        ${deleteBtn}
+                    </div>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+
+        document.querySelectorAll('.delete-response').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const tenderId = parseInt(this.dataset.tender);
+                deleteResponse(tenderId);
+            });
+        });
+
+        document.querySelectorAll('.pay-commission-specialist').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tenderId = parseInt(this.dataset.tender);
+                payCommission(tenderId);
+            });
+        });
+    }
+
+    // ===== ОПЛАТА КОМИССИИ (тендеры, 2%) =====
+    function payCommission(tenderId) {
+        try {
+            const currentUser = getCurrentUser();
+            if (!currentUser || currentUser.role !== 'specialist') {
+                alert('Вы не авторизованы как специалист');
+                return;
+            }
+            const users = getUsers();
+            const specialist = users.find(u => u.id === currentUser.id);
+            if (!specialist) {
+                alert('Специалист не найден в базе пользователей');
+                return;
+            }
+            const tenders = getTenders();
+            const t = tenders.find(t => t.id === tenderId);
+            if (!t) {
+                alert('Тендер не найден');
+                return;
+            }
+            if (!t.responses || !Array.isArray(t.responses)) {
+                alert('У тендера нет откликов');
+                return;
+            }
+            const resp = t.responses.find(r => r.specialistId === currentUser.id);
+            if (!resp) {
+                alert('Ваш отклик не найден');
+                return;
+            }
+            if (resp.status !== 'chosen' || t.status !== 'waiting_payment') {
+                alert('Оплата уже была произведена или статус не позволяет оплатить');
+                return;
+            }
+
+            const balance = Number(specialist.balance) || 0;
+            const price = Number(resp.price) || 0;
+            const commission = Math.round(price * 0.02);
+            if (balance < commission) {
+                alert(`Недостаточно средств на балансе. Нужно ${commission} ₽, доступно ${balance} ₽.`);
+                return;
+            }
+
+            specialist.balance = balance - commission;
+            const idx = users.findIndex(u => u.id === specialist.id);
+            users[idx] = specialist;
+            saveUsers(users);
+            setCurrentUser(specialist);
+            document.getElementById('balanceDisplay').textContent = specialist.balance;
+
+            resp.status = 'paid';
+            t.status = 'in_progress';
+
+            let chats = getChats();
+            const chatKey = 'tender_' + t.id;
+            if (!chats[chatKey]) {
+                chats[chatKey] = { messages: [] };
+            }
+            saveChats(chats);
+            saveTenders(tenders);
+
+            alert(`Оплата ${commission} ₽ прошла успешно! Чат открыт.`);
+            window.location.href = `chat.html?chat=${chatKey}`;
+        } catch (error) {
+            console.error('Ошибка в payCommission:', error);
+            alert('Произошла ошибка при оплате: ' + error.message);
+        }
+    }
+
+    // ===== ЗАЯВКИ ОТ КЛИЕНТОВ =====
+    function renderSpecialistRequests() {
+        const container = document.getElementById('specialistRequestsList');
+        const requests = getRequests().filter(r => r.specialistId === user.id);
+        if (requests.length === 0) {
+            container.innerHTML = '<p style="color:var(--gray-400);">Нет заявок от клиентов.</p>';
+            return;
+        }
+        let html = '';
+        requests.forEach(r => {
+            const statusMap = {
+                'pending': 'Ожидает ответа',
+                'accepted': 'Принята',
+                'paid': 'Оплачена',
+                'completed': 'Завершена',
+                'declined': 'Отклонена'
+            };
+            const statusClass = r.status;
+            const servicesHtml = r.services.map(s => `<span class="tag">${s.service}</span>`).join('');
+            const categoriesHtml = r.services.map(s => s.category).join(', ');
+
+            let actionsHtml = '';
+            if (r.status === 'pending') {
+                actionsHtml = `
+                    <button class="btn btn-success btn-sm accept-request" data-id="${r.id}">Принять</button>
+                    <button class="btn btn-danger btn-sm delete-request" data-id="${r.id}">Отклонить</button>
+                `;
+            } else if (r.status === 'accepted') {
+                actionsHtml = `<button class="btn btn-success btn-sm pay-request-specialist" data-id="${r.id}">Оплатить 500 ₽</button>`;
+            } else if (r.status === 'paid' || r.status === 'completed') {
+                actionsHtml = `<button class="btn btn-primary btn-sm go-chat" data-chat="request_${r.id}">Чат</button>`;
+            }
+            if (r.status === 'completed' || r.status === 'declined') {
+                actionsHtml += `<button class="btn btn-danger btn-sm delete-request" data-id="${r.id}" style="margin-left:8px;">Удалить</button>`;
+            }
+
+            html += `
+                <div class="tender-item">
+                    <div class="tender-header">
+                        <span class="tender-title">${r.services.map(s => s.service).join(', ')}</span>
+                        <span class="tender-status ${statusClass}">${statusMap[r.status]}</span>
+                    </div>
+                    <div class="services-list">${servicesHtml}</div>
+                    <div class="tender-meta">${categoriesHtml} • ${r.city} • ${r.budget ? r.budget.toLocaleString() + ' ₽' : 'Бюджет не указан'}</div>
+                    <div style="font-size:14px; color:var(--gray-600);">${r.description}</div>
+                    <div style="font-size:13px; color:var(--gray-400); margin-top:6px;">Клиент: ${r.customerName}</div>
+                    <div style="margin-top:8px;">${actionsHtml}</div>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+
+        document.querySelectorAll('.accept-request').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = parseInt(this.dataset.id);
+                acceptRequest(id);
+            });
+        });
+        document.querySelectorAll('.delete-request').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const id = parseInt(this.dataset.id);
+                deleteRequest(id);
+            });
+        });
+        document.querySelectorAll('.go-chat').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const chatKey = this.dataset.chat;
+                window.location.href = `chat.html?chat=${chatKey}`;
+            });
+        });
+        document.querySelectorAll('.pay-request-specialist').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = parseInt(this.dataset.id);
+                payRequestCommission(id);
+            });
+        });
+    }
+
+    // ===== ОПЛАТА 500 ₽ СПЕЦИАЛИСТОМ (заявки) =====
+    function payRequestCommission(requestId) {
+        try {
+            const currentUser = getCurrentUser();
+            if (!currentUser || currentUser.role !== 'specialist') {
+                alert('Вы не авторизованы как специалист');
+                return;
+            }
+            const users = getUsers();
+            const specialist = users.find(u => u.id === currentUser.id);
+            if (!specialist) {
+                alert('Специалист не найден в базе пользователей');
+                return;
+            }
+            const requests = getRequests();
+            const r = requests.find(req => req.id === requestId);
+            if (!r) {
+                alert('Заявка не найдена');
+                return;
+            }
+            if (r.status !== 'accepted') {
+                alert('Заявка не может быть оплачена');
+                return;
+            }
+            const balance = Number(specialist.balance) || 0;
+            if (balance < 500) {
+                alert(`Недостаточно средств на балансе. Нужно 500 ₽, доступно ${balance} ₽.`);
+                return;
+            }
+            specialist.balance = balance - 500;
+            const idx = users.findIndex(u => u.id === specialist.id);
+            users[idx] = specialist;
+            saveUsers(users);
+            setCurrentUser(specialist);
+            document.getElementById('balanceDisplay').textContent = specialist.balance;
+
+            r.status = 'paid';
+            saveRequests(requests);
+
+            let chats = getChats();
+            const chatKey = 'request_' + r.id;
+            if (!chats[chatKey]) {
+                chats[chatKey] = { messages: [] };
+            }
+            saveChats(chats);
+
+            alert('Оплата 500 ₽ прошла успешно! Чат открыт.');
+            window.location.href = `chat.html?chat=${chatKey}`;
+        } catch (error) {
+            console.error('Ошибка в payRequestCommission:', error);
+            alert('Произошла ошибка при оплате: ' + error.message);
+        }
+    }
+
+    function acceptRequest(requestId) {
+        const requests = getRequests();
+        const r = requests.find(req => req.id === requestId);
+        if (!r) return;
+        if (r.status !== 'pending') return;
+        r.status = 'accepted';
+        saveRequests(requests);
+        renderSpecialistRequests();
+        alert('Заявка принята. Теперь необходимо оплатить комиссию 500 ₽.');
+    }
+
+    function deleteRequest(requestId) {
+        if (!confirm('Удалить эту заявку?')) return;
+        let requests = getRequests();
+        const idx = requests.findIndex(r => r.id === requestId);
+        if (idx === -1) return;
+        const r = requests[idx];
+        if (r.status !== 'pending' && r.status !== 'declined' && r.status !== 'completed') {
+            alert('Нельзя удалить заявку в этом статусе');
+            return;
+        }
+        requests.splice(idx, 1);
+        saveRequests(requests);
+        renderSpecialistRequests();
+        alert('Заявка удалена');
+    }
+
+    // ===== ЧАТЫ =====
+    function renderSpecialistChats() {
+        const container = document.getElementById('specialistChatsList');
+        const chats = getChats();
+        const chatKeys = Object.keys(chats);
+        if (chatKeys.length === 0) {
+            container.innerHTML = '<p style="color:var(--gray-400);">У вас пока нет активных чатов.</p>';
+            return;
+        }
+        const tenders = getTenders();
+        const requests = getRequests();
+        let html = '';
+        chatKeys.forEach(key => {
+            let title = '';
+            let link = `chat.html?chat=${key}`;
+            if (key.startsWith('tender_')) {
+                const tenderId = parseInt(key.split('_')[1]);
+                const t = tenders.find(t => t.id === tenderId);
+                if (t && (t.customerId === user.id || (t.responses && t.responses.some(r => r.specialistId === user.id)))) {
+                    title = t.services.map(s => s.service).join(', ');
+                }
+            } else if (key.startsWith('request_')) {
+                const requestId = parseInt(key.split('_')[1]);
+                const r = requests.find(req => req.id === requestId);
+                if (r && (r.customerId === user.id || r.specialistId === user.id)) {
+                    title = r.services.map(s => s.service).join(', ');
+                }
+            }
+            if (!title) return;
+            const lastMsg = chats[key].messages.length > 0 ? chats[key].messages[chats[key].messages.length-1] : null;
+            html += `
+                <div class="tender-item" style="cursor:pointer;" onclick="window.location.href='${link}'">
+                    <div class="tender-header">
+                        <span class="tender-title">${title}</span>
+                        <span style="font-size:13px; color:var(--gray-400);">${new Date(chats[key].messages[0]?.timestamp || Date.now()).toLocaleDateString()}</span>
+                    </div>
+                    <div style="font-size:14px; color:var(--gray-500);">${lastMsg ? lastMsg.text : 'Нет сообщений'}</div>
+                </div>
+            `;
+        });
+        container.innerHTML = html || '<p style="color:var(--gray-400);">Нет активных чатов.</p>';
+    }
+
+    // ===== КНОПКА ДОБАВЛЕНИЯ/УДАЛЕНИЯ ИЗ КАТАЛОГА =====
+    document.getElementById('toggleCatalogBtn').addEventListener('click', function() {
+        if (!user.experience || !user.priceList || !user.age || !user.about) {
+            alert('Для добавления в каталог необходимо заполнить все поля профиля (опыт, прайс-лист, возраст, информация о себе).');
+            return;
+        }
+        const users = getUsers();
+        const idx = users.findIndex(u => u.id === user.id);
+        if (idx === -1) return;
+        const newStatus = !users[idx].inCatalog;
+        users[idx].inCatalog = newStatus;
+        saveUsers(users);
+        Object.assign(user, users[idx]);
+        setCurrentUser(user);
+        loadProfileData();
+        alert(newStatus ? 'Профиль добавлен в каталог' : 'Профиль убран из каталога');
+    });
+
+    // ===== МОБИЛЬНОЕ МЕНЮ =====
+    document.getElementById('mobileToggle').addEventListener('click', function() {
+        document.getElementById('mainNav').classList.toggle('open');
+    });
+
+    // ===== ОТЗЫВЫ: РЕНДЕРИНГ И ОБРАБОТКА =====
+    function renderReviews() {
+        const container = document.getElementById('reviewsContainer');
+        if (!container) return;
+        const reviews = getReviews();
+        const myReviews = reviews.filter(r => r.authorId === user.id);
+        const reviewsAboutMe = reviews.filter(r => r.targetId === user.id);
+
+        let html = '';
+        if (myReviews.length === 0 && reviewsAboutMe.length === 0) {
+            html = '<p style="color:var(--gray-400);">У вас пока нет отзывов.</p>';
+        } else {
+            if (reviewsAboutMe.length > 0) {
+                html += `<h4 style="margin-top:12px;">Отзывы обо мне</h4>`;
+                reviewsAboutMe.forEach(r => {
+                    const author = getUsers().find(u => u.id === r.authorId);
+                    html += `
+                        <div class="review-item">
+                            <div class="review-header">
+                                <span class="review-author">${author ? author.fullName : 'Пользователь'}</span>
+                                <span class="review-rating">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</span>
+                                <span class="review-date">${new Date(r.createdAt).toLocaleDateString()}</span>
+                            </div>
+                            <div class="review-text">${r.text}</div>
+                        </div>
+                    `;
+                });
+            }
+            if (myReviews.length > 0) {
+                html += `<h4 style="margin-top:16px;">Мои отзывы</h4>`;
+                myReviews.forEach(r => {
+                    const target = getUsers().find(u => u.id === r.targetId);
+                    html += `
+                        <div class="review-item">
+                            <div class="review-header">
+                                <span class="review-author">${target ? target.fullName : 'Пользователь'}</span>
+                                <span class="review-rating">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</span>
+                                <span class="review-date">${new Date(r.createdAt).toLocaleDateString()}</span>
+                            </div>
+                            <div class="review-text">${r.text}</div>
+                        </div>
+                    `;
+                });
+            }
+        }
+        container.innerHTML = html;
+
+        // Форма написания отзыва
+        const writeSection = document.getElementById('writeReviewSection');
+        if (!writeSection) return;
+        const currentUser = getCurrentUser();
+        const reviewsAll = getReviews();
+        const possibleTargets = [];
+
+        if (currentUser.role === 'customer') {
+            const tenders = getTenders().filter(t => t.customerId === currentUser.id && t.status === 'closed');
+            const requests = getRequests().filter(r => r.customerId === currentUser.id && r.status === 'completed');
+            tenders.forEach(t => {
+                if (t.specialistId) {
+                    const specialist = getUsers().find(u => u.id === t.specialistId);
+                    if (specialist) {
+                        const alreadyReviewed = reviewsAll.some(r => r.authorId === currentUser.id && r.targetId === specialist.id && r.tenderId === t.id);
+                        if (!alreadyReviewed) {
+                            possibleTargets.push({ id: specialist.id, name: specialist.fullName, tenderId: t.id, requestId: null });
+                        }
+                    }
+                }
+            });
+            requests.forEach(r => {
+                const specialist = getUsers().find(u => u.id === r.specialistId);
+                if (specialist) {
+                    const alreadyReviewed = reviewsAll.some(rev => rev.authorId === currentUser.id && rev.targetId === specialist.id && rev.requestId === r.id);
+                    if (!alreadyReviewed) {
+                        possibleTargets.push({ id: specialist.id, name: specialist.fullName, tenderId: null, requestId: r.id });
+                    }
+                }
+            });
+        } else if (currentUser.role === 'specialist') {
+            const tenders = getTenders().filter(t => t.specialistId === currentUser.id && t.status === 'closed');
+            const requests = getRequests().filter(r => r.specialistId === currentUser.id && r.status === 'completed');
+            tenders.forEach(t => {
+                const customer = getUsers().find(u => u.id === t.customerId);
+                if (customer) {
+                    const alreadyReviewed = reviewsAll.some(r => r.authorId === currentUser.id && r.targetId === customer.id && r.tenderId === t.id);
+                    if (!alreadyReviewed) {
+                        possibleTargets.push({ id: customer.id, name: customer.fullName, tenderId: t.id, requestId: null });
+                    }
+                }
+            });
+            requests.forEach(r => {
+                const customer = getUsers().find(u => u.id === r.customerId);
+                if (customer) {
+                    const alreadyReviewed = reviewsAll.some(rev => rev.authorId === currentUser.id && rev.targetId === customer.id && rev.requestId === r.id);
+                    if (!alreadyReviewed) {
+                        possibleTargets.push({ id: customer.id, name: customer.fullName, tenderId: null, requestId: r.id });
+                    }
+                }
+            });
+        }
+
+        const targetSelect = document.getElementById('reviewTarget');
+        targetSelect.innerHTML = '<option value="">Выберите пользователя</option>';
+        possibleTargets.forEach(p => {
+            const opt = document.createElement('option');
+            opt.value = JSON.stringify({ targetId: p.id, tenderId: p.tenderId || null, requestId: p.requestId || null });
+            opt.textContent = p.name + (p.tenderId ? ' (тендер)' : ' (заявка)');
+            targetSelect.appendChild(opt);
+        });
+
+        writeSection.style.display = possibleTargets.length > 0 ? 'block' : 'none';
+    }
+
+    // Отправка отзыва
+    document.getElementById('submitReviewBtn')?.addEventListener('click', function() {
+        const targetData = document.getElementById('reviewTarget').value;
+        if (!targetData) { alert('Выберите пользователя'); return; }
+        const { targetId, tenderId, requestId } = JSON.parse(targetData);
+        const rating = parseInt(document.getElementById('reviewRating').value);
+        const text = document.getElementById('reviewText').value.trim();
+        if (!text) { alert('Введите текст отзыва'); return; }
+
+        const reviews = getReviews();
+        const newReview = {
+            id: Date.now(),
+            authorId: user.id,
+            targetId: targetId,
+            rating: rating,
+            text: text,
+            tenderId: tenderId || null,
+            requestId: requestId || null,
+            createdAt: new Date().toISOString()
+        };
+        reviews.push(newReview);
+        saveReviews(reviews);
+        alert('Отзыв отправлен!');
+        document.getElementById('reviewText').value = '';
+        renderReviews();
+        updateProfileRating();
+    });
+
+    // ===== ОБНОВЛЕНИЕ РЕЙТИНГА =====
+    function updateProfileRating() {
+        const ratingData = getUserRating(user.id);
+        const starsEl = document.querySelector('.profile-rating .stars');
+        const reviewsEl = document.querySelector('.profile-rating .reviews');
+        const ratingTextEl = document.querySelector('.profile-rating .rating-text');
+        if (starsEl) {
+            const full = Math.round(ratingData.rating);
+            starsEl.textContent = '★'.repeat(full) + '☆'.repeat(5 - full);
+        }
+        if (reviewsEl) {
+            reviewsEl.textContent = ratingData.count + ' отзывов';
+        }
+        if (ratingTextEl) {
+            ratingTextEl.textContent = ratingData.rating.toFixed(2);
+        }
+    }
+
+    // ===== ИНИЦИАЛИЗАЦИЯ =====
+    document.addEventListener('DOMContentLoaded', function() {
+        updateHeader();
+        handleRoleSwitch();
+        populateCategorySelect();
+        loadProfileData();
+        const activeTab = document.querySelector('.sidebar ul li.active');
+        if (activeTab && activeTab.dataset.tab === 'reviews') {
+            renderReviews();
+            updateProfileRating();
+        }
+        updateProfileRating();
+        if (activeTab) {
+            const tabId = activeTab.dataset.tab;
+            if (tabId === 'responses') renderSpecialistResponses();
+            else if (tabId === 'requests') renderSpecialistRequests();
+            else if (tabId === 'messages') renderSpecialistChats();
+            else if (tabId === 'favorites') renderFavorites();
+        }
+    });
+</script>
+</body>
+</html>

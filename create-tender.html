@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Создать тендер — MikaMaster</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet" />
+    <style>
+        /* ... (оставляем стили без изменений, как в предыдущей версии) ... */
+        * { margin:0; padding:0; box-sizing:border-box; }
+        :root {
+            --blue: #0f2b4b;
+            --blue-light: #1a3f6a;
+            --blue-pale: #e8eef6;
+            --green: #3b8c5e;
+            --green-light: #e6f4ed;
+            --green-bright: #4caf7a;
+            --gray-50: #f8f9fb;
+            --gray-100: #f0f2f5;
+            --gray-200: #e2e6ed;
+            --gray-300: #c9d0db;
+            --gray-400: #a0aab8;
+            --gray-500: #6b7a8d;
+            --gray-600: #4a5a6e;
+            --gray-700: #2d3a4f;
+            --gray-800: #1a2538;
+            --white: #ffffff;
+            --radius: 20px;
+            --radius-sm: 12px;
+            --shadow-card: 0 4px 24px rgba(15, 43, 75, 0.06);
+            --shadow-hover: 0 12px 48px rgba(15, 43, 75, 0.10);
+            --transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --font: 'Inter', sans-serif;
+        }
+        body { font-family: var(--font); background: var(--white); color: var(--gray-700); line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-weight: 600; font-size: 16px; padding: 14px 32px; border: none; border-radius: var(--radius-sm); cursor: pointer; transition: var(--transition); background: var(--white); color: var(--blue); box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+        .btn-primary { background: var(--blue); color: var(--white); box-shadow: 0 4px 16px rgba(15,43,75,0.20); }
+        .btn-primary:hover { background: var(--blue-light); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(15,43,75,0.25); }
+        .btn-outline { background: transparent; color: var(--blue); border: 1.5px solid var(--gray-200); }
+        .btn-outline:hover { border-color: var(--blue); background: var(--blue-pale); }
+        .btn-sm { padding: 10px 20px; font-size: 14px; }
+        .btn-danger { background: #c62828; color: white; }
+        .btn-danger:hover { background: #b71c1c; }
+
+        .header { position: sticky; top:0; z-index:100; background: rgba(255,255,255,0.88); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(226,230,237,0.5); padding:14px 0; }
+        .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+        .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 22px; color: var(--blue); letter-spacing: -0.02em; flex-shrink:0; }
+        .logo-icon { width: 38px; height: 38px; background: var(--blue); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 16px; }
+        .logo span { color: var(--green); }
+        .nav { display: flex; align-items: center; gap: 28px; }
+        .nav a { font-size: 15px; font-weight: 500; color: var(--gray-500); transition: var(--transition); position: relative; }
+        .nav a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--blue); transition: var(--transition); border-radius: 2px; }
+        .nav a:hover { color: var(--blue); }
+        .nav a:hover::after { width: 100%; }
+        .nav .btn { padding: 10px 20px; font-size: 14px; }
+        .nav .btn-primary { background: var(--blue); color: white; }
+        .nav .icon-link { font-size: 20px; color: var(--gray-500); transition: var(--transition); }
+        .nav .icon-link:hover { color: var(--blue); }
+        .mobile-toggle { display: none; flex-direction: column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+        .mobile-toggle span { display:block; width:26px; height:2.5px; background:var(--blue); border-radius:4px; transition:var(--transition); }
+
+        .form-container { max-width: 720px; margin: 40px auto 60px; background: var(--white); border-radius: var(--radius); padding: 40px 36px; border: 1px solid var(--gray-100); box-shadow: var(--shadow-card); }
+        .form-container h1 { font-size: 28px; font-weight: 700; color: var(--gray-800); margin-bottom: 24px; }
+        .form-group { margin-bottom: 22px; }
+        .form-group label { display: block; font-weight: 500; font-size: 15px; color: var(--gray-700); margin-bottom: 5px; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 16px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 15px; font-family: inherit; transition: 0.3s; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(15,43,75,0.08); }
+        .form-group textarea { min-height: 120px; resize: vertical; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .service-entry { display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px; align-items: end; margin-bottom: 12px; background: var(--gray-50); padding: 16px; border-radius: var(--radius-sm); border: 1px solid var(--gray-200); }
+        .service-entry .form-group { margin-bottom: 0; }
+        .service-entry .btn-remove { background: none; border: none; font-size: 24px; color: var(--gray-400); cursor: pointer; padding: 8px; line-height: 1; }
+        .service-entry .btn-remove:hover { color: #c62828; }
+        .add-service-btn { margin-top: 8px; }
+
+        .footer { padding: 56px 0 40px; background: var(--white); border-top: 1px solid var(--gray-100); }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid var(--gray-100); }
+        .footer-brand .logo { margin-bottom: 12px; }
+        .footer-brand p { font-size: 14px; color: var(--gray-400); max-width: 340px; line-height: 1.7; }
+        .footer-col h4 { font-size: 14px; font-weight: 600; color: var(--gray-700); margin-bottom: 16px; letter-spacing: 0.02em; }
+        .footer-col ul { list-style: none; padding: 0; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col ul li a { font-size: 14px; color: var(--gray-400); transition: var(--transition); }
+        .footer-col ul li a:hover { color: var(--blue); }
+        .footer-bottom { padding-top: 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--gray-400); }
+
+        @media (max-width: 768px) {
+            .nav { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--white); padding: 24px; border-bottom: 1px solid var(--gray-100); box-shadow: var(--shadow-card); gap: 16px; align-items: stretch; }
+            .nav.open { display: flex; }
+            .mobile-toggle { display: flex; }
+            .form-row { grid-template-columns: 1fr; }
+            .service-entry { grid-template-columns: 1fr; }
+            .form-container { padding: 24px 20px; }
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="container header-inner">
+        <a href="index-customer.html" class="logo">
+            <span class="logo-icon">M</span>
+            Mika<span>Master</span>
+        </a>
+        <nav class="nav" id="mainNav">
+            <a href="#">Каталог</a>
+            <a href="about.html">О нас</a>
+            <a href="create-tender.html" style="font-weight:600; color:var(--blue);">Создать тендер</a>
+            <a href="index-specialist.html">Специалистам</a>
+            <a href="login.html?action=login" class="btn btn-outline btn-sm" id="headerLoginBtn">Вход</a>
+            <a href="login.html?action=register" class="btn btn-primary btn-sm" id="headerRegisterBtn">Регистрация</a>
+            <a href="#" class="icon-link" id="headerFavorites" style="display:none;">❤️</a>
+            <a href="#" class="icon-link" id="headerMessages" style="display:none;">💬</a>
+            <a href="#" class="icon-link" id="headerNotifications" style="display:none;">🔔</a>
+            <a href="#" id="headerProfileLink" style="display:none; font-weight:600;">Профиль</a>
+        </nav>
+        <button class="mobile-toggle" id="mobileToggle"><span></span><span></span><span></span></button>
+    </div>
+</header>
+
+<div class="container">
+    <div class="form-container">
+        <h1>Разместите тендер на работы</h1>
+        <form id="tenderForm">
+            <div id="servicesContainer">
+                <!-- Одна запись по умолчанию будет добавлена JS -->
+            </div>
+            <button type="button" class="btn btn-outline add-service-btn" id="addServiceBtn">+ Добавить ещё услугу</button>
+
+            <div class="form-group" style="margin-top:22px;">
+                <label>Описание работы (что нужно сделать?)</label>
+                <textarea id="tenderDescription" placeholder="Подробно опишите задачу, материалы, объём работ..." required></textarea>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Город</label>
+                    <select id="tenderCity" required>
+                        <option value="">Выберите город</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Примерный бюджет (₽)</label>
+                    <input type="number" id="tenderBudget" placeholder="300000" min="1" required />
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;">Создать тендер</button>
+        </form>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="index-customer.html" class="logo"><span class="logo-icon">M</span>Mika<span>Master</span></a>
+                <p>Сервис по поиску проверенных специалистов. Основан Константином Акимовым.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Навигация</h4>
+                <ul><li><a href="#">Каталог</a></li><li><a href="create-tender.html">Создать тендер</a></li><li><a href="about.html">О нас</a></li></ul>
+            </div>
+            <div class="footer-col">
+                <h4>Личный кабинет</h4>
+                <ul><li><a href="login.html?action=login">Вход</a></li><li><a href="login.html?action=register">Регистрация</a></li><li><a href="index-specialist.html">Специалистам</a></li></ul>
+            </div>
+        </div>
+        <div class="footer-bottom"><span>© 2026 MikaMaster. Все права защищены.</span><span><a href="#">Политика</a> · <a href="#">Соглашение</a></span></div>
+    </div>
+</footer>
+
+<script>
+    // ===== Данные категорий и услуг из каталога =====
+    const servicesByCategory = {
+        "Архитектура и проектирование": [
+            "Архитектурное проектирование домов",
+            "Дизайн-проект интерьера",
+            "3D-визуализация интерьера",
+            "Обмерный план помещения",
+            "Перепланировка и согласование",
+            "Инженерные системы (проектирование)",
+            "Ландшафтный дизайн и проектирование"
+        ],
+        "Строительство домов и зданий": [
+            "Строительство домов «под ключ»",
+            "Каркасное строительство",
+            "Строительство из кирпича, газобетона, пеноблоков",
+            "Монолитное строительство",
+            "Строительство бань и беседок",
+            "Пристройки и веранды",
+            "Коммерческое строительство (офисы, склады, магазины)"
+        ],
+        "Фундаментные и земляные работы": [
+            "Строительство ленточного, столбчатого, монолитного фундамента",
+            "Укрепление и ремонт фундамента",
+            "Устройство отмостки",
+            "Гидроизоляция и утепление фундамента",
+            "Копка котлована",
+            "Земляные работы"
+        ],
+        "Кровельные работы": [
+            "Монтаж кровли из металлочерепицы, профнастила, мягкой черепицы",
+            "Монтаж мембранной и наплавляемой кровли",
+            "Ремонт и замена кровли",
+            "Утепление и гидроизоляция кровли",
+            "Монтаж водосточных систем",
+            "Монтаж мансардных окон"
+        ],
+        "Отделочные работы (внутренние)": [
+            "Штукатурка стен и потолков",
+            "Шпаклёвка и грунтовка",
+            "Малярные работы (покраска стен, потолков)",
+            "Декоративная штукатурка",
+            "Поклейка обоев всех видов",
+            "Поклейка фотообоев",
+            "Стяжка пола",
+            "Укладка ламината, паркета, инженерной доски",
+            "Укладка ковролина и линолеума",
+            "Укладка плитки на пол и стены",
+            "Укладка мозаики и керамогранита",
+            "Монтаж натяжных потолков",
+            "Монтаж подвесных потолков из гипсокартона",
+            "Монтаж реечных потолков",
+            "Отделка откосов",
+            "Монтаж декоративных элементов (лепнина, молдинги)",
+            "Комплексный ремонт квартир и домов"
+        ],
+        "Сантехнические работы": [
+            "Установка и замена ванн, душевых кабин, унитазов, раковин",
+            "Монтаж и замена труб водоснабжения и канализации",
+            "Установка смесителей и фильтров",
+            "Ремонт трубопровода",
+            "Сварка полиэтиленовых труб"
+        ],
+        "Электромонтажные работы": [
+            "Монтаж и замена электропроводки",
+            "Установка розеток, выключателей, щитков",
+            "Установка и подключение люстр, светильников",
+            "Монтаж систем «умный дом»",
+            "Электромонтаж в деревянных домах"
+        ],
+        "Окна, двери и балконы": [
+            "Установка и замена окон (ПВХ, деревянных, алюминиевых)",
+            "Остекление балконов и лоджий",
+            "Утепление балконов",
+            "Установка входных и межкомнатных дверей",
+            "Ремонт окон и балконов"
+        ],
+        "Мебель и столярные работы": [
+            "Сборка мебели",
+            "Ремонт и реставрация мебели",
+            "Изготовление кухонь, шкафов, мебели на заказ",
+            "Столярные работы (лестницы, перила, арки)",
+            "Установка плинтусов и наличников"
+        ],
+        "Фасадные и утеплительные работы": [
+            "Утепление фасадов",
+            "Монтаж вентилируемых фасадов",
+            "Штукатурка и покраска фасадов",
+            "Монтаж сайдинга",
+            "Утепление стен, полов, перекрытий"
+        ],
+        "Инженерные системы": [
+            "Монтаж и замена систем отопления (радиаторы, тёплый пол)",
+            "Монтаж котлов и бойлеров",
+            "Монтаж вентиляции и кондиционирования",
+            "Установка дымоходов",
+            "Монтаж систем водоснабжения и канализации",
+            "Установка насосных станций и фильтров",
+            "Монтаж септиков",
+            "Монтаж структурированных кабельных сетей (витая пара)",
+            "Установка видеонаблюдения и домофонов",
+            "Монтаж охранных и пожарных систем"
+        ],
+        "Демонтажные работы": [
+            "Демонтаж стен и перегородок",
+            "Демонтаж кровли",
+            "Демонтаж полов и покрытий",
+            "Демонтаж сантехники и труб",
+            "Вынос строительного мусора"
+        ],
+        "Ландшафт и благоустройство": [
+            "Благоустройство территории",
+            "Укладка тротуарной плитки, брусчатки",
+            "Монтаж заборов и ограждений",
+            "Устройство газонов и посадка растений",
+            "Монтаж систем полива и освещения участка"
+        ],
+        "Мелкий ремонт и услуги мастеров на час": [
+            "Услуги мастера на час (мелкий ремонт, установка)",
+            "Сборка мебели",
+            "Установка картин, полок, зеркал",
+            "Мелкий ремонт электроприборов",
+            "Установка бытовой техники"
+        ]
+    };
+
+    const categories = Object.keys(servicesByCategory);
+
+    // ===== Список городов =====
+    const cities = ["Москва","Санкт-Петербург","Новосибирск","Екатеринбург","Казань","Нижний Новгород","Челябинск","Красноярск","Самара","Уфа","Ростов-на-Дону","Омск","Краснодар","Воронеж","Пермь","Волгоград","Саратов","Тюмень","Тольятти","Ижевск","Барнаул","Ульяновск","Иркутск","Хабаровск","Ярославль","Владивосток","Махачкала","Томск","Оренбург","Кемерово","Новокузнецк","Рязань","Астрахань","Пенза","Липецк","Киров","Чебоксары","Калининград","Тула","Курск","Ставрополь","Сочи","Тверь","Белгород","Севастополь","Нижний Тагил","Владимир","Архангельск","Сургут","Чита"];
+
+    function populateCities() {
+        const select = document.getElementById('tenderCity');
+        cities.forEach(city => {
+            const opt = document.createElement('option');
+            opt.value = city;
+            opt.textContent = city;
+            select.appendChild(opt);
+        });
+    }
+
+    function createServiceEntry(categoryVal = '', serviceVal = '') {
+        const entry = document.createElement('div');
+        entry.className = 'service-entry';
+
+        const catGroup = document.createElement('div');
+        catGroup.className = 'form-group';
+        const catLabel = document.createElement('label');
+        catLabel.textContent = 'Категория';
+        const catSelect = document.createElement('select');
+        catSelect.className = 'service-category';
+        const defaultOpt = document.createElement('option');
+        defaultOpt.value = '';
+        defaultOpt.textContent = 'Выберите категорию';
+        catSelect.appendChild(defaultOpt);
+        categories.forEach(cat => {
+            const opt = document.createElement('option');
+            opt.value = cat;
+            opt.textContent = cat;
+            if (cat === categoryVal) opt.selected = true;
+            catSelect.appendChild(opt);
+        });
+        catGroup.appendChild(catLabel);
+        catGroup.appendChild(catSelect);
+
+        const servGroup = document.createElement('div');
+        servGroup.className = 'form-group';
+        const servLabel = document.createElement('label');
+        servLabel.textContent = 'Услуга';
+        const servSelect = document.createElement('select');
+        servSelect.className = 'service-select';
+        const optDefault = document.createElement('option');
+        optDefault.value = '';
+        optDefault.textContent = 'Сначала выберите категорию';
+        servSelect.appendChild(optDefault);
+        servGroup.appendChild(servLabel);
+        servGroup.appendChild(servSelect);
+
+        const removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.className = 'btn-remove';
+        removeBtn.innerHTML = '&times;';
+        removeBtn.title = 'Удалить услугу';
+
+        entry.appendChild(catGroup);
+        entry.appendChild(servGroup);
+        entry.appendChild(removeBtn);
+
+        // Заполнить услуги, если категория уже выбрана
+        if (categoryVal) {
+            const services = servicesByCategory[categoryVal] || [];
+            servSelect.innerHTML = '';
+            const optEmpty = document.createElement('option');
+            optEmpty.value = '';
+            optEmpty.textContent = 'Выберите услугу';
+            servSelect.appendChild(optEmpty);
+            services.forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = s;
+                opt.textContent = s;
+                if (s === serviceVal) opt.selected = true;
+                servSelect.appendChild(opt);
+            });
+        }
+
+        // Обработчик изменения категории
+        catSelect.addEventListener('change', function() {
+            const selectedCat = this.value;
+            const servSel = entry.querySelector('.service-select');
+            servSel.innerHTML = '';
+            if (!selectedCat) {
+                const opt = document.createElement('option');
+                opt.value = '';
+                opt.textContent = 'Сначала выберите категорию';
+                servSel.appendChild(opt);
+                return;
+            }
+            const services = servicesByCategory[selectedCat] || [];
+            const optEmpty = document.createElement('option');
+            optEmpty.value = '';
+            optEmpty.textContent = 'Выберите услугу';
+            servSel.appendChild(optEmpty);
+            services.forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = s;
+                opt.textContent = s;
+                servSel.appendChild(opt);
+            });
+        });
+
+        // Удаление записи
+        removeBtn.addEventListener('click', function() {
+            const container = document.getElementById('servicesContainer');
+            if (container.children.length <= 1) {
+                alert('Должна быть хотя бы одна услуга');
+                return;
+            }
+            entry.remove();
+        });
+
+        return entry;
+    }
+
+    // ===== Вспомогательные функции =====
+    function getUsers() {
+        const data = localStorage.getItem('mikamaster_users');
+        return data ? JSON.parse(data) : [];
+    }
+
+    function getCurrentUser() {
+        const data = localStorage.getItem('mikamaster_current_user');
+        return data ? JSON.parse(data) : null;
+    }
+
+    function getTenders() {
+        const data = localStorage.getItem('mikamaster_tenders');
+        return data ? JSON.parse(data) : [];
+    }
+
+    function saveTenders(tenders) {
+        localStorage.setItem('mikamaster_tenders', JSON.stringify(tenders));
+        // Для отладки
+        console.log('Тендеры сохранены:', tenders);
+    }
+
+    // ===== Обновление шапки =====
+    function updateHeader() {
+        const user = getCurrentUser();
+        const loginBtn = document.getElementById('headerLoginBtn');
+        const registerBtn = document.getElementById('headerRegisterBtn');
+        const favLink = document.getElementById('headerFavorites');
+        const msgLink = document.getElementById('headerMessages');
+        const notifLink = document.getElementById('headerNotifications');
+        const profileLink = document.getElementById('headerProfileLink');
+        if (user) {
+            if (user.role === 'customer') {
+                loginBtn.style.display = 'none';
+                registerBtn.style.display = 'none';
+                favLink.style.display = 'inline-block';
+                msgLink.style.display = 'inline-block';
+                notifLink.style.display = 'inline-block';
+                profileLink.style.display = 'inline-block';
+                profileLink.textContent = user.fullName.split(' ')[0] || 'Профиль';
+                profileLink.href = 'profile-customer.html';
+                msgLink.href = 'profile-customer.html?tab=messages';
+                notifLink.href = 'profile-customer.html?tab=notifications';
+                favLink.href = 'profile-customer.html?tab=favorites';
+            } else {
+                window.location.href = 'index-specialist.html';
+            }
+        } else {
+            loginBtn.style.display = 'inline-block';
+            registerBtn.style.display = 'inline-block';
+            favLink.style.display = 'none';
+            msgLink.style.display = 'none';
+            notifLink.style.display = 'none';
+            profileLink.style.display = 'none';
+        }
+    }
+
+    // ===== Обработка создания тендера =====
+    document.getElementById('tenderForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const user = getCurrentUser();
+        if (!user || user.role !== 'customer') {
+            alert('Только заказчики могут создавать тендеры. Войдите как заказчик.');
+            window.location.href = 'login.html?action=login';
+            return;
+        }
+
+        const serviceEntries = document.querySelectorAll('.service-entry');
+        const services = [];
+        let valid = true;
+        serviceEntries.forEach(entry => {
+            const cat = entry.querySelector('.service-category').value;
+            const serv = entry.querySelector('.service-select').value;
+            if (!cat || !serv) {
+                valid = false;
+                return;
+            }
+            services.push({ category: cat, service: serv });
+        });
+
+        if (!valid || services.length === 0) {
+            alert('Заполните все категории и услуги');
+            return;
+        }
+
+        const description = document.getElementById('tenderDescription').value.trim();
+        const city = document.getElementById('tenderCity').value;
+        const budget = parseInt(document.getElementById('tenderBudget').value);
+
+        if (!description || !city || !budget) {
+            alert('Заполните все поля');
+            return;
+        }
+
+        const tenders = getTenders();
+        const newTender = {
+            id: Date.now(),
+            customerId: user.id,
+            customerName: user.fullName,
+            services: services,
+            description,
+            city,
+            budget,
+            status: 'open',
+            createdAt: new Date().toISOString(),
+            specialistId: null,
+            responses: []
+        };
+        tenders.push(newTender);
+        saveTenders(tenders);
+        console.log('Тендер создан:', newTender);
+        alert('Тендер успешно создан!');
+        this.reset();
+        // Очистить и добавить одну запись по умолчанию
+        document.getElementById('servicesContainer').innerHTML = '';
+        addServiceEntry();
+        // Перенаправление с параметром для активации вкладки
+        window.location.href = 'profile-customer.html?tab=tenders';
+    });
+
+    // ===== Добавление новой записи услуги =====
+    function addServiceEntry(category = '', service = '') {
+        const container = document.getElementById('servicesContainer');
+        const entry = createServiceEntry(category, service);
+        container.appendChild(entry);
+    }
+
+    document.getElementById('addServiceBtn').addEventListener('click', function() {
+        addServiceEntry();
+    });
+
+    // ===== Мобильное меню =====
+    document.getElementById('mobileToggle').addEventListener('click', function() {
+        document.getElementById('mainNav').classList.toggle('open');
+    });
+
+    // ===== Инициализация =====
+    document.addEventListener('DOMContentLoaded', function() {
+        populateCities();
+        updateHeader();
+        // Добавить одну пустую запись
+        addServiceEntry();
+
+        // Если пользователь не заказчик, запрещаем доступ
+        const user = getCurrentUser();
+        if (user && user.role !== 'customer') {
+            alert('Эта страница только для заказчиков');
+            window.location.href = 'index-specialist.html';
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>О нас — MikaMaster</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
+    <style>
+        /* ===== Reset & Base ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --blue: #0f2b4b;
+            --blue-light: #1a3f6a;
+            --blue-pale: #e8eef6;
+            --green: #3b8c5e;
+            --green-light: #e6f4ed;
+            --green-bright: #4caf7a;
+            --gray-50: #f8f9fb;
+            --gray-100: #f0f2f5;
+            --gray-200: #e2e6ed;
+            --gray-300: #c9d0db;
+            --gray-400: #a0aab8;
+            --gray-500: #6b7a8d;
+            --gray-600: #4a5a6e;
+            --gray-700: #2d3a4f;
+            --gray-800: #1a2538;
+            --white: #ffffff;
+            --radius: 20px;
+            --radius-sm: 12px;
+            --shadow-card: 0 4px 24px rgba(15, 43, 75, 0.06);
+            --shadow-hover: 0 12px 48px rgba(15, 43, 75, 0.10);
+            --transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--white);
+            color: var(--gray-700);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== Buttons ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: var(--font);
+            font-weight: 600;
+            font-size: 16px;
+            padding: 14px 32px;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--white);
+            color: var(--blue);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+        }
+
+        .btn-primary {
+            background: var(--blue);
+            color: var(--white);
+            box-shadow: 0 4px 16px rgba(15, 43, 75, 0.20);
+        }
+        .btn-primary:hover {
+            background: var(--blue-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(15, 43, 75, 0.25);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--blue);
+            border: 1.5px solid var(--gray-200);
+        }
+        .btn-outline:hover {
+            border-color: var(--blue);
+            background: var(--blue-pale);
+        }
+
+        .btn-sm {
+            padding: 10px 22px;
+            font-size: 14px;
+        }
+
+        /* ===== Typography ===== */
+        .title-xl {
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1.12;
+            color: var(--gray-800);
+        }
+
+        .title-lg {
+            font-size: clamp(28px, 3.2vw, 40px);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.18;
+            color: var(--gray-800);
+        }
+
+        .title-md {
+            font-size: clamp(20px, 2vw, 28px);
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            line-height: 1.3;
+            color: var(--gray-800);
+        }
+
+        .text-lg {
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--gray-500);
+        }
+
+        .text-md {
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--gray-500);
+        }
+
+        .text-sm {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--gray-400);
+        }
+
+        .label {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            color: var(--green);
+            background: var(--green-light);
+            padding: 4px 14px;
+            border-radius: 100px;
+            margin-bottom: 16px;
+        }
+
+        .label-blue {
+            background: var(--blue-pale);
+            color: var(--blue);
+        }
+
+        /* ===== Header ===== */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(226, 230, 237, 0.5);
+            padding: 14px 0;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 22px;
+            color: var(--blue);
+            letter-spacing: -0.02em;
+            flex-shrink: 0;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            background: var(--blue);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 16px;
+        }
+
+        .logo span {
+            color: var(--green);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav a {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--gray-500);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--blue);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .nav a:hover {
+            color: var(--blue);
+        }
+        .nav a:hover::after {
+            width: 100%;
+        }
+
+        .nav .btn {
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+
+        .nav .btn-primary {
+            background: var(--blue);
+            color: white;
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .mobile-toggle span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: var(--blue);
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        /* ===== Hero ===== */
+        .hero {
+            padding: 60px 0 72px;
+            background: var(--white);
+        }
+
+        .hero-content {
+            max-width: 720px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero-content .title-xl {
+            margin-bottom: 16px;
+        }
+
+        .hero-content .title-xl .highlight {
+            color: var(--blue);
+            position: relative;
+        }
+
+        .hero-content .title-xl .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--green-light);
+            border-radius: 4px;
+            z-index: -1;
+        }
+
+        .hero-text {
+            font-size: 19px;
+            color: var(--gray-500);
+            max-width: 600px;
+            margin: 0 auto 24px;
+            line-height: 1.7;
+        }
+
+        /* ===== Stats ===== */
+        .stats {
+            padding: 0 0 72px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 32px;
+            margin-top: 16px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border: 1px solid var(--gray-100);
+            border-radius: var(--radius);
+            padding: 32px 24px;
+            text-align: center;
+            box-shadow: var(--shadow-card);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-3px);
+        }
+
+        .stat-card .number {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--blue);
+            line-height: 1.1;
+            margin-bottom: 6px;
+        }
+
+        .stat-card .number .green {
+            color: var(--green);
+        }
+
+        .stat-card .desc {
+            font-size: 15px;
+            color: var(--gray-500);
+        }
+
+        /* ===== About Company ===== */
+        .about-company {
+            padding: 0 0 72px;
+        }
+
+        .about-company .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .about-company .text-content .title-lg {
+            margin-bottom: 16px;
+        }
+
+        .about-company .text-content p {
+            margin-bottom: 16px;
+            color: var(--gray-500);
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .about-company .text-content .highlight-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0 0;
+        }
+
+        .about-company .text-content .highlight-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+            font-size: 15px;
+            color: var(--gray-600);
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .about-company .text-content .highlight-list li:last-child {
+            border-bottom: none;
+        }
+
+        .about-company .text-content .highlight-list .check {
+            color: var(--green);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .about-company .visual {
+            background: var(--blue-pale);
+            border-radius: var(--radius);
+            padding: 40px 32px;
+            border: 1px solid var(--gray-100);
+            text-align: center;
+        }
+
+        .about-company .visual .big-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        .about-company .visual h4 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--blue);
+            margin-bottom: 4px;
+        }
+
+        .about-company .visual .sub {
+            color: var(--gray-500);
+            font-size: 14px;
+        }
+
+        /* ===== Founder ===== */
+        .founder {
+            padding: 72px 0;
+            background: var(--blue);
+            color: var(--white);
+        }
+
+        .founder .container {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .founder .label {
+            background: rgba(255, 255, 255, 0.12);
+            color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .founder h2 {
+            font-size: clamp(28px, 3vw, 38px);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .founder .subtitle {
+            font-size: 17px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .founder-creds {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 24px;
+            margin: 24px 0 28px;
+        }
+
+        .founder-creds li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.85);
+            list-style: none;
+        }
+
+        .founder-creds li .check {
+            color: var(--green-bright);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .founder .quote {
+            font-size: 20px;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.75);
+            border-left: 3px solid var(--green-bright);
+            padding-left: 24px;
+            margin: 16px 0 28px;
+            line-height: 1.7;
+        }
+
+        .founder-visual {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: var(--radius);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 32px 36px;
+            backdrop-filter: blur(4px);
+        }
+
+        .founder-visual .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 16px;
+        }
+
+        .founder-visual .name {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .founder-visual .role {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 16px;
+        }
+
+        .founder-visual .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .founder-visual .tags span {
+            background: rgba(255, 255, 255, 0.06);
+            padding: 4px 14px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        /* ===== Contacts ===== */
+        .contacts {
+            padding: 72px 0;
+            background: var(--gray-50);
+            border-top: 1px solid var(--gray-100);
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 28px;
+            margin-top: 16px;
+        }
+
+        .contact-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 32px 28px;
+            border: 1px solid var(--gray-100);
+            box-shadow: var(--shadow-card);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .contact-card:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-3px);
+        }
+
+        .contact-card .icon-wrap {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: var(--blue-pale);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 28px;
+            color: var(--blue);
+        }
+
+        .contact-card .icon-wrap.green {
+            background: var(--green-light);
+            color: var(--green);
+        }
+
+        .contact-card h4 {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 6px;
+        }
+
+        .contact-card .value {
+            font-size: 16px;
+            color: var(--gray-500);
+            line-height: 1.6;
+        }
+
+        .contact-card .value a {
+            color: var(--blue);
+            font-weight: 500;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            padding: 56px 0 40px;
+            background: var(--white);
+            border-top: 1px solid var(--gray-100);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 12px;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            color: var(--gray-400);
+            max-width: 340px;
+            line-height: 1.7;
+        }
+
+        .footer-col h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 16px;
+            letter-spacing: 0.02em;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            font-size: 14px;
+            color: var(--gray-400);
+            transition: var(--transition);
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--blue);
+        }
+
+        .footer-bottom {
+            padding-top: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 13px;
+            color: var(--gray-400);
+        }
+
+        .footer-bottom a {
+            color: var(--gray-400);
+            transition: var(--transition);
+        }
+
+        .footer-bottom a:hover {
+            color: var(--blue);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 1024px) {
+            .founder .container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .about-company .grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                padding: 24px;
+                border-bottom: 1px solid var(--gray-100);
+                box-shadow: var(--shadow-card);
+                gap: 16px;
+                align-items: stretch;
+            }
+            .nav.open {
+                display: flex;
+            }
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .hero {
+                padding: 40px 0 48px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+            .stat-card .number {
+                font-size: 32px;
+            }
+            .founder-creds {
+                grid-template-columns: 1fr;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            .container {
+                padding: 0 16px;
+            }
+            .contacts-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .founder-visual {
+                padding: 20px;
+            }
+            .contacts-grid {
+                grid-template-columns: 1fr;
+            }
+            .about-company .visual {
+                padding: 24px 20px;
+            }
+        }
+
+        /* ===== Utilities ===== */
+        .text-center {
+            text-align: center;
+        }
+        .mt-16 {
+            margin-top: 16px;
+        }
+        .mb-8 {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== HEADER (как у заказчиков) ===== -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index-customer.html" class="logo">
+                <span class="logo-icon">M</span>
+                Mika<span>Master</span>
+            </a>
+
+            <nav class="nav" id="mainNav">
+                <a href="catalog-specialists.html">Каталог</a>
+                <a href="about.html">О нас</a>
+                <a href="create-tender.html">Создать тендер</a>
+                <a href="index-specialist.html">Специалистам</a>
+                <a href="login.html?action=login" class="btn btn-outline btn-sm" id="headerLoginBtn">Вход</a>
+                <a href="login.html?action=register" class="btn btn-primary btn-sm" id="headerRegisterBtn">Регистрация</a>
+                <a href="#" class="icon-link" id="headerFavorites" style="display:none;">❤️</a>
+                <a href="#" class="icon-link" id="headerMessages" style="display:none;">💬</a>
+                <a href="#" class="icon-link" id="headerNotifications" style="display:none;">🔔</a>
+                <a href="#" id="headerProfileLink" style="display:none; font-weight:600;">Профиль</a>
+            </nav>
+
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Меню">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <span class="label">О компании</span>
+                <h1 class="title-xl">
+                    MikaMaster — сервис<br />
+                    <span class="highlight">безопасного выбора</span> специалистов
+                </h1>
+                <p class="hero-text">
+                    Мы создали платформу, где каждый мастер проходит проверку,
+                    а заказчики получают гарантию качества. Основано на репутации
+                    и многолетнем опыте в строительстве.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== STATS ===== -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="number">20 <span class="green">+</span></div>
+                    <div class="desc">лет опыта в строительстве</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">50 <span class="green">+</span></div>
+                    <div class="desc">объектов под личным контролем</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">500 <span class="green">+</span></div>
+                    <div class="desc">проверенных мастеров</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">94 <span class="green">%</span></div>
+                    <div class="desc">доверия клиентов</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ABOUT COMPANY (новая секция с подробной информацией) ===== -->
+    <section class="about-company">
+        <div class="container">
+            <div class="grid">
+                <div class="text-content">
+                    <span class="label">История</span>
+                    <h2 class="title-lg">О компании MikaMaster</h2>
+                    <p>
+                        Компания MikaMaster была основана в 2019 году как логичное продолжение
+                        строительного бизнеса Константина Акимова. Увидев проблему недобросовестных
+                        исполнителей на рынке ремонта, мы решили создать платформу, которая
+                        объединяет проверенных мастеров и требовательных заказчиков.
+                    </p>
+                    <p>
+                        Сегодня мы — официальный дистрибьютор продукции KNAUF, партнёры ведущих
+                        производителей стройматериалов и надёжный посредник между клиентами и
+                        специалистами. Наша миссия — сделать ремонт предсказуемым, безопасным
+                        и комфортным для всех участников.
+                    </p>
+                    <ul class="highlight-list">
+                        <li><span class="check">✓</span> Работаем по всей Москве и Московской области</li>
+                        <li><span class="check">✓</span> Собственная система проверки мастеров</li>
+                        <li><span class="check">✓</span> Страхование сделок и гарантия качества</li>
+                        <li><span class="check">✓</span> Более 500 успешных проектов</li>
+                    </ul>
+                </div>
+                <div class="visual">
+                    <div class="big-icon">🏢</div>
+                    <h4>MikaMaster</h4>
+                    <div class="sub">Сервис безопасного выбора специалистов</div>
+                    <div style="margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;">
+                        <span style="background: var(--white); padding: 4px 16px; border-radius: 100px; font-size: 13px; border:1px solid var(--gray-200);">Основан в 2019</span>
+                        <span style="background: var(--white); padding: 4px 16px; border-radius: 100px; font-size: 13px; border:1px solid var(--gray-200);">Партнёр KNAUF</span>
+                        <span style="background: var(--white); padding: 4px 16px; border-radius: 100px; font-size: 13px; border:1px solid var(--gray-200);">Гарантия качества</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOUNDER ===== -->
+    <section class="founder">
+        <div class="container">
+            <div class="founder-info">
+                <span class="label">Основатель</span>
+                <h2>Константин Акимов</h2>
+                <p class="subtitle">
+                    Основатель MikaTool, MikaMaster и Akimov Academy.<br />
+                    Официальный дистрибьютор продукции KNAUF с 2019 года.
+                </p>
+                <ul class="founder-creds">
+                    <li><span class="check">✓</span> 20 лет в строительстве</li>
+                    <li><span class="check">✓</span> 50+ объектов под личным контролем</li>
+                    <li><span class="check">✓</span> Эксперт по качеству ремонта</li>
+                    <li><span class="check">✓</span> Автор методик проверки мастеров</li>
+                    <li><span class="check">✓</span> Образование: МГСУ, факультет промышленного и гражданского строительства</li>
+                    <li><span class="check">✓</span> Член Союза строителей России</li>
+                </ul>
+                <div class="quote">
+                    «Мы создали MikaMaster, чтобы вы могли доверить свой дом профессионалам
+                    без страха и сомнений. Моя репутация — ваша гарантия.»
+                </div>
+                <!-- Кнопка "узнать больше о бренде" удалена -->
+            </div>
+            <div class="founder-visual">
+                <div class="avatar">КА</div>
+                <div class="name">Константин Акимов</div>
+                <div class="role">Основатель MikaMaster</div>
+                <div class="tags">
+                    <span>🏆 20 лет опыта</span>
+                    <span>📐 KNAUF партнёр</span>
+                    <span>🔧 50+ объектов</span>
+                    <span>📚 Автор курсов</span>
+                    <span>🏅 Союз строителей</span>
+                </div>
+                <div style="margin-top:20px; padding-top:16px; border-top:1px solid rgba(255,255,255,0.06); display:flex; gap:16px; flex-wrap:wrap;">
+                    <span style="font-size:13px; color:rgba(255,255,255,0.4);">«Доверие вместо рекламы»</span>
+                    <span style="font-size:13px; color:rgba(255,255,255,0.4);">#MikaMaster</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACTS (вместо ценностей) ===== -->
+    <section class="contacts">
+        <div class="container">
+            <div class="section-head" style="text-align:center; max-width:600px; margin:0 auto 48px;">
+                <span class="label">Свяжитесь с нами</span>
+                <h2 class="title-lg">Контакты</h2>
+                <p class="text-md">Мы всегда на связи и готовы ответить на ваши вопросы</p>
+            </div>
+            <div class="contacts-grid">
+                <div class="contact-card">
+                    <div class="icon-wrap">📞</div>
+                    <h4>Телефон</h4>
+                    <div class="value"><a href="tel:+74951234567">+7 (495) 123-45-67</a></div>
+                    <div class="value" style="font-size:14px; color:var(--gray-400);">Пн–Пт: 9:00–20:00</div>
+                </div>
+                <div class="contact-card">
+                    <div class="icon-wrap green">✉️</div>
+                    <h4>Электронная почта</h4>
+                    <div class="value"><a href="mailto:info@mikamaster.ru">info@mikamaster.ru</a></div>
+                    <div class="value" style="font-size:14px; color:var(--gray-400);">Ответ в течение 24 часов</div>
+                </div>
+                <div class="contact-card">
+                    <div class="icon-wrap">📍</div>
+                    <h4>Офис</h4>
+                    <div class="value">Московская обл., г. Красногорск, ул. Жуковского ссх</div>
+                    <div class="value" style="font-size:14px; color:var(--gray-400);">Ежедневно: 10:00–18:00</div>
+                </div>
+                <div class="contact-card">
+                    <div class="icon-wrap green">🌐</div>
+                    <h4>Социальные сети</h4>
+                    <div class="value">
+                        <a href="#">Telegram</a> · <a href="#">VK</a> · <a href="#">YouTube</a>
+                    </div>
+                    <div class="value" style="font-size:14px; color:var(--gray-400);">Подписывайтесь на новости</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER (как у заказчиков) ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index-customer.html" class="logo">
+                        <span class="logo-icon">M</span>
+                        Mika<span>Master</span>
+                    </a>
+                    <p>
+                        Сервис по поиску проверенных специалистов в области строительства и ремонта.
+                        Основан Константином Акимовым. Гарантия качества — наша репутация.
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="catalog-specialists.html">Каталог</a></li>
+                        <li><a href="create-tender.html">Создать тендер</a></li>
+                        <li><a href="about.html">О нас</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Личный кабинет</h4>
+                    <ul>
+                        <li><a href="login.html?action=login">Вход</a></li>
+                        <li><a href="login.html?action=">Регистрация</a></li>
+                        <li><a href="index-specialist.html">Специалистам</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 MikaMaster. Все права защищены.</span>
+                <span>
+                    <a href="#">Политика конфиденциальности</a> ·
+                    <a href="#">Пользовательское соглашение</a>
+                </span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== JS ===== -->
+    <script>
+        function getCurrentUser() {
+        const data = localStorage.getItem('mikamaster_current_user');
+        return data ? JSON.parse(data) : null;
+    }
+
+    function updateHeader() {
+        const user = getCurrentUser();
+        const loginBtn = document.getElementById('headerLoginBtn');
+        const registerBtn = document.getElementById('headerRegisterBtn');
+        const favLink = document.getElementById('headerFavorites');
+        const msgLink = document.getElementById('headerMessages');
+        const notifLink = document.getElementById('headerNotifications');
+        const profileLink = document.getElementById('headerProfileLink');
+
+        if (user) {
+            if (user.role === 'customer') {
+                loginBtn.style.display = 'none';
+                registerBtn.style.display = 'none';
+                favLink.style.display = 'inline-block';
+                msgLink.style.display = 'inline-block';
+                notifLink.style.display = 'inline-block';
+                profileLink.style.display = 'inline-block';
+                profileLink.textContent = user.fullName.split(' ')[0] || 'Профиль';
+                // Правильные ссылки
+                favLink.href = 'profile-customer.html?tab=favorites';
+                msgLink.href = 'profile-customer.html?tab=messages';
+                notifLink.href = 'profile-customer.html?tab=notifications';
+                profileLink.href = 'profile-customer.html';
+            } else {
+                // Если зашёл специалист — перенаправить на его главную
+                window.location.href = 'index-specialist.html';
+            }
+        } else {
+            loginBtn.style.display = 'inline-block';
+            registerBtn.style.display = 'inline-block';
+            favLink.style.display = 'none';
+            msgLink.style.display = 'none';
+            notifLink.style.display = 'none';
+            profileLink.style.display = 'none';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        updateHeader();
+        // При клике на кнопки входа/регистрации открываем login.html с нужной вкладкой
+        document.getElementById('headerLoginBtn')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'login.html?action=login';
+        });
+        document.getElementById('headerRegisterBtn')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'login.html?action=register';
+        });
+    });
+        (function() {
+            // Mobile toggle
+            const toggle = document.getElementById('mobileToggle');
+            const nav = document.getElementById('mainNav');
+
+            if (toggle && nav) {
+                toggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    nav.classList.toggle('open');
+                });
+
+                document.addEventListener('click', function(e) {
+                    if (!nav.contains(e.target) && !toggle.contains(e.target)) {
+                        nav.classList.remove('open');
+                    }
+                });
+            }
+
+            // Lazy reveal on scroll
+            const items = document.querySelectorAll('.stat-card, .contact-card, .about-company .grid, .founder .container');
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }
+                    });
+                }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+                items.forEach((el, i) => {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(18px)';
+                    el.style.transition = `opacity 0.6s ease ${i * 0.05}s, transform 0.6s ease ${i * 0.05}s`;
+                    observer.observe(el);
+                });
+            } else {
+                items.forEach(el => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                });
+            }
+
+            console.log('MikaMaster — О нас');
+        })();
+    </script>
+
+</body>
+</html>

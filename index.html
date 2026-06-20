@@ -1,0 +1,1737 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MikaMaster — Ремонт без риска: проверенные мастера в Москве</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
+    <style>
+        /* ===== Reset & Base ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --blue: #0f2b4b;
+            --blue-light: #1a3f6a;
+            --blue-mid: #2b5a8a;
+            --blue-pale: #e8eef6;
+            --green: #3b8c5e;
+            --green-light: #e6f4ed;
+            --green-bright: #4caf7a;
+            --gray-50: #f8f9fb;
+            --gray-100: #f0f2f5;
+            --gray-200: #e2e6ed;
+            --gray-300: #c9d0db;
+            --gray-400: #a0aab8;
+            --gray-500: #6b7a8d;
+            --gray-600: #4a5a6e;
+            --gray-700: #2d3a4f;
+            --gray-800: #1a2538;
+            --white: #ffffff;
+            --radius: 20px;
+            --radius-sm: 12px;
+            --shadow-card: 0 4px 24px rgba(15, 43, 75, 0.06);
+            --shadow-hover: 0 12px 48px rgba(15, 43, 75, 0.10);
+            --transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--white);
+            color: var(--gray-700);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== Buttons ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: var(--font);
+            font-weight: 600;
+            font-size: 16px;
+            padding: 14px 32px;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--white);
+            color: var(--blue);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+        }
+
+        .btn-primary {
+            background: var(--blue);
+            color: var(--white);
+            box-shadow: 0 4px 16px rgba(15, 43, 75, 0.20);
+        }
+        .btn-primary:hover {
+            background: var(--blue-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(15, 43, 75, 0.25);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--blue);
+            border: 1.5px solid var(--gray-200);
+        }
+        .btn-outline:hover {
+            border-color: var(--blue);
+            background: var(--blue-pale);
+        }
+
+        .btn-green {
+            background: var(--green);
+            color: var(--white);
+            box-shadow: 0 4px 16px rgba(59, 140, 94, 0.25);
+        }
+        .btn-green:hover {
+            background: #2d7a4e;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(59, 140, 94, 0.30);
+        }
+
+        .btn-sm {
+            padding: 10px 22px;
+            font-size: 14px;
+        }
+
+        /* ===== Typography ===== */
+        .title-xl {
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1.12;
+            color: var(--gray-800);
+        }
+
+        .title-lg {
+            font-size: clamp(28px, 3.2vw, 40px);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.18;
+            color: var(--gray-800);
+        }
+
+        .title-md {
+            font-size: clamp(20px, 2vw, 28px);
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            line-height: 1.3;
+            color: var(--gray-800);
+        }
+
+        .text-lg {
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--gray-500);
+        }
+
+        .text-md {
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--gray-500);
+        }
+
+        .text-sm {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--gray-400);
+        }
+
+        .label {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            color: var(--green);
+            background: var(--green-light);
+            padding: 4px 14px;
+            border-radius: 100px;
+            margin-bottom: 16px;
+        }
+
+        .label-blue {
+            background: var(--blue-pale);
+            color: var(--blue);
+        }
+
+        /* ===== Header ===== */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(226, 230, 237, 0.5);
+            padding: 14px 0;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 22px;
+            color: var(--blue);
+            letter-spacing: -0.02em;
+            flex-shrink: 0;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            background: var(--blue);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 16px;
+        }
+
+        .logo span {
+            color: var(--green);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav a {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--gray-500);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--blue);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .nav a:hover {
+            color: var(--blue);
+        }
+        .nav a:hover::after {
+            width: 100%;
+        }
+
+        .nav .btn {
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+
+        .nav .btn-primary {
+            background: var(--blue);
+            color: white;
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .mobile-toggle span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: var(--blue);
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        /* ===== Hero ===== */
+        .hero {
+            padding: 60px 0 72px;
+            background: var(--white);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content .label {
+            margin-bottom: 20px;
+        }
+
+        .hero-content .title-xl {
+            margin-bottom: 20px;
+        }
+
+        .hero-content .title-xl .highlight {
+            color: var(--blue);
+            position: relative;
+        }
+
+        .hero-content .title-xl .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--green-light);
+            border-radius: 4px;
+            z-index: -1;
+        }
+
+        .hero-text {
+            font-size: 19px;
+            color: var(--gray-500);
+            max-width: 520px;
+            margin-bottom: 32px;
+            line-height: 1.7;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 36px;
+        }
+
+        .hero-trust {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px 40px;
+            padding-top: 28px;
+            border-top: 1px solid var(--gray-100);
+        }
+
+        .hero-trust-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--gray-600);
+        }
+
+        .hero-trust-item .icon {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--green-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--green);
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+
+        .hero-visual {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .hero-card {
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            padding: 32px 36px;
+            border: 1px solid var(--gray-100);
+            box-shadow: var(--shadow-card);
+            transition: var(--transition);
+        }
+
+        .hero-card:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        .hero-card .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .hero-card .stat-row:last-child {
+            border-bottom: none;
+        }
+
+        .hero-card .stat-label {
+            font-size: 15px;
+            color: var(--gray-500);
+        }
+
+        .hero-card .stat-value {
+            font-weight: 600;
+            color: var(--gray-800);
+            font-size: 16px;
+        }
+
+        .hero-card .stat-value .green {
+            color: var(--green);
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--green-light);
+            color: var(--green);
+            padding: 6px 16px 6px 12px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green-bright);
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(0.85);
+            }
+        }
+
+        /* ===== Search ===== */
+        .search-section {
+            padding: 0 0 64px;
+        }
+
+        .search-box {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--shadow-card);
+            transition: var(--transition);
+            max-width: 780px;
+            margin: 0 auto;
+        }
+
+        .search-box:focus-within {
+            border-color: var(--blue);
+            box-shadow: 0 4px 28px rgba(15, 43, 75, 0.10);
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            padding: 16px 20px;
+            font-size: 16px;
+            font-family: var(--font);
+            color: var(--gray-700);
+            background: transparent;
+            outline: none;
+            min-width: 0;
+        }
+
+        .search-box input::placeholder {
+            color: var(--gray-400);
+        }
+
+        .search-box .btn {
+            padding: 14px 32px;
+            flex-shrink: 0;
+            border-radius: var(--radius-sm);
+        }
+
+        .search-hint {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--gray-400);
+        }
+
+        /* ===== Categories ===== */
+        .categories {
+            padding: 0 0 72px;
+        }
+
+        .section-head {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 48px;
+        }
+
+        .section-head .title-lg {
+            margin-bottom: 12px;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 14px;
+        }
+
+        .category-card {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-100);
+            border-radius: var(--radius-sm);
+            padding: 18px 22px;
+            text-align: center;
+            font-weight: 500;
+            font-size: 15px;
+            color: var(--gray-700);
+            transition: var(--transition);
+            cursor: default;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 64px;
+        }
+
+        .category-card:hover {
+            background: var(--white);
+            border-color: var(--blue);
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-2px);
+        }
+
+        .category-card .emoji {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        /* ===== Guarantees ===== */
+        .guarantees {
+            padding: 72px 0;
+            background: var(--gray-50);
+            border-top: 1px solid var(--gray-100);
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .guarantees-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 32px;
+            margin-top: 16px;
+        }
+
+        .guarantee-item {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 32px 28px;
+            border: 1px solid var(--gray-100);
+            box-shadow: var(--shadow-card);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .guarantee-item:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-3px);
+        }
+
+        .guarantee-item .icon-wrap {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: var(--blue-pale);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 26px;
+            color: var(--blue);
+        }
+
+        .guarantee-item .icon-wrap.green {
+            background: var(--green-light);
+            color: var(--green);
+        }
+
+        .guarantee-item h4 {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 8px;
+        }
+
+        .guarantee-item p {
+            font-size: 14px;
+            color: var(--gray-500);
+            line-height: 1.6;
+        }
+
+        /* ===== Formats ===== */
+        .formats {
+            padding: 72px 0;
+        }
+
+        .formats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 16px;
+        }
+
+        .format-card {
+            background: var(--white);
+            border: 1px solid var(--gray-100);
+            border-radius: var(--radius);
+            padding: 40px 36px;
+            box-shadow: var(--shadow-card);
+            transition: var(--transition);
+        }
+
+        .format-card:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        .format-card .badge {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding: 4px 14px;
+            border-radius: 100px;
+            background: var(--blue-pale);
+            color: var(--blue);
+            margin-bottom: 16px;
+        }
+
+        .format-card .badge.green {
+            background: var(--green-light);
+            color: var(--green);
+        }
+
+        .format-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 10px;
+        }
+
+        .format-card .desc {
+            color: var(--gray-500);
+            margin-bottom: 24px;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .format-steps {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 28px;
+        }
+
+        .format-steps li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--gray-100);
+            font-size: 15px;
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+
+        .format-steps li:last-child {
+            border-bottom: none;
+        }
+
+        .format-steps .num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--blue-pale);
+            color: var(--blue);
+            font-weight: 700;
+            font-size: 13px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .format-steps .num.green {
+            background: var(--green-light);
+            color: var(--green);
+        }
+
+        .format-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 4px;
+        }
+
+        /* ===== Founder ===== */
+        .founder {
+            padding: 72px 0;
+            background: var(--blue);
+            color: var(--white);
+        }
+
+        .founder .container {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .founder .label {
+            background: rgba(255, 255, 255, 0.12);
+            color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .founder h2 {
+            font-size: clamp(28px, 3vw, 38px);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .founder .subtitle {
+            font-size: 17px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .founder-creds {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 24px;
+            margin: 24px 0 28px;
+        }
+
+        .founder-creds li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.85);
+            list-style: none;
+        }
+
+        .founder-creds li .check {
+            color: var(--green-bright);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .founder .quote {
+            font-size: 20px;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.75);
+            border-left: 3px solid var(--green-bright);
+            padding-left: 24px;
+            margin: 16px 0 28px;
+            line-height: 1.7;
+        }
+
+        .founder .btn-outline-light {
+            background: transparent;
+            color: var(--white);
+            border: 1.5px solid rgba(255, 255, 255, 0.25);
+            padding: 14px 32px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: var(--font);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .founder .btn-outline-light:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .founder-visual {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: var(--radius);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 32px 36px;
+            backdrop-filter: blur(4px);
+        }
+
+        .founder-visual .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 16px;
+        }
+
+        .founder-visual .name {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .founder-visual .role {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 16px;
+        }
+
+        .founder-visual .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .founder-visual .tags span {
+            background: rgba(255, 255, 255, 0.06);
+            padding: 4px 14px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        /* ===== Testimonials ===== */
+        .testimonials {
+            padding: 72px 0;
+            background: var(--gray-50);
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+            margin-top: 16px;
+        }
+
+        .testimonial-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 32px 30px;
+            border: 1px solid var(--gray-100);
+            box-shadow: var(--shadow-card);
+            transition: var(--transition);
+        }
+
+        .testimonial-card:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-3px);
+        }
+
+        .testimonial-card .stars {
+            color: #f5b342;
+            font-size: 18px;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .testimonial-card .quote-text {
+            font-size: 15px;
+            color: var(--gray-600);
+            line-height: 1.7;
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+
+        .testimonial-card .author {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .testimonial-card .author-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--blue-pale);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--blue);
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .testimonial-card .author-info {
+            flex: 1;
+        }
+
+        .testimonial-card .author-name {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--gray-800);
+        }
+
+        .testimonial-card .author-detail {
+            font-size: 13px;
+            color: var(--gray-400);
+        }
+
+        .testimonial-card .verified {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: var(--green);
+            font-weight: 500;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            padding: 56px 0 40px;
+            background: var(--white);
+            border-top: 1px solid var(--gray-100);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 12px;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            color: var(--gray-400);
+            max-width: 340px;
+            line-height: 1.7;
+        }
+
+        .footer-col h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 16px;
+            letter-spacing: 0.02em;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            font-size: 14px;
+            color: var(--gray-400);
+            transition: var(--transition);
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--blue);
+        }
+
+        .footer-bottom {
+            padding-top: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 13px;
+            color: var(--gray-400);
+        }
+
+        .footer-bottom a {
+            color: var(--gray-400);
+            transition: var(--transition);
+        }
+
+        .footer-bottom a:hover {
+            color: var(--blue);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
+            .formats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .founder .container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                padding: 24px;
+                border-bottom: 1px solid var(--gray-100);
+                box-shadow: var(--shadow-card);
+                gap: 16px;
+                align-items: stretch;
+            }
+
+            .nav.open {
+                display: flex;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .hero {
+                padding: 40px 0 48px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .hero-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .search-box {
+                flex-direction: column;
+                background: transparent;
+                border: none;
+                box-shadow: none;
+                padding: 0;
+                gap: 12px;
+            }
+
+            .search-box input {
+                background: var(--white);
+                border: 1px solid var(--gray-200);
+                border-radius: var(--radius-sm);
+                padding: 16px 18px;
+                width: 100%;
+            }
+
+            .search-box .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .categories-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 10px;
+            }
+
+            .category-card {
+                padding: 14px 16px;
+                font-size: 13px;
+                min-height: 54px;
+            }
+
+            .guarantees-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .founder-creds {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .format-card {
+                padding: 28px 20px;
+            }
+
+            .hero-trust {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .section-head {
+                margin-bottom: 32px;
+            }
+
+            .formats {
+                padding: 48px 0;
+            }
+
+            .guarantees {
+                padding: 48px 0;
+            }
+
+            .founder {
+                padding: 48px 0;
+            }
+
+            .testimonials {
+                padding: 48px 0;
+            }
+
+            .container {
+                padding: 0 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .guarantees-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .hero-card {
+                padding: 20px;
+            }
+
+            .founder-visual {
+                padding: 20px;
+            }
+        }
+
+        /* ===== Utilities ===== */
+        .text-center {
+            text-align: center;
+        }
+        .mt-8 {
+            margin-top: 8px;
+        }
+        .mt-16 {
+            margin-top: 16px;
+        }
+        .gap-8 {
+            gap: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">M</span>
+                Mika<span>Master</span>
+            </a>
+
+            <nav class="nav" id="mainNav">
+                <a href="catalog-specialists.html">Каталог</a>
+                <a href="about.html">О нас</a>
+                <a href="create-tender.html">Создать тендер</a>
+                <a href="index-specialist.html">Специалистам</a>
+                <a href="login.html?action=login" class="btn btn-outline btn-sm" id="headerLoginBtn">Вход</a>
+                <a href="login.html?action=register" class="btn btn-primary btn-sm" id="headerRegisterBtn">Регистрация</a>
+                <a href="#" class="icon-link" id="headerFavorites" style="display:none;">❤️</a>
+                <a href="#" class="icon-link" id="headerMessages" style="display:none;">💬</a>
+                <a href="#" class="icon-link" id="headerNotifications" style="display:none;">🔔</a>
+                <a href="#" id="headerProfileLink" style="display:none; font-weight:600;">Профиль</a>
+            </nav>
+
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Меню">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <span class="label">🔒 Ремонт без риска</span>
+                <h1 class="title-xl">
+                    Проверенные мастера<br />
+                    в Москве за <span class="highlight">5 минут</span>
+                </h1>
+                <p class="hero-text">
+                    Поможем выбрать специалиста для вашего строительства или ремонта
+                    с гарантией качества. Основано Константином Акимовым — 20 лет в отрасли.
+                </p>
+                <div class="hero-actions">
+                    <a href="create-tender.html" class="btn btn-primary">Создать тендер</a>
+                    <a href="catalog-specialists.html" class="btn btn-outline">Найти мастера</a>
+                </div>
+                <div class="hero-trust">
+                    <span class="hero-trust-item">
+                        <span class="icon">✓</span> 500+ проверенных мастеров
+                    </span>
+                    <span class="hero-trust-item">
+                        <span class="icon">✓</span> Гарантия до 1 года
+                    </span>
+                    <span class="hero-trust-item">
+                        <span class="icon">✓</span> Страховка сделки
+                    </span>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                        <span class="hero-badge">
+                            <span class="dot"></span> Сейчас ищут
+                        </span>
+                        <span style="font-size:13px; color:var(--gray-400);">Москва</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">🛠 Установка розеток</span>
+                        <span class="stat-value">8 мастеров</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">🔧 Замена счётчиков воды</span>
+                        <span class="stat-value">5 мастеров</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">🏠 Ремонт квартир</span>
+                        <span class="stat-value">12 мастеров</span>
+                    </div>
+                    <div class="stat-row" style="border-bottom:none; padding-bottom:0;">
+                        <span class="stat-label">⭐ Проверено MikaMaster</span>
+                        <span class="stat-value green">94% доверия</span>
+                    </div>
+                </div>
+                <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                    <span style="font-size:13px; color:var(--gray-400); background:var(--gray-50); padding:6px 14px; border-radius:100px; border:1px solid var(--gray-100);">✅ Гарантия качества</span>
+                    <span style="font-size:13px; color:var(--gray-400); background:var(--gray-50); padding:6px 14px; border-radius:100px; border:1px solid var(--gray-100);">📋 Без скрытых комиссий</span>
+                    <span style="font-size:13px; color:var(--gray-400); background:var(--gray-50); padding:6px 14px; border-radius:100px; border:1px solid var(--gray-100);">🔒 Безопасная сделка</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SEARCH ===== -->
+    <section class="search-section">
+        <div class="container">
+            <form id="searchForm" class="search-box" action="catalog-specialists.html" method="get">
+                <input type="text" name="search" placeholder="Услуга или специалист, например: электрик, сантехник, ремонт квартир" />
+                <button type="submit" class="btn btn-primary">Найти</button>
+            </form>
+            <p class="search-hint">Более 20 категорий — от электромонтажа до строительства домов</p>
+        </div>
+    </section>
+
+    <!-- ===== CATEGORIES ===== -->
+    <section class="categories">
+        <div class="container">
+            <div class="section-head">
+                <span class="label">Категории</span>
+                <h2 class="title-lg">Популярные услуги</h2>
+                <p class="text-md">Выберите нужное направление — мы подберём проверенных мастеров</p>
+            </div>
+            <div class="categories-grid">
+                <div class="category-card"><span class="emoji">🔌</span> Установка розеток</div>
+                <div class="category-card"><span class="emoji">💧</span> Замена счётчиков воды</div>
+                <div class="category-card"><span class="emoji">🪵</span> Укладка ламината и паркета</div>
+                <div class="category-card"><span class="emoji">🖼️</span> Поклейка обоев</div>
+                <div class="category-card"><span class="emoji">⬆️</span> Монтаж натяжных потолков</div>
+                <div class="category-card"><span class="emoji">🚿</span> Установка сантехники</div>
+                <div class="category-card"><span class="emoji">🧱</span> Штукатурка и шпаклёвка стен</div>
+                <div class="category-card"><span class="emoji">🏗️</span> Строительство домов под ключ</div>
+                <div class="category-card"><span class="emoji">🔧</span> Электромонтажные работы</div>
+                <div class="category-card"><span class="emoji">🚪</span> Установка дверей</div>
+                <div class="category-card"><span class="emoji">🪟</span> Остекление балконов</div>
+                <div class="category-card"><span class="emoji">🏡</span> Фасадные работы</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== GUARANTEES ===== -->
+    <section class="guarantees">
+        <div class="container">
+            <div class="section-head">
+                <span class="label">Надёжность</span>
+                <h2 class="title-lg">Мы гарантируем результат</h2>
+                <p class="text-md">Каждый мастер проходит проверку, а вы защищены страховкой</p>
+            </div>
+            <div class="guarantees-grid">
+                <div class="guarantee-item">
+                    <div class="icon-wrap">🛡️</div>
+                    <h4>Проверка личности</h4>
+                    <p>Каждый мастер проходит верификацию документов и подтверждает опыт работы.</p>
+                </div>
+                <div class="guarantee-item">
+                    <div class="icon-wrap green">✅</div>
+                    <h4>Проверено MikaMaster</h4>
+                    <p>Специалисты с этой отметкой проходят дополнительную тщательную проверку качества.</p>
+                </div>
+                <div class="guarantee-item">
+                    <div class="icon-wrap">📄</div>
+                    <h4>Страховка сделки</h4>
+                    <p>В случае некачественного ремонта вы получите компенсацию средств до 100%.</p>
+                </div>
+                <div class="guarantee-item">
+                    <div class="icon-wrap green">⭐</div>
+                    <h4>Отзывы реальных клиентов</h4>
+                    <p>Только подтверждённые отзывы после завершения сделки — никаких фейков.</p>
+                </div>
+                <div class="guarantee-item">
+                    <div class="icon-wrap">👨‍🔧</div>
+                    <h4>20 лет опыта</h4>
+                    <p>Основатель Константин Акимов лично курирует качество работы платформы.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FORMATS ===== -->
+    <section class="formats">
+        <div class="container">
+            <div class="section-head">
+                <span class="label">Как мы работаем</span>
+                <h2 class="title-lg">Форматы для ваших потребностей</h2>
+                <p class="text-md">Выберите удобный способ найти мастера</p>
+            </div>
+            <div class="formats-grid">
+                <!-- Tender -->
+                <div class="format-card">
+                    <span class="badge">📋 Тендер</span>
+                    <h3>Разместите заказ</h3>
+                    <p class="desc">Специалисты сами придут к вам с предложениями. Останется выбрать лучшее.</p>
+                    <ul class="format-steps">
+                        <li>
+                            <span class="num">1</span>
+                            <span>Опишите задачу: вид работ, площадь, сроки, фото — это займёт 5 минут.</span>
+                        </li>
+                        <li>
+                            <span class="num">2</span>
+                            <span>Получите предложения от мастеров с ценой и сроками.</span>
+                        </li>
+                        <li>
+                            <span class="num green">3</span>
+                            <span>Сравните отзывы, рейтинг, портфолио и выберите исполнителя.</span>
+                        </li>
+                    </ul>
+                    <div class="format-actions">
+                        <a href="create-tender.html" class="btn btn-primary">Создать тендер</a>
+                    </div>
+                </div>
+
+                <!-- Catalog -->
+                <div class="format-card">
+                    <span class="badge green">📂 Каталог</span>
+                    <h3>Выберите мастера</h3>
+                    <p class="desc">Ищите специалиста сами — фильтруйте по рейтингу, опыту, цене и проверке.</p>
+                    <ul class="format-steps">
+                        <li>
+                            <span class="num green">1</span>
+                            <span>Откройте каталог и примените фильтры под вашу задачу.</span>
+                        </li>
+                        <li>
+                            <span class="num green">2</span>
+                            <span>Изучите профиль: портфолио, отзывы, сертификаты.</span>
+                        </li>
+                        <li>
+                            <span class="num">3</span>
+                            <span>Отправьте запрос и получите контакты после оплаты комиссии.</span>
+                        </li>
+                    </ul>
+                    <div class="format-actions">
+                        <a href="catalog-specialists.html" class="btn btn-primary">Найти мастера</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOUNDER ===== -->
+    <section class="founder">
+        <div class="container">
+            <div class="founder-info">
+                <span class="label">Основатель</span>
+                <h2>Константин Акимов</h2>
+                <p class="subtitle">
+                    Основатель MikaTool, MikaMaster и Akimov Academy.<br />
+                    Официальный дистрибьютор KNAUF с 2019 года.
+                </p>
+                <ul class="founder-creds">
+                    <li><span class="check">✓</span> 20 лет в строительстве</li>
+                    <li><span class="check">✓</span> 50+ объектов под личным контролем</li>
+                    <li><span class="check">✓</span> Эксперт по качеству ремонта</li>
+                    <li><span class="check">✓</span> Автор методик проверки мастеров</li>
+                </ul>
+                <div class="quote">
+                    «Мы создали MikaMaster, чтобы вы могли доверить свой дом профессионалам
+                    без страха и сомнений. Моя репутация — ваша гарантия.»
+                </div>
+                <a href="about.html" class="btn-outline-light">Узнать больше о бренде →</a>
+            </div>
+            <div class="founder-visual">
+                <div class="avatar">КА</div>
+                <div class="name">Константин Акимов</div>
+                <div class="role">Основатель MikaMaster</div>
+                <div class="tags">
+                    <span>🏆 20 лет опыта</span>
+                    <span>📐 KNAUF партнёр</span>
+                    <span>🔧 50+ объектов</span>
+                    <span>📚 Автор курсов</span>
+                </div>
+                <div style="margin-top:20px; padding-top:16px; border-top:1px solid rgba(255,255,255,0.06); display:flex; gap:16px; flex-wrap:wrap;">
+                    <span style="font-size:13px; color:rgba(255,255,255,0.4);">«Доверие важнее рекламы»</span>
+                    <span style="font-size:13px; color:rgba(255,255,255,0.4);">#MikaMaster</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIALS ===== -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-head">
+                <span class="label">Отзывы</span>
+                <h2 class="title-lg">Что говорят клиенты</h2>
+                <p class="text-md">Реальные истории от людей, которые уже сделали ремонт с MikaMaster</p>
+            </div>
+            <div class="testimonials-grid">
+                <!-- Review 1 -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="quote-text">
+                        «Искал электрика для установки розеток в новой квартире. Опубликовал тендер,
+                        через 10 минут получил 3 предложения. Выбрал мастера с пометкой "Проверено MikaMaster" —
+                        работа сделана идеально, даже проводку переделал. Огромное спасибо Константину и команде!»
+                    </p>
+                    <div class="author">
+                        <div class="author-avatar">АК</div>
+                        <div class="author-info">
+                            <div class="author-name">Алексей К.</div>
+                            <div class="author-detail">Москва, ремонт квартиры</div>
+                            <span class="verified">✓ Подтверждённая сделка</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="quote-text">
+                        «Долго не решалась на ремонт ванной, боялась некачественной работы.
+                        На MikaMaster нашла сантехника с высоким рейтингом и проверкой.
+                        Мастер приехал в тот же день, всё сделал аккуратно, дал гарантию.
+                        Теперь только сюда! Спасибо Константину Акимову за такой сервис.»
+                    </p>
+                    <div class="author">
+                        <div class="author-avatar">ЕВ</div>
+                        <div class="author-info">
+                            <div class="author-name">Елена В.</div>
+                            <div class="author-detail">Московская область, замена сантехники</div>
+                            <span class="verified">✓ Подтверждённая сделка</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="quote-text">
+                        «Заказывал строительство каркасного дома. Сомневался, потому что опыт нулевой.
+                        Консультация на платформе помогла выбрать подрядчика с отметкой MikaMaster.
+                        Работы завершили в срок, качество отличное. Буду рекомендовать всем знакомым!»
+                    </p>
+                    <div class="author">
+                        <div class="author-avatar">ДМ</div>
+                        <div class="author-info">
+                            <div class="author-name">Дмитрий М.</div>
+                            <div class="author-detail">Москва, строительство дома</div>
+                            <span class="verified">✓ Подтверждённая сделка</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <span class="logo-icon">M</span>
+                        Mika<span>Master</span>
+                    </a>
+                    <p>
+                        Сервис по поиску проверенных специалистов в области строительства и ремонта.
+                        Основан Константином Акимовым. Гарантия качества — наша репутация.
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="catalog-specialists.html">Каталог</a></li>
+                        <li><a href="create-tender.html">Создать тендер</a></li>
+                        <li><a href="about.html">О нас</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Личный кабинет</h4>
+                    <ul>
+                        <li><a href="login.html?action=login">Вход</a></li>
+                        <li><a href="login.html?action=register">Регистрация</a></li>
+                        <li><a href="index-specialist.html">Специалистам</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 MikaMaster. Все права защищены.</span>
+                <span>
+                    <a href="#">Политика конфиденциальности</a> ·
+                    <a href="#">Пользовательское соглашение</a>
+                </span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== JS ===== -->
+    <script>
+        function getCurrentUser() {
+        const data = localStorage.getItem('mikamaster_current_user');
+        return data ? JSON.parse(data) : null;
+    }
+
+    function updateHeader() {
+        const user = getCurrentUser();
+        const loginBtn = document.getElementById('headerLoginBtn');
+        const registerBtn = document.getElementById('headerRegisterBtn');
+        const favLink = document.getElementById('headerFavorites');
+        const msgLink = document.getElementById('headerMessages');
+        const notifLink = document.getElementById('headerNotifications');
+        const profileLink = document.getElementById('headerProfileLink');
+
+        if (user) {
+            if (user.role === 'customer') {
+                loginBtn.style.display = 'none';
+                registerBtn.style.display = 'none';
+                favLink.style.display = 'inline-block';
+                msgLink.style.display = 'inline-block';
+                notifLink.style.display = 'inline-block';
+                profileLink.style.display = 'inline-block';
+                profileLink.textContent = user.fullName.split(' ')[0] || 'Профиль';
+                // Правильные ссылки
+                favLink.href = 'profile-customer.html?tab=favorites';
+                msgLink.href = 'profile-customer.html?tab=messages';
+                notifLink.href = 'profile-customer.html?tab=notifications';
+                profileLink.href = 'profile-customer.html';
+            } else {
+                // Если зашёл специалист — перенаправить на его главную
+                window.location.href = 'index-specialist.html';
+            }
+        } else {
+            loginBtn.style.display = 'inline-block';
+            registerBtn.style.display = 'inline-block';
+            favLink.style.display = 'none';
+            msgLink.style.display = 'none';
+            notifLink.style.display = 'none';
+            profileLink.style.display = 'none';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        updateHeader();
+        // При клике на кнопки входа/регистрации открываем login.html с нужной вкладкой
+        document.getElementById('headerLoginBtn')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'login.html?action=login';
+        });
+        document.getElementById('headerRegisterBtn')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'login.html?action=register';
+        });
+    });
+    document.querySelectorAll('.category-card').forEach(card => {
+        card.addEventListener('click', function() {
+            const text = this.textContent.trim();
+            const searchInput = document.querySelector('#searchForm input[name="search"]');
+            if (searchInput) {
+                searchInput.value = text;
+                document.getElementById('searchForm').submit();
+            }
+        });
+    });
+        (function() {
+            // Mobile toggle
+            const toggle = document.getElementById('mobileToggle');
+            const nav = document.getElementById('mainNav');
+
+            if (toggle && nav) {
+                toggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    nav.classList.toggle('open');
+                });
+
+                document.addEventListener('click', function(e) {
+                    if (!nav.contains(e.target) && !toggle.contains(e.target)) {
+                        nav.classList.remove('open');
+                    }
+                });
+            }
+
+            // Smooth category clicks (demo)
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const text = this.textContent.trim();
+                    const searchInput = document.querySelector('.search-box input');
+                    if (searchInput) {
+                        searchInput.value = text;
+                        searchInput.focus();
+                    }
+                });
+            });
+
+            // Search placeholder rotation (fun touch)
+            const searchInput = document.querySelector('.search-box input');
+            if (searchInput) {
+                const placeholders = [
+                    'Услуга или специалист, например: электрик, сантехник, ремонт квартир',
+                    'Например: установка розеток, замена счётчиков, поклейка обоев',
+                    'Или: монтаж потолков, укладка ламината, строительство домов'
+                ];
+                let index = 0;
+                setInterval(() => {
+                    if (!searchInput.value && document.activeElement !== searchInput) {
+                        index = (index + 1) % placeholders.length;
+                        searchInput.placeholder = placeholders[index];
+                    }
+                }, 4000);
+            }
+
+            // Lazy reveal on scroll (simple intersection)
+            const items = document.querySelectorAll('.guarantee-item, .format-card, .testimonial-card, .category-card');
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }
+                    });
+                }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+                items.forEach((el, i) => {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(18px)';
+                    el.style.transition = `opacity 0.6s ease ${i * 0.05}s, transform 0.6s ease ${i * 0.05}s`;
+                    observer.observe(el);
+                });
+            } else {
+                items.forEach(el => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                });
+            }
+
+            // Stats counter animation (optional extra)
+            const statValues = document.querySelectorAll('.stat-value');
+            // just a small visual touch — not critical
+
+            console.log('MikaMaster — Доверие вместо рекламы.');
+        })();
+    </script>
+
+</body>
+</html>

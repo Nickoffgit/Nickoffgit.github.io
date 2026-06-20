@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Вход / Регистрация — MikaMaster</title>
+    <style>
+        /* Все стили остаются без изменений (как в предыдущей версии) */
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8f9fb; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .auth-container { max-width: 480px; width:100%; background:#fff; border-radius:20px; padding:40px 32px; box-shadow:0 12px 48px rgba(15,43,75,0.10); border:1px solid #f0f2f5; }
+        .auth-tabs { display:flex; gap:8px; margin-bottom:32px; background:#f0f2f5; border-radius:12px; padding:4px; }
+        .auth-tab { flex:1; padding:12px; text-align:center; font-weight:600; font-size:15px; border-radius:10px; cursor:pointer; transition:0.3s; color:#6b7a8d; border:none; background:transparent; }
+        .auth-tab.active { background:#fff; color:#0f2b4b; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+        .auth-tab:hover { color:#0f2b4b; }
+        .auth-form { display:none; }
+        .auth-form.active { display:block; }
+        .form-group { margin-bottom:18px; }
+        .form-group label { display:block; font-size:14px; font-weight:500; color:#2d3a4f; margin-bottom:5px; }
+        .form-group input, .form-group select { width:100%; padding:12px 16px; border:1px solid #e2e6ed; border-radius:12px; font-size:15px; font-family:inherit; transition:0.3s; background:#fff; color:#1a2538; }
+        .form-group input:focus, .form-group select:focus { outline:none; border-color:#0f2b4b; box-shadow:0 0 0 3px rgba(15,43,75,0.08); }
+        .form-group .role-toggle { display:flex; gap:12px; background:#f0f2f5; border-radius:12px; padding:4px; }
+        .form-group .role-toggle label { flex:1; padding:10px; text-align:center; border-radius:10px; font-weight:500; font-size:14px; cursor:pointer; transition:0.3s; color:#6b7a8d; background:transparent; margin:0; }
+        .form-group .role-toggle input[type="radio"] { display:none; }
+        .form-group .role-toggle input[type="radio"]:checked + label { background:#fff; color:#0f2b4b; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+        .form-group .role-toggle label:hover { color:#0f2b4b; }
+        .btn-primary { width:100%; padding:14px; background:#0f2b4b; color:#fff; border:none; border-radius:12px; font-weight:600; font-size:16px; cursor:pointer; transition:0.3s; margin-top:8px; }
+        .btn-primary:hover { background:#1a3f6a; transform:translateY(-2px); box-shadow:0 8px 28px rgba(15,43,75,0.25); }
+        .btn-secondary { width:100%; padding:14px; background:transparent; color:#0f2b4b; border:1.5px solid #e2e6ed; border-radius:12px; font-weight:600; font-size:16px; cursor:pointer; transition:0.3s; margin-top:8px; }
+        .btn-secondary:hover { border-color:#0f2b4b; background:#e8eef6; }
+        .error-msg { color:#d32f2f; font-size:13px; margin-top:6px; display:none; }
+        .error-msg.show { display:block; }
+        .success-msg { color:#3b8c5e; font-size:13px; margin-top:6px; display:none; }
+        .success-msg.show { display:block; }
+        .auth-footer { text-align:center; margin-top:20px; font-size:14px; color:#6b7a8d; }
+        .auth-footer a { color:#0f2b4b; font-weight:500; cursor:pointer; text-decoration:underline; }
+        .auth-footer a:hover { color:#1a3f6a; }
+        .hidden { display:none !important; }
+        .password-hint { font-size:12px; color:#a0aab8; margin-top:4px; }
+    </style>
+</head>
+<body>
+<div class="auth-container">
+    <div id="authForms">
+        <div class="auth-tabs">
+            <button class="auth-tab active" data-tab="login">Вход</button>
+            <button class="auth-tab" data-tab="register">Регистрация</button>
+        </div>
+
+        <div class="auth-form active" id="loginForm">
+            <h2 style="margin-bottom:24px; font-size:24px; color:#1a2538;">Вход в аккаунт</h2>
+            <div class="form-group">
+                <label>Номер телефона</label>
+                <input type="tel" id="loginPhone" placeholder="+7 999 123-45-67">
+            </div>
+            <div class="form-group">
+                <label>Пароль</label>
+                <input type="password" id="loginPassword" placeholder="Введите пароль">
+            </div>
+            <div id="loginError" class="error-msg"></div>
+            <button class="btn-primary" id="loginBtn">Войти</button>
+            <div class="auth-footer">Нет аккаунта? <a id="switchToRegister">Зарегистрируйтесь</a></div>
+        </div>
+
+        <div class="auth-form" id="registerForm">
+            <h2 style="margin-bottom:24px; font-size:24px; color:#1a2538;">Создание аккаунта</h2>
+            <div class="form-group">
+                <label>Роль</label>
+                <div class="role-toggle">
+                    <input type="radio" name="role" id="roleCustomer" value="customer" checked>
+                    <label for="roleCustomer">Заказчик</label>
+                    <input type="radio" name="role" id="roleSpecialist" value="specialist">
+                    <label for="roleSpecialist">Специалист</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>ФИО</label>
+                <input type="text" id="regFullName" placeholder="Иванов Иван Иванович">
+            </div>
+            <div class="form-group">
+                <label>Номер телефона</label>
+                <input type="tel" id="regPhone" placeholder="+7 999 123-45-67">
+            </div>
+            <div class="form-group">
+                <label>Город</label>
+                <select id="regCity">
+                    <option value="">Выберите город</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Пароль</label>
+                <input type="password" id="regPassword" placeholder="Минимум 6 символов">
+                <div class="password-hint">Минимум 6 символов</div>
+            </div>
+            <div class="form-group">
+                <label>Подтверждение пароля</label>
+                <input type="password" id="regPasswordConfirm" placeholder="Повторите пароль">
+            </div>
+            <div id="regError" class="error-msg"></div>
+            <div id="regSuccess" class="success-msg"></div>
+            <button class="btn-primary" id="registerBtn">Зарегистрироваться</button>
+            <div class="auth-footer">Уже есть аккаунт? <a id="switchToLogin">Войдите</a></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ===== Конфигурация =====
+    const cities = ["Москва","Санкт-Петербург","Новосибирск","Екатеринбург","Казань","Нижний Новгород","Челябинск","Красноярск","Самара","Уфа","Ростов-на-Дону","Омск","Краснодар","Воронеж","Пермь","Волгоград","Саратов","Тюмень","Тольятти","Ижевск","Барнаул","Ульяновск","Иркутск","Хабаровск","Ярославль","Владивосток","Махачкала","Томск","Оренбург","Кемерово","Новокузнецк","Рязань","Астрахань","Пенза","Липецк","Киров","Чебоксары","Калининград","Тула","Курск","Ставрополь","Сочи","Тверь","Белгород","Севастополь","Нижний Тагил","Владимир","Архангельск","Сургут","Чита"];
+
+    function hashPassword(password) {
+        let hash = 0;
+        for (let i = 0; i < password.length; i++) {
+            const char = password.charCodeAt(i);
+            hash = ((hash << 5) - hash) + char;
+            hash = hash & hash;
+        }
+        return 'hash_' + hash;
+    }
+
+    function getUsers() {
+        const data = localStorage.getItem('mikamaster_users');
+        return data ? JSON.parse(data) : [];
+    }
+
+    function saveUsers(users) {
+        localStorage.setItem('mikamaster_users', JSON.stringify(users));
+    }
+
+    function getCurrentUser() {
+        const data = localStorage.getItem('mikamaster_current_user');
+        return data ? JSON.parse(data) : null;
+    }
+
+    function setCurrentUser(user) {
+        if (user) localStorage.setItem('mikamaster_current_user', JSON.stringify(user));
+        else localStorage.removeItem('mikamaster_current_user');
+    }
+
+    function findUserByPhone(phone) {
+        return getUsers().find(u => u.phone === phone);
+    }
+
+    function showTab(tabId) {
+        document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+        document.getElementById(tabId + 'Form').classList.add('active');
+        document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+        document.querySelector(`.auth-tab[data-tab="${tabId}"]`).classList.add('active');
+        document.querySelectorAll('.error-msg, .success-msg').forEach(el => { el.classList.remove('show'); el.textContent = ''; });
+    }
+
+    window.openLogin = function() {
+        showTab('login');
+        document.querySelector('.auth-container').scrollIntoView({ behavior: 'smooth' });
+    };
+    window.openRegister = function() {
+        showTab('register');
+        document.querySelector('.auth-container').scrollIntoView({ behavior: 'smooth' });
+    };
+
+    function populateCities() {
+        const select = document.getElementById('regCity');
+        cities.forEach(city => {
+            const option = document.createElement('option');
+            option.value = city;
+            option.textContent = city;
+            select.appendChild(option);
+        });
+    }
+
+    function handleRegister() {
+        const fullName = document.getElementById('regFullName').value.trim();
+        const phone = document.getElementById('regPhone').value.trim();
+        const city = document.getElementById('regCity').value;
+        const password = document.getElementById('regPassword').value;
+        const passwordConfirm = document.getElementById('regPasswordConfirm').value;
+        const role = document.querySelector('input[name="role"]:checked').value;
+
+        const errorEl = document.getElementById('regError');
+        const successEl = document.getElementById('regSuccess');
+        errorEl.classList.remove('show');
+        successEl.classList.remove('show');
+
+        if (!fullName || !phone || !city || !password || password.length < 6 || password !== passwordConfirm) {
+            errorEl.textContent = 'Проверьте правильность заполнения всех полей';
+            errorEl.classList.add('show');
+            return;
+        }
+
+        if (findUserByPhone(phone)) {
+            errorEl.textContent = 'Пользователь с таким телефоном уже зарегистрирован';
+            errorEl.classList.add('show');
+            return;
+        }
+
+        const newUser = {
+            id: Date.now(),
+            fullName,
+            phone,
+            city,
+            password: hashPassword(password),
+            role,
+            balance: role === 'specialist' ? 5000 : 0,
+            createdAt: new Date().toISOString()
+        };
+
+        const users = getUsers();
+        users.push(newUser);
+        saveUsers(users);
+
+        successEl.textContent = 'Регистрация прошла успешно! Теперь войдите.';
+        successEl.classList.add('show');
+        document.getElementById('regFullName').value = '';
+        document.getElementById('regPhone').value = '';
+        document.getElementById('regCity').value = '';
+        document.getElementById('regPassword').value = '';
+        document.getElementById('regPasswordConfirm').value = '';
+
+        setTimeout(() => showTab('login'), 2000);
+    }
+
+    function handleLogin() {
+        const phone = document.getElementById('loginPhone').value.trim();
+        const password = document.getElementById('loginPassword').value;
+        const errorEl = document.getElementById('loginError');
+        errorEl.classList.remove('show');
+
+        if (!phone || !password) {
+            errorEl.textContent = 'Заполните все поля';
+            errorEl.classList.add('show');
+            return;
+        }
+
+        const user = findUserByPhone(phone);
+        if (!user) {
+            errorEl.textContent = 'Пользователь с таким телефоном не найден';
+            errorEl.classList.add('show');
+            return;
+        }
+
+        if (user.password !== hashPassword(password)) {
+            errorEl.textContent = 'Неверный пароль';
+            errorEl.classList.add('show');
+            return;
+        }
+
+        // Успешный вход — сохраняем сессию и редиректим
+        setCurrentUser(user);
+        if (user.role === 'customer') {
+            window.location.href = 'profile-customer.html';
+        } else {
+            window.location.href = 'profile-specialist.html';
+        }
+    }
+
+    // Инициализация
+    document.addEventListener('DOMContentLoaded', function() {
+        populateCities();
+
+        document.querySelectorAll('.auth-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                showTab(this.dataset.tab);
+            });
+        });
+
+        document.getElementById('switchToRegister').addEventListener('click', function(e) {
+            e.preventDefault();
+            showTab('register');
+        });
+        document.getElementById('switchToLogin').addEventListener('click', function(e) {
+            e.preventDefault();
+            showTab('login');
+        });
+
+        document.getElementById('registerBtn').addEventListener('click', handleRegister);
+        document.getElementById('loginBtn').addEventListener('click', handleLogin);
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const activeForm = document.querySelector('.auth-form.active');
+                if (activeForm) {
+                    if (activeForm.id === 'loginForm') handleLogin();
+                    else if (activeForm.id === 'registerForm') handleRegister();
+                }
+            }
+        });
+
+        // Если уже авторизован — перенаправляем
+        const currentUser = getCurrentUser();
+    const urlParams = new URLSearchParams(window.location.search);
+    const action = urlParams.get('action');
+    if (action === 'register') {
+        showTab('register');
+    } else if (action === 'login') {
+        showTab('login');
+    } else {
+        showTab('login'); // по умолчанию вход
+    }
+    });
+</script>
+</body>
+</html>
